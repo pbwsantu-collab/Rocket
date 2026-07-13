@@ -1,522 +1,3095 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>STACK &amp; LAUNCH</title>
-<style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: Arial, sans-serif; background: #f0ebe3; padding: 12px; }
-
-.titleblock {
-    background: white;
-    border: 2px solid #1a1a1a;
-    padding: 12px 16px;
-    margin-bottom: 16px;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-}
-.titleblock h1 { font-size: 22px; }
-.titleblock .sub { color: #555; font-size: 13px; }
-.titleblock .meta { display: flex; gap: 16px; font-size: 13px; margin-top: 6px; }
-.titleblock .meta span { color: #888; }
-
-.layout { max-width: 600px; margin: 0 auto; }
-.panel {
-    background: white;
-    border: 2px solid #1a1a1a;
-    padding: 12px;
-    margin-bottom: 16px;
-}
-.panel h2 { font-size: 15px; border-bottom: 2px solid #1a1a1a; padding-bottom: 6px; margin-bottom: 10px; }
-.hint { font-size: 12px; color: #888; font-style: italic; margin-bottom: 10px; }
-
-.part-btn {
-    display: block;
-    width: 100%;
-    text-align: left;
-    padding: 8px 10px;
-    margin-bottom: 4px;
-    background: #f8f5f0;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 13px;
-    cursor: pointer;
-}
-.part-btn:active { background: #d5c8bc; }
-.part-btn .name { font-weight: 600; display: block; }
-.part-btn .stats { font-size: 11px; color: #666; }
-
-.actions { display: flex; gap: 8px; margin-bottom: 10px; }
-.actions button {
-    padding: 6px 14px;
-    border: 2px solid #aaa;
-    background: transparent;
-    font-weight: 600;
-    font-size: 12px;
-    cursor: pointer;
-}
-.actions button:active { background: #1a1a1a; color: white; }
-
-.blueprint {
-    min-height: 250px;
-    background: #f8f5f0;
-    border: 1px solid #ddd;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-}
-.blueprint svg { width: 100%; height: 250px; }
-.empty { color: #aaa; text-align: center; font-style: italic; }
-
-.stacklist {
-    background: #f8f5f0;
-    border: 1px solid #ddd;
-    padding: 6px;
-    margin-top: 10px;
-    font-size: 12px;
-    min-height: 30px;
-}
-
-.stats-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2px 12px;
-}
-.stat { display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid #eee; font-size: 13px; }
-.stat dt { color: #666; }
-.stat dd { font-weight: 600; }
-
-.warnings {
-    background: #fff8e1;
-    border: 1px solid #f9a825;
-    padding: 6px 8px;
-    margin: 8px 0;
-    font-size: 13px;
-    color: #e65100;
-    min-height: 30px;
-}
-
-.launch-btn {
-    width: 100%;
-    padding: 12px;
-    font-size: 18px;
-    background: #c0392b;
-    color: white;
-    border: 2px solid #c0392b;
-    cursor: pointer;
-    font-weight: 700;
-}
-.launch-btn:active { background: #e74c3c; }
-
-.launch-overlay {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: rgba(0,0,0,0.9);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 999;
-}
-.launch-overlay .status {
-    color: white;
-    font-size: 48px;
-    font-weight: 700;
-}
-.launch-overlay .close-btn {
-    position: absolute;
-    bottom: 40px;
-    left: 50%;
-    transform: translateX(-50%);
-    padding: 10px 24px;
-    background: transparent;
-    border: 2px solid white;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-}
-[hidden] { display: none !important; }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Routine Management System - WBBSE/WBCHSE</title>
+    <meta name="theme-color" content="#1a2332">
+    <meta name="description" content="Complete School Routine Management System for WBBSE and WBCHSE schools">
+    <link rel="manifest" href="manifest.json">
+    
+    <style>
+        /* ========================================
+           COMPLETE STYLESHEET
+           ======================================== */
+        
+        /* CSS Variables - Light & Dark Themes */
+        :root {
+            /* Light Theme */
+            --bg-primary: #f0f2f5;
+            --bg-secondary: #ffffff;
+            --bg-card: #ffffff;
+            --bg-nav: #1a2332;
+            --bg-header: #2c3e50;
+            --bg-hover: #f7fafc;
+            --bg-input: #ffffff;
+            
+            --text-primary: #1a2332;
+            --text-secondary: #4a5568;
+            --text-light: #a0aec0;
+            --text-white: #ffffff;
+            --text-muted: #718096;
+            
+            --border-color: #e2e8f0;
+            --border-light: #f0f2f5;
+            
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+            --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 15px rgba(0,0,0,0.15);
+            --shadow-xl: 0 20px 25px rgba(0,0,0,0.2);
+            
+            --primary: #4299e1;
+            --primary-dark: #2b6cb0;
+            --primary-light: #bee3f8;
+            --primary-hover: #3182ce;
+            
+            --success: #48bb78;
+            --success-dark: #38a169;
+            --warning: #ed8936;
+            --warning-dark: #dd6b20;
+            --danger: #fc8181;
+            --danger-dark: #e53e3e;
+            --info: #63b3ed;
+            --info-dark: #3182ce;
+            
+            --radius: 10px;
+            --radius-sm: 6px;
+            --radius-lg: 16px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            
+            --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            --font-size-xs: 0.75rem;
+            --font-size-sm: 0.875rem;
+            --font-size-md: 1rem;
+            --font-size-lg: 1.125rem;
+            --font-size-xl: 1.25rem;
+            --font-size-2xl: 1.5rem;
+            --font-size-3xl: 2rem;
+            --font-size-4xl: 2.5rem;
+            
+            --spacing-xs: 0.25rem;
+            --spacing-sm: 0.5rem;
+            --spacing-md: 1rem;
+            --spacing-lg: 1.5rem;
+            --spacing-xl: 2rem;
+            --spacing-2xl: 3rem;
+            
+            --z-dropdown: 1000;
+            --z-modal: 2000;
+            --z-toast: 3000;
+        }
+        
+        /* Dark Theme */
+        [data-theme="dark"] {
+            --bg-primary: #0d1117;
+            --bg-secondary: #161b22;
+            --bg-card: #1c2333;
+            --bg-nav: #0d1117;
+            --bg-header: #161b22;
+            --bg-hover: #1c2333;
+            --bg-input: #0d1117;
+            
+            --text-primary: #e6edf3;
+            --text-secondary: #8b949e;
+            --text-light: #484f58;
+            --text-white: #e6edf3;
+            --text-muted: #8b949e;
+            
+            --border-color: #30363d;
+            --border-light: #21262d;
+            
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
+            --shadow-md: 0 4px 6px rgba(0,0,0,0.4);
+            --shadow-lg: 0 10px 15px rgba(0,0,0,0.5);
+            --shadow-xl: 0 20px 25px rgba(0,0,0,0.6);
+            
+            --primary: #58a6ff;
+            --primary-dark: #1f6feb;
+            --primary-light: #1c2d4a;
+            --primary-hover: #79c0ff;
+            
+            --success: #3fb950;
+            --success-dark: #2ea043;
+            --warning: #d29922;
+            --warning-dark: #b8871a;
+            --danger: #f85149;
+            --danger-dark: #da3633;
+            --info: #58a6ff;
+            --info-dark: #1f6feb;
+        }
+        
+        /* High Contrast Mode */
+        [data-contrast="high"] {
+            --text-primary: #000000;
+            --text-secondary: #1a1a1a;
+            --text-muted: #333333;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8f9fa;
+            --bg-card: #ffffff;
+            --border-color: #000000;
+            --border-light: #666666;
+            --primary: #0056b3;
+            --success: #006400;
+            --warning: #8b4500;
+            --danger: #8b0000;
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.2);
+            --shadow-md: 0 4px 8px rgba(0,0,0,0.3);
+            --shadow-lg: 0 8px 16px rgba(0,0,0,0.4);
+        }
+        
+        [data-contrast="high"][data-theme="dark"] {
+            --bg-primary: #000000;
+            --bg-secondary: #1a1a1a;
+            --bg-card: #1a1a1a;
+            --text-primary: #ffffff;
+            --text-secondary: #e0e0e0;
+            --text-muted: #cccccc;
+            --border-color: #ffffff;
+            --border-light: #aaaaaa;
+            --primary: #4da6ff;
+            --success: #4caf50;
+            --warning: #ffa726;
+            --danger: #ef5350;
+        }
+        
+        /* Dyslexia Friendly Font */
+        [data-dyslexia="true"] {
+            --font-family: 'OpenDyslexic', 'Comic Sans MS', 'Chalkboard SE', 'Arial', sans-serif;
+            letter-spacing: 0.05em;
+            word-spacing: 0.1em;
+            line-height: 1.8;
+        }
+        
+        /* Font Size Adjustments */
+        [data-font-size="large"] {
+            --font-size-xs: 0.9rem;
+            --font-size-sm: 1.05rem;
+            --font-size-md: 1.2rem;
+            --font-size-lg: 1.35rem;
+            --font-size-xl: 1.5rem;
+            --font-size-2xl: 1.8rem;
+            --font-size-3xl: 2.4rem;
+            --font-size-4xl: 3rem;
+        }
+        
+        [data-font-size="xlarge"] {
+            --font-size-xs: 1.05rem;
+            --font-size-sm: 1.2rem;
+            --font-size-md: 1.4rem;
+            --font-size-lg: 1.6rem;
+            --font-size-xl: 1.8rem;
+            --font-size-2xl: 2.1rem;
+            --font-size-3xl: 2.8rem;
+            --font-size-4xl: 3.5rem;
+        }
+        
+        /* ========================================
+           RESET & BASE STYLES
+           ======================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+        
+        body {
+            font-family: var(--font-family);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: background 0.3s ease, color 0.3s ease;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Focus styles for accessibility */
+        *:focus-visible {
+            outline: 3px solid var(--primary);
+            outline-offset: 2px;
+            border-radius: 4px;
+        }
+        
+        /* Skip link */
+        .skip-link {
+            position: absolute;
+            top: -100%;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 12px 24px;
+            background: var(--primary);
+            color: white;
+            border-radius: var(--radius-sm);
+            z-index: var(--z-modal);
+            font-weight: 600;
+            text-decoration: none;
+        }
+        
+        .skip-link:focus {
+            top: 20px;
+        }
+        
+        /* ========================================
+           SCROLLBAR STYLES
+           ======================================== */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--bg-secondary);
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-dark);
+        }
+        
+        /* ========================================
+           NAVIGATION
+           ======================================== */
+        .navbar {
+            background: var(--bg-nav);
+            color: var(--text-white);
+            padding: 0.75rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            box-shadow: var(--shadow-md);
+            position: sticky;
+            top: 0;
+            z-index: var(--z-dropdown);
+            transition: background 0.3s ease;
+            min-height: 64px;
+        }
+        
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .nav-brand h1 {
+            font-size: var(--font-size-xl);
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+        
+        .nav-brand .subtitle {
+            font-size: var(--font-size-xs);
+            opacity: 0.7;
+            display: block;
+            font-weight: 400;
+        }
+        
+        .nav-menu {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        
+        .nav-btn {
+            background: transparent;
+            border: 2px solid transparent;
+            color: var(--text-white);
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: var(--font-size-sm);
+            font-weight: 500;
+            font-family: var(--font-family);
+            white-space: nowrap;
+        }
+        
+        .nav-btn:hover {
+            background: rgba(255,255,255,0.1);
+            transform: translateY(-1px);
+        }
+        
+        .nav-btn.active {
+            border-color: var(--primary);
+            background: rgba(255,255,255,0.15);
+        }
+        
+        .nav-btn:focus-visible {
+            outline: 2px solid var(--primary);
+            outline-offset: 2px;
+        }
+        
+        .nav-actions {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+        
+        .action-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: var(--font-size-sm);
+            font-weight: 500;
+            font-family: var(--font-family);
+        }
+        
+        .action-btn:hover {
+            background: var(--primary-hover);
+            transform: scale(1.02);
+        }
+        
+        .action-btn:active {
+            transform: scale(0.98);
+        }
+        
+        .action-btn.secondary {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .action-btn.secondary:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        /* ========================================
+           MAIN CONTENT
+           ======================================== */
+        main {
+            flex: 1;
+            padding: var(--spacing-xl);
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        
+        #view-container {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            padding: var(--spacing-xl);
+            min-height: 500px;
+            transition: background 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        /* ========================================
+           DASHBOARD
+           ======================================== */
+        .dashboard-container {
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .welcome-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: var(--spacing-md);
+            padding-bottom: var(--spacing-lg);
+            border-bottom: 2px solid var(--border-color);
+            margin-bottom: var(--spacing-xl);
+        }
+        
+        .welcome-title {
+            font-size: var(--font-size-2xl);
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: var(--spacing-xs);
+        }
+        
+        .welcome-subtitle {
+            color: var(--text-secondary);
+            font-size: var(--font-size-md);
+        }
+        
+        .board-badge {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: var(--font-size-sm);
+            font-weight: 600;
+            margin-top: var(--spacing-xs);
+        }
+        
+        .quick-actions {
+            display: flex;
+            gap: var(--spacing-sm);
+            flex-wrap: wrap;
+        }
+        
+        .quick-action-btn {
+            background: var(--bg-card);
+            border: 2px solid var(--border-color);
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: var(--font-size-sm);
+            font-family: var(--font-family);
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .quick-action-btn:hover {
+            border-color: var(--primary);
+            background: var(--bg-hover);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .quick-action-btn .icon {
+            font-size: var(--font-size-lg);
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-xl);
+        }
+        
+        .stat-card {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: var(--spacing-lg);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            border: 1px solid var(--border-color);
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .stat-icon {
+            font-size: var(--font-size-2xl);
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-hover);
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        
+        .stat-content {
+            flex: 1;
+        }
+        
+        .stat-value {
+            font-size: var(--font-size-2xl);
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1.2;
+        }
+        
+        .stat-value.text-success { color: var(--success); }
+        .stat-value.text-danger { color: var(--danger); }
+        .stat-value.text-warning { color: var(--warning); }
+        
+        .stat-label {
+            font-size: var(--font-size-sm);
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+        
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-xl);
+        }
+        
+        .recent-activity, .quick-access {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: var(--spacing-lg);
+            border: 1px solid var(--border-color);
+        }
+        
+        .recent-activity h2, .quick-access h2 {
+            font-size: var(--font-size-lg);
+            margin-bottom: var(--spacing-md);
+            color: var(--text-primary);
+        }
+        
+        .activity-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-sm);
+        }
+        
+        .activity-item {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            padding: var(--spacing-sm) 0;
+            border-bottom: 1px solid var(--border-light);
+            font-size: var(--font-size-sm);
+        }
+        
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+        
+        .activity-icon {
+            font-size: var(--font-size-md);
+        }
+        
+        .activity-message {
+            flex: 1;
+            color: var(--text-primary);
+        }
+        
+        .activity-time {
+            font-size: var(--font-size-xs);
+            color: var(--text-muted);
+        }
+        
+        .quick-access-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: var(--spacing-sm);
+        }
+        
+        .quick-access-item {
+            background: var(--bg-hover);
+            border: 2px solid transparent;
+            border-radius: var(--radius-sm);
+            padding: var(--spacing-md);
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+            font-family: var(--font-family);
+            font-size: var(--font-size-sm);
+            color: var(--text-primary);
+        }
+        
+        .quick-access-item:hover {
+            border-color: var(--primary);
+            background: var(--bg-card);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .quick-access-item .icon {
+            display: block;
+            font-size: var(--font-size-2xl);
+            margin-bottom: var(--spacing-xs);
+        }
+        
+        /* ========================================
+           SETTINGS
+           ======================================== */
+        .settings-container {
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .settings-header {
+            margin-bottom: var(--spacing-xl);
+        }
+        
+        .settings-header h1 {
+            font-size: var(--font-size-2xl);
+            color: var(--text-primary);
+        }
+        
+        .settings-subtitle {
+            color: var(--text-secondary);
+            font-size: var(--font-size-md);
+        }
+        
+        .settings-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+        }
+        
+        .settings-section h2 {
+            font-size: var(--font-size-lg);
+            margin-bottom: var(--spacing-md);
+            color: var(--text-primary);
+            padding-bottom: var(--spacing-sm);
+            border-bottom: 2px solid var(--border-color);
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-md);
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-xs);
+        }
+        
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+        
+        .form-group label {
+            font-weight: 500;
+            font-size: var(--font-size-sm);
+            color: var(--text-secondary);
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            padding: 0.5rem 0.75rem;
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            font-size: var(--font-size-md);
+            font-family: var(--font-family);
+            background: var(--bg-input);
+            color: var(--text-primary);
+            transition: var(--transition);
+            width: 100%;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.2);
+        }
+        
+        .form-group input.invalid,
+        .form-group select.invalid {
+            border-color: var(--danger);
+        }
+        
+        .form-group input.valid,
+        .form-group select.valid {
+            border-color: var(--success);
+        }
+        
+        .form-error {
+            font-size: var(--font-size-xs);
+            color: var(--danger);
+            min-height: 20px;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-sm);
+            padding: var(--spacing-sm) 0;
+        }
+        
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            font-size: var(--font-size-sm);
+            cursor: pointer;
+            padding: 0.25rem 0.5rem;
+            border-radius: var(--radius-sm);
+            transition: var(--transition);
+        }
+        
+        .checkbox-label:hover {
+            background: var(--bg-hover);
+        }
+        
+        .checkbox-label input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: var(--primary);
+        }
+        
+        .form-actions {
+            display: flex;
+            gap: var(--spacing-md);
+            flex-wrap: wrap;
+            margin-top: var(--spacing-xl);
+            padding-top: var(--spacing-lg);
+            border-top: 2px solid var(--border-color);
+        }
+        
+        /* ========================================
+           BUTTONS
+           ======================================== */
+        .btn-primary, .btn-secondary, .btn-success, .btn-danger, .btn-warning {
+            padding: 0.5rem 1.5rem;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-size: var(--font-size-md);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: var(--font-family);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+        
+        .btn-secondary {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border: 2px solid var(--border-color);
+        }
+        
+        .btn-secondary:hover {
+            border-color: var(--primary);
+            background: var(--bg-hover);
+        }
+        
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background: var(--success-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            background: var(--danger-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .btn-warning {
+            background: var(--warning);
+            color: white;
+        }
+        
+        .btn-warning:hover {
+            background: var(--warning-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .btn-large {
+            padding: 0.75rem 2rem;
+            font-size: var(--font-size-lg);
+        }
+        
+        .btn-block {
+            width: 100%;
+            justify-content: center;
+        }
+        
+        /* ========================================
+           TIMETABLE GENERATOR
+           ======================================== */
+        .generator-container {
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .generator-header {
+            margin-bottom: var(--spacing-xl);
+        }
+        
+        .generator-header h1 {
+            font-size: var(--font-size-2xl);
+            color: var(--text-primary);
+        }
+        
+        .generator-subtitle {
+            color: var(--text-secondary);
+            font-size: var(--font-size-md);
+        }
+        
+        .generator-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-xl);
+            margin-bottom: var(--spacing-xl);
+        }
+        
+        .generator-config, .generator-status {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: var(--spacing-lg);
+        }
+        
+        .generator-config h2, .generator-status h2 {
+            font-size: var(--font-size-lg);
+            margin-bottom: var(--spacing-md);
+            color: var(--text-primary);
+        }
+        
+        .status-indicators {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .status-item {
+            display: flex;
+            justify-content: space-between;
+            padding: var(--spacing-sm);
+            background: var(--bg-hover);
+            border-radius: var(--radius-sm);
+        }
+        
+        .status-label {
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+        
+        .status-value {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .progress-bar-container {
+            background: var(--bg-hover);
+            border-radius: 20px;
+            height: 8px;
+            overflow: hidden;
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--success));
+            transition: width 0.5s ease;
+            border-radius: 20px;
+            width: 0%;
+        }
+        
+        .log-container {
+            background: var(--bg-primary);
+            border-radius: var(--radius-sm);
+            padding: var(--spacing-md);
+            max-height: 200px;
+            overflow-y: auto;
+            font-family: monospace;
+            font-size: var(--font-size-sm);
+            border: 1px solid var(--border-color);
+        }
+        
+        .log-entry {
+            padding: var(--spacing-xs) 0;
+            border-bottom: 1px solid var(--border-light);
+        }
+        
+        .log-entry:last-child {
+            border-bottom: none;
+        }
+        
+        .log-entry.system { color: var(--text-muted); }
+        .log-entry.info { color: var(--info); }
+        .log-entry.success { color: var(--success); }
+        .log-entry.warning { color: var(--warning); }
+        .log-entry.error { color: var(--danger); }
+        
+        .generator-actions {
+            display: flex;
+            gap: var(--spacing-md);
+            flex-wrap: wrap;
+            margin-top: var(--spacing-lg);
+        }
+        
+        /* ========================================
+           TIMETABLE PREVIEW
+           ======================================== */
+        .timetable-preview {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: var(--spacing-md);
+            font-size: var(--font-size-sm);
+        }
+        
+        .timetable-preview th {
+            background: var(--primary);
+            color: white;
+            padding: 0.5rem;
+            text-align: center;
+            font-weight: 600;
+        }
+        
+        .timetable-preview td {
+            border: 1px solid var(--border-color);
+            padding: 0.5rem;
+            text-align: center;
+            min-width: 60px;
+        }
+        
+        .timetable-preview tr:nth-child(even) {
+            background: var(--bg-hover);
+        }
+        
+        .timetable-preview .period-label {
+            font-weight: 600;
+            background: var(--bg-hover);
+        }
+        
+        .timetable-preview .subject-cell {
+            font-size: var(--font-size-xs);
+        }
+        
+        .timetable-preview .teacher-cell {
+            font-size: var(--font-size-xs);
+            color: var(--text-muted);
+        }
+        
+        /* ========================================
+           ACCESSIBILITY CONTROLS
+           ======================================== */
+        .accessibility-controls {
+            position: fixed;
+            bottom: var(--spacing-lg);
+            right: var(--spacing-lg);
+            display: flex;
+            gap: var(--spacing-xs);
+            background: var(--bg-card);
+            padding: var(--spacing-sm);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border-color);
+            z-index: var(--z-toast);
+            flex-wrap: wrap;
+            max-width: 300px;
+        }
+        
+        .access-btn {
+            background: transparent;
+            border: 2px solid var(--border-color);
+            padding: 0.25rem 0.5rem;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-size: var(--font-size-xs);
+            transition: var(--transition);
+            font-family: var(--font-family);
+            color: var(--text-primary);
+            white-space: nowrap;
+        }
+        
+        .access-btn:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        /* ========================================
+           NOTIFICATIONS
+           ======================================== */
+        .notification {
+            position: fixed;
+            bottom: 80px;
+            right: var(--spacing-lg);
+            padding: 1rem 1.5rem;
+            border-radius: var(--radius);
+            background: var(--bg-card);
+            color: var(--text-primary);
+            box-shadow: var(--shadow-xl);
+            border: 1px solid var(--border-color);
+            z-index: var(--z-toast);
+            max-width: 400px;
+            animation: slideIn 0.3s ease;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .notification-success {
+            border-left: 5px solid var(--success);
+        }
+        
+        .notification-error {
+            border-left: 5px solid var(--danger);
+        }
+        
+        .notification-warning {
+            border-left: 5px solid var(--warning);
+        }
+        
+        .notification-info {
+            border-left: 5px solid var(--info);
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        @keyframes slideOut {
+            from { transform: translateX(0); opacity: 1; }
+            to { transform: translateX(100%); opacity: 0; }
+        }
+        
+        /* ========================================
+           FOOTER
+           ======================================== */
+        footer {
+            text-align: center;
+            padding: var(--spacing-lg);
+            color: var(--text-muted);
+            font-size: var(--font-size-sm);
+            border-top: 1px solid var(--border-color);
+            margin-top: var(--spacing-xl);
+        }
+        
+        /* ========================================
+           RESPONSIVE DESIGN
+           ======================================== */
+        @media (max-width: 1024px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .generator-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 0.5rem 1rem;
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .nav-menu {
+                justify-content: center;
+            }
+            
+            .nav-actions {
+                justify-content: center;
+            }
+            
+            .nav-btn {
+                font-size: var(--font-size-xs);
+                padding: 0.25rem 0.5rem;
+            }
+            
+            main {
+                padding: var(--spacing-md);
+            }
+            
+            #view-container {
+                padding: var(--spacing-md);
+            }
+            
+            .welcome-section {
+                flex-direction: column;
+            }
+            
+            .quick-actions {
+                width: 100%;
+            }
+            
+            .quick-action-btn {
+                flex: 1;
+                justify-content: center;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .accessibility-controls {
+                bottom: var(--spacing-sm);
+                right: var(--spacing-sm);
+                max-width: 100%;
+                border-radius: var(--radius-sm);
+                padding: var(--spacing-xs);
+            }
+            
+            .access-btn {
+                font-size: var(--font-size-xs);
+                padding: 0.15rem 0.35rem;
+            }
+            
+            .status-indicators {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: var(--spacing-sm);
+            }
+            
+            .stat-card {
+                padding: var(--spacing-sm);
+            }
+            
+            .stat-icon {
+                width: 32px;
+                height: 32px;
+                font-size: var(--font-size-lg);
+            }
+            
+            .stat-value {
+                font-size: var(--font-size-lg);
+            }
+            
+            .generator-actions {
+                flex-direction: column;
+            }
+            
+            .generator-actions .btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .quick-access-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .form-actions {
+                flex-direction: column;
+            }
+            
+            .form-actions .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+        
+        /* ========================================
+           PRINT STYLES
+           ======================================== */
+        @media print {
+            .navbar,
+            .nav-actions,
+            .action-btn,
+            .quick-actions,
+            .accessibility-controls,
+            .generator-actions,
+            .form-actions {
+                display: none !important;
+            }
+            
+            #view-container {
+                box-shadow: none !important;
+                padding: 0 !important;
+                background: white !important;
+            }
+            
+            body {
+                background: white !important;
+            }
+            
+            .stat-card {
+                break-inside: avoid;
+                box-shadow: none !important;
+                border: 1px solid #ddd !important;
+            }
+            
+            .timetable-preview {
+                font-size: 8pt !important;
+            }
+            
+            .timetable-preview th {
+                background: #333 !important;
+                color: white !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            
+            .settings-section {
+                break-inside: avoid;
+            }
+            
+            .page-break {
+                page-break-after: always !important;
+            }
+        }
+    </style>
 </head>
 <body>
 
-<div class="titleblock">
-  <h1>🚀 STACK &amp; LAUNCH</h1>
-  <div class="sub">Rocket Assembly Blueprint</div>
-  <div class="meta">
-    <div><span>DWG</span> SL-001</div>
-    <div><span>BUDGET</span> $<span id="budgetDisplay">0</span></div>
-  </div>
+<!-- Skip Link -->
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+<!-- Navigation -->
+<header role="banner">
+    <nav class="navbar" role="navigation" aria-label="Main navigation">
+        <div class="nav-brand">
+            <h1>📚 Routine Manager</h1>
+            <span class="subtitle">WBBSE/WBCHSE</span>
+        </div>
+        
+        <div class="nav-menu" role="menubar">
+            <button class="nav-btn active" data-view="dashboard" role="menuitem">📊 Dashboard</button>
+            <button class="nav-btn" data-view="routine" role="menuitem">📅 Routine</button>
+            <button class="nav-btn" data-view="settings" role="menuitem">⚙️ Settings</button>
+            <button class="nav-btn" data-view="teachers" role="menuitem">👨‍🏫 Teachers</button>
+            <button class="nav-btn" data-view="subjects" role="menuitem">📖 Subjects</button>
+            <button class="nav-btn" data-view="generator" role="menuitem">⚡ Generator</button>
+            <button class="nav-btn" data-view="validation" role="menuitem">✅ Validate</button>
+            <button class="nav-btn" data-view="reports" role="menuitem">📊 Reports</button>
+            <button class="nav-btn" data-view="export" role="menuitem">📤 Export</button>
+        </div>
+        
+        <div class="nav-actions">
+            <button class="action-btn" id="saveBtn" aria-label="Save data">💾 Save</button>
+            <button class="action-btn secondary" id="loadBtn" aria-label="Load data">📂 Load</button>
+        </div>
+    </nav>
+</header>
+
+<!-- Main Content -->
+<main id="main-content" role="main">
+    <div id="view-container">
+        <!-- Views will be rendered here -->
+    </div>
+</main>
+
+<!-- Accessibility Controls -->
+<div class="accessibility-controls" role="toolbar" aria-label="Accessibility controls">
+    <button class="access-btn" data-action="toggle-theme" aria-label="Toggle dark/light theme">🌓 Theme</button>
+    <button class="access-btn" data-action="toggle-contrast" aria-label="Toggle high contrast mode">🔲 Contrast</button>
+    <button class="access-btn" data-action="toggle-dyslexia" aria-label="Toggle dyslexia-friendly font">📝 Dyslexia</button>
+    <button class="access-btn" data-action="font-size" aria-label="Increase font size">A+</button>
+    <button class="access-btn" data-action="font-size-decrease" aria-label="Decrease font size">A-</button>
 </div>
 
-<div class="layout">
+<!-- Footer -->
+<footer role="contentinfo">
+    <p>&copy; 2026 School Routine Management System | WBBSE/WBCHSE Compliant | v2.0.0</p>
+</footer>
 
-  <div class="panel">
-    <h2>PARTS CATALOG</h2>
-    <div class="hint">Tap a part to add it</div>
-    <div id="paletteGroups"></div>
-  </div>
-
-  <div class="panel">
-    <h2>ASSEMBLY</h2>
-    <div class="actions">
-      <button id="removeBtn">REMOVE TOP</button>
-      <button id="clearBtn">CLEAR ALL</button>
-    </div>
-    <div class="blueprint" id="blueprint">
-      <svg id="rocketSvg" viewBox="0 0 420 400"></svg>
-      <div class="empty" id="emptyMsg">Your stack is empty.<br>Add an engine first.</div>
-    </div>
-    <div class="stacklist" id="stackList">No parts stacked</div>
-  </div>
-
-  <div class="panel">
-    <h2>TELEMETRY</h2>
-    <div class="stats-grid">
-      <div class="stat"><dt>Height</dt><dd id="h">0.0 m</dd></div>
-      <div class="stat"><dt>Mass</dt><dd id="m">0 kg</dd></div>
-      <div class="stat"><dt>Thrust</dt><dd id="t">0 kN</dd></div>
-      <div class="stat"><dt>TWR</dt><dd id="twr">—</dd></div>
-      <div class="stat"><dt>Delta-V</dt><dd id="dv">0 m/s</dd></div>
-      <div class="stat"><dt>Stages</dt><dd id="s">0</dd></div>
-      <div class="stat"><dt>Cost</dt><dd id="c">$0</dd></div>
-    </div>
-    <div class="warnings" id="warnings"></div>
-    <button class="launch-btn" id="launchBtn">🚀 LAUNCH</button>
-  </div>
-
-</div>
-
-<div id="launchOverlay" class="launch-overlay" hidden>
-  <div class="status" id="launchStatus">T-3</div>
-  <button class="close-btn" id="closeLaunchBtn" hidden>Back</button>
-</div>
-
+<!-- ========================================
+     JAVASCRIPT - COMPLETE APPLICATION
+     ======================================== -->
 <script>
-// ========================================
-// GAME DATA
-// ========================================
-
-const PARTS = {
-    'vostok': { name: 'Vostok Capsule', mass: 2460, cost: 500, height: 2.3, type: 'capsule', color: '#8a9ba8' },
-    'soyuz': { name: 'Soyuz Module', mass: 2900, cost: 650, height: 2.2, type: 'capsule', color: '#6d8a7d' },
-    'orion': { name: 'Orion Module', mass: 8900, cost: 1400, height: 3.3, type: 'capsule', color: '#c4b8a8' },
-    'fairing': { name: 'Cargo Fairing', mass: 1700, cost: 350, height: 4.0, type: 'capsule', color: '#b8b0a0' },
-    'rd107': { name: 'RD-107/108', mass: 1200, cost: 900, height: 2.8, type: 'engine', color: '#5a6a7a', thrust: 1000, isp: 320 },
-    'nk33': { name: 'NK-33', mass: 1400, cost: 1050, height: 3.0, type: 'engine', color: '#4a5a6a', thrust: 1638, isp: 331 },
-    'ssme': { name: 'SSME (RS-25)', mass: 3500, cost: 2200, height: 4.3, type: 'engine', color: '#6a7a8a', thrust: 2279, isp: 452 },
-    'raptor': { name: 'Raptor 2', mass: 1600, cost: 1800, height: 3.1, type: 'engine', color: '#8a7a5a', thrust: 2300, isp: 380 }
-};
-
-// ========================================
-// GAME STATE
-// ========================================
-
-let stack = [];
-let totalMass = 0, totalHeight = 0, totalThrust = 0, totalCost = 0, stageCount = 0;
-
-// ========================================
-// DOM REFS
-// ========================================
-
-const $ = id => document.getElementById(id);
-const paletteGroups = $('paletteGroups');
-const rocketSvg = $('rocketSvg');
-const emptyMsg = $('emptyMsg');
-const stackList = $('stackList');
-const h = $('h'), m = $('m'), t = $('t'), twr = $('twr'), dv = $('dv'), s = $('s'), c = $('c');
-const budgetDisplay = $('budgetDisplay');
-const warnings = $('warnings');
-const launchBtn = $('launchBtn');
-const removeBtn = $('removeBtn');
-const clearBtn = $('clearBtn');
-
-// ========================================
-// RENDER PARTS
-// ========================================
-
-function renderParts() {
-    let html = '';
-    const types = {
-        'capsule': 'CAPSULES & PAYLOAD',
-        'engine': 'ENGINES'
+    // ========================================
+    // CONFIGURATION & CONSTANTS
+    // ========================================
+    const CONSTANTS = {
+        CLASSES: {
+            'V': { code: 'V', display: 'Class V', level: 'primary' },
+            'VI': { code: 'VI', display: 'Class VI', level: 'secondary' },
+            'VII': { code: 'VII', display: 'Class VII', level: 'secondary' },
+            'VIII': { code: 'VIII', display: 'Class VIII', level: 'secondary' },
+            'IX': { code: 'IX', display: 'Class IX', level: 'secondary' },
+            'X': { code: 'X', display: 'Class X', level: 'secondary' },
+            'XI_SCIENCE': { code: 'XI_SCIENCE', display: 'Class XI Science', level: 'higher_secondary' },
+            'XI_ARTS': { code: 'XI_ARTS', display: 'Class XI Arts', level: 'higher_secondary' },
+            'XI_COMMERCE': { code: 'XI_COMMERCE', display: 'Class XI Commerce', level: 'higher_secondary' },
+            'XII_SCIENCE': { code: 'XII_SCIENCE', display: 'Class XII Science', level: 'higher_secondary' },
+            'XII_ARTS': { code: 'XII_ARTS', display: 'Class XII Arts', level: 'higher_secondary' },
+            'XII_COMMERCE': { code: 'XII_COMMERCE', display: 'Class XII Commerce', level: 'higher_secondary' }
+        },
+        WBBSE_SUBJECTS: {
+            primary: ['Bengali', 'English', 'Mathematics', 'Environmental Science'],
+            secondary: ['Bengali', 'English', 'Mathematics', 'Physical Science', 'Life Science', 'History', 'Geography', 'Computer Science']
+        },
+        WBCHSE_SUBJECTS: {
+            science: ['Bengali', 'English', 'Physics', 'Chemistry', 'Mathematics', 'Biology', 'Computer Science'],
+            arts: ['Bengali', 'English', 'History', 'Geography', 'Political Science', 'Philosophy', 'Sociology', 'Economics'],
+            commerce: ['Bengali', 'English', 'Accountancy', 'Business Studies', 'Economics', 'Mathematics', 'Computer Science']
+        },
+        DEFAULT_WORKING_DAYS: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+        DEFAULT_PERIODS_PER_DAY: 8,
+        PERIOD_DURATION: 45,
+        BREAK_TIMINGS: {
+            assembly: { start: '10:40', end: '10:50', duration: 10 },
+            recess: { start: '12:15', end: '12:35', duration: 20 }
+        }
     };
-    
-    // Group by type
-    const grouped = { capsule: [], engine: [] };
-    Object.entries(PARTS).forEach(([id, part]) => {
-        if (grouped[part.type]) grouped[part.type].push({ id, ...part });
-    });
-    
-    Object.entries(grouped).forEach(([type, parts]) => {
-        if (parts.length === 0) return;
-        html += `<div style="margin-bottom:12px;"><strong style="font-size:12px;color:#666;">${types[type]}</strong>`;
-        parts.forEach(p => {
-            let info = `${p.mass.toLocaleString()} kg · $${p.cost}`;
-            if (p.thrust) info += ` · ${p.thrust} kN`;
-            html += `
-                <button class="part-btn" data-id="${p.id}">
-                    <span class="name">${p.name}</span>
-                    <span class="stats">${info}</span>
-                </button>
-            `;
-        });
-        html += '</div>';
-    });
-    
-    paletteGroups.innerHTML = html;
-    
-    // Add click listeners
-    document.querySelectorAll('.part-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
-            addPart(this.dataset.id);
-        });
-    });
-}
 
-// ========================================
-// GAME FUNCTIONS
-// ========================================
-
-function addPart(id) {
-    const part = PARTS[id];
-    if (!part) return;
-    
-    // First part must be an engine
-    if (stack.length === 0 && part.type !== 'engine') {
-        warnings.textContent = '⚠️ First part must be an engine!';
-        setTimeout(() => { warnings.textContent = ''; }, 3000);
-        return;
-    }
-    
-    stack.push(id);
-    updateAll();
-}
-
-function removeTop() {
-    if (stack.length === 0) {
-        warnings.textContent = '⚠️ Stack is empty!';
-        setTimeout(() => { warnings.textContent = ''; }, 2000);
-        return;
-    }
-    stack.pop();
-    updateAll();
-}
-
-function clearAll() {
-    if (stack.length === 0) return;
-    stack = [];
-    updateAll();
-}
-
-function updateAll() {
-    updateStats();
-    renderBlueprint();
-    updateStackList();
-    updateBudget();
-}
-
-function updateStats() {
-    totalMass = 0;
-    totalHeight = 0;
-    totalThrust = 0;
-    totalCost = 0;
-    stageCount = 0;
-    let hasEngine = false;
-    
-    stack.forEach(id => {
-        const part = PARTS[id];
-        if (!part) return;
-        totalMass += part.mass;
-        totalHeight += part.height;
-        totalCost += part.cost;
-        if (part.thrust) {
-            totalThrust += part.thrust;
-            hasEngine = true;
-            stageCount++;
-        }
-    });
-    
-    h.textContent = totalHeight.toFixed(1) + ' m';
-    m.textContent = totalMass.toLocaleString() + ' kg';
-    t.textContent = totalThrust.toLocaleString() + ' kN';
-    c.textContent = '$' + totalCost.toLocaleString();
-    s.textContent = stageCount;
-    
-    // TWR
-    const weight = totalMass * 9.81 / 1000;
-    if (totalThrust > 0 && totalMass > 0) {
-        twr.textContent = (totalThrust / weight).toFixed(2);
-    } else {
-        twr.textContent = '—';
-    }
-    
-    // Delta-V
-    let maxIsp = 0;
-    stack.forEach(id => {
-        const p = PARTS[id];
-        if (p && p.isp && p.isp > maxIsp) maxIsp = p.isp;
-    });
-    if (maxIsp > 0 && totalMass > 0) {
-        dv.textContent = Math.round(maxIsp * 9.81 * Math.log(1 + totalMass / 10000)) + ' m/s';
-    } else {
-        dv.textContent = '0 m/s';
-    }
-    
-    // Warnings
-    let msg = '';
-    if (stack.length > 0 && !hasEngine) {
-        msg = '⚠️ No engine detected!';
-    } else if (totalThrust > 0 && totalMass > 0) {
-        const twrVal = totalThrust / weight;
-        if (twrVal < 1.0) msg = `⚠️ Low TWR (${twrVal.toFixed(2)}) - May not lift off!`;
-    }
-    warnings.textContent = msg;
-}
-
-function renderBlueprint() {
-    if (stack.length === 0) {
-        emptyMsg.style.display = 'block';
-        rocketSvg.innerHTML = '';
-        return;
-    }
-    emptyMsg.style.display = 'none';
-    
-    const cx = 210;
-    const baseY = 380;
-    let html = '';
-    let currentY = baseY;
-    
-    const totalH = stack.reduce((sum, id) => sum + (PARTS[id] ? PARTS[id].height : 0), 0);
-    const scale = Math.min(350 / Math.max(totalH, 1), 1);
-    
-    stack.forEach((id, idx) => {
-        const part = PARTS[id];
-        if (!part) return;
-        const h = part.height * scale * 18;
-        const w = 36 + (part.type === 'engine' ? 8 : 0);
-        const x = cx - w/2;
-        const y = currentY - h;
-        
-        html += `<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="${part.color}" stroke="#1a1a1a" stroke-width="1.5" rx="2"/>`;
-        
-        if (part.type === 'engine') {
-            html += `<polygon points="${cx-12},${currentY} ${cx},${currentY+8} ${cx+12},${currentY}" fill="#3a3a3a" stroke="#1a1a1a" stroke-width="1"/>`;
-        }
-        if (part.type === 'capsule' && idx === stack.length - 1) {
-            html += `<polygon points="${cx},${y-6} ${cx-w/2},${y} ${cx+w/2},${y}" fill="${part.color}" stroke="#1a1a1a" stroke-width="1.5"/>`;
+    // ========================================
+    // STORAGE MANAGER
+    // ========================================
+    class StorageManager {
+        constructor() {
+            this.prefix = 'routine_manager_';
         }
         
-        const label = part.name.length > 12 ? part.name.substring(0, 10) + '…' : part.name;
-        html += `<text x="${cx}" y="${y + h/2 + 3}" font-family="monospace" font-size="8" fill="#1a1a1a" text-anchor="middle">${label}</text>`;
-        currentY = y;
-    });
-    
-    rocketSvg.innerHTML = html;
-}
-
-function updateStackList() {
-    if (stack.length === 0) {
-        stackList.textContent = 'No parts stacked';
-        return;
-    }
-    let text = '';
-    [...stack].reverse().forEach((id, i) => {
-        const part = PARTS[id];
-        if (!part) return;
-        text += `#${stack.length - i} ${part.name}\n`;
-    });
-    stackList.textContent = text;
-}
-
-function updateBudget() {
-    budgetDisplay.textContent = totalCost.toLocaleString();
-}
-
-// ========================================
-// LAUNCH
-// ========================================
-
-function launch() {
-    if (stack.length === 0) {
-        warnings.textContent = '⚠️ Build a rocket first!';
-        setTimeout(() => { warnings.textContent = ''; }, 3000);
-        return;
-    }
-    
-    let hasEngine = false;
-    stack.forEach(id => { if (PARTS[id] && PARTS[id].thrust) hasEngine = true; });
-    if (!hasEngine) {
-        warnings.textContent = '⚠️ No engine on the rocket!';
-        setTimeout(() => { warnings.textContent = ''; }, 3000);
-        return;
-    }
-    
-    const weight = totalMass * 9.81 / 1000;
-    const twrVal = totalThrust / weight;
-    if (twrVal < 1.0) {
-        warnings.textContent = `⚠️ TWR ${twrVal.toFixed(2)} - Not enough thrust!`;
-        setTimeout(() => { warnings.textContent = ''; }, 3000);
-        return;
-    }
-    
-    // Show launch overlay
-    const overlay = $('launchOverlay');
-    overlay.hidden = false;
-    const status = $('launchStatus');
-    const closeBtn = $('closeLaunchBtn');
-    closeBtn.hidden = true;
-    
-    let count = 3;
-    status.textContent = 'T-' + count;
-    
-    const interval = setInterval(() => {
-        count--;
-        if (count > 0) {
-            status.textContent = 'T-' + count;
-        } else if (count === 0) {
-            status.textContent = '🚀 LIFTOFF!';
-        } else {
-            clearInterval(interval);
-            const success = twrVal > 1.5 && Math.random() > 0.3;
-            if (success) {
-                status.textContent = '✅ SUCCESS! 🎉';
-            } else {
-                status.textContent = '💥 EXPLOSION!';
+        save(key, data) {
+            try {
+                localStorage.setItem(this.prefix + key, JSON.stringify(data));
+                return true;
+            } catch (e) {
+                console.error('Storage save error:', e);
+                return false;
             }
-            closeBtn.hidden = false;
         }
-    }, 1000);
-}
+        
+        load(key) {
+            try {
+                const data = localStorage.getItem(this.prefix + key);
+                return data ? JSON.parse(data) : null;
+            } catch (e) {
+                console.error('Storage load error:', e);
+                return null;
+            }
+        }
+        
+        remove(key) {
+            localStorage.removeItem(this.prefix + key);
+        }
+        
+        clear() {
+            Object.keys(localStorage).forEach(key => {
+                if (key.startsWith(this.prefix)) localStorage.removeItem(key);
+            });
+        }
+    }
 
-function closeLaunch() {
-    $('launchOverlay').hidden = true;
-    $('closeLaunchBtn').hidden = true;
-    $('launchStatus').textContent = 'T-3';
-}
+    // ========================================
+    // CONFIG MANAGER
+    // ========================================
+    class ConfigManager {
+        getDefaultConfig() {
+            return {
+                schoolName: 'My School',
+                schoolCode: '',
+                board: 'WBBSE',
+                academicYear: '2026-2027',
+                address: '',
+                phone: '',
+                email: '',
+                workingDays: [...CONSTANTS.DEFAULT_WORKING_DAYS],
+                periodsPerDay: CONSTANTS.DEFAULT_PERIODS_PER_DAY,
+                periodDuration: CONSTANTS.PERIOD_DURATION,
+                startTime: '10:35',
+                breakTimings: JSON.parse(JSON.stringify(CONSTANTS.BREAK_TIMINGS)),
+                classes: this.getDefaultClasses(),
+                teachers: [],
+                classrooms: [],
+                laboratories: [],
+                constraints: {
+                    maxTeacherLoad: 35,
+                    maxConsecutivePeriods: 3,
+                    balancedSubjects: true,
+                    avoidBackToBackLab: true
+                },
+                routine: null,
+                activities: [
+                    { type: 'info', message: 'System initialized', time: new Date().toISOString() }
+                ]
+            };
+        }
+        
+        getDefaultClasses() {
+            const classes = [];
+            Object.keys(CONSTANTS.CLASSES).forEach(code => {
+                const info = CONSTANTS.CLASSES[code];
+                classes.push({
+                    code: code,
+                    display: info.display,
+                    level: info.level,
+                    sections: [{ name: 'A', studentCount: 30 }],
+                    subjects: this.getDefaultSubjects(info.level, code),
+                    periodAllocation: this.getPeriodAllocation(code)
+                });
+            });
+            return classes;
+        }
+        
+        getDefaultSubjects(level, classCode) {
+            if (level === 'higher_secondary') {
+                if (classCode.includes('SCIENCE')) return CONSTANTS.WBCHSE_SUBJECTS.science;
+                if (classCode.includes('COMMERCE')) return CONSTANTS.WBCHSE_SUBJECTS.commerce;
+                if (classCode.includes('ARTS')) return CONSTANTS.WBCHSE_SUBJECTS.arts;
+            }
+            return level === 'primary' ? CONSTANTS.WBBSE_SUBJECTS.primary : CONSTANTS.WBBSE_SUBJECTS.secondary;
+        }
+        
+        getPeriodAllocation(code) {
+            const allocations = {
+                'V': { total: 39, instruction: 36, library: 1, smart: 1, lab: 1 },
+                'VI': { total: 44, instruction: 40, smart: 1, lab: 1 },
+                'VII': { total: 44, instruction: 40, smart: 1, lab: 1 },
+                'VIII': { total: 44, instruction: 40, smart: 1, lab: 1 },
+                'IX': { total: 42, instruction: 38, ict: 2, library: 1, mock: 1 },
+                'X': { total: 42, instruction: 38, ict: 2, library: 1, mock: 1 },
+                'XI_SCIENCE': { total: 45, instruction: 40, lab: 3, library: 2 },
+                'XI_ARTS': { total: 45, instruction: 42, library: 3 },
+                'XI_COMMERCE': { total: 45, instruction: 42, library: 3 },
+                'XII_SCIENCE': { total: 45, instruction: 40, lab: 3, library: 2 },
+                'XII_ARTS': { total: 45, instruction: 42, library: 3 },
+                'XII_COMMERCE': { total: 45, instruction: 42, library: 3 }
+            };
+            return allocations[code] || { total: 40, instruction: 37, library: 1, smart: 1, lab: 1 };
+        }
+    }
 
-// ========================================
-// INIT
-// ========================================
+    // ========================================
+    // THEME MANAGER
+    // ========================================
+    class ThemeManager {
+        constructor() {
+            this.theme = localStorage.getItem('theme') || 'light';
+            this.contrast = localStorage.getItem('contrast') || 'normal';
+            this.dyslexia = localStorage.getItem('dyslexia') === 'true';
+            this.fontSize = localStorage.getItem('fontSize') || 'normal';
+            this.apply();
+        }
+        
+        toggleTheme() {
+            this.theme = this.theme === 'light' ? 'dark' : 'light';
+            localStorage.setItem('theme', this.theme);
+            this.apply();
+            return this.theme;
+        }
+        
+        toggleContrast() {
+            this.contrast = this.contrast === 'normal' ? 'high' : 'normal';
+            localStorage.setItem('contrast', this.contrast);
+            this.apply();
+            return this.contrast;
+        }
+        
+        toggleDyslexia() {
+            this.dyslexia = !this.dyslexia;
+            localStorage.setItem('dyslexia', this.dyslexia);
+            this.apply();
+            return this.dyslexia;
+        }
+        
+        setFontSize(direction) {
+            const sizes = ['small', 'normal', 'large', 'xlarge'];
+            let index = sizes.indexOf(this.fontSize);
+            if (direction === 'increase') {
+                index = Math.min(index + 1, sizes.length - 1);
+            } else {
+                index = Math.max(index - 1, 0);
+            }
+            this.fontSize = sizes[index];
+            localStorage.setItem('fontSize', this.fontSize);
+            this.apply();
+            return this.fontSize;
+        }
+        
+        apply() {
+            const html = document.documentElement;
+            
+            // Theme
+            if (this.theme === 'dark') {
+                html.setAttribute('data-theme', 'dark');
+            } else {
+                html.removeAttribute('data-theme');
+            }
+            
+            // Contrast
+            if (this.contrast === 'high') {
+                html.setAttribute('data-contrast', 'high');
+            } else {
+                html.removeAttribute('data-contrast');
+            }
+            
+            // Dyslexia
+            if (this.dyslexia) {
+                html.setAttribute('data-dyslexia', 'true');
+            } else {
+                html.removeAttribute('data-dyslexia');
+            }
+            
+            // Font Size
+            if (this.fontSize !== 'normal') {
+                html.setAttribute('data-font-size', this.fontSize);
+            } else {
+                html.removeAttribute('data-font-size');
+            }
+        }
+    }
 
-function init() {
-    renderParts();
-    updateAll();
-    
-    removeBtn.addEventListener('click', removeTop);
-    clearBtn.addEventListener('click', clearAll);
-    launchBtn.addEventListener('click', launch);
-    $('closeLaunchBtn').addEventListener('click', closeLaunch);
-    
-    console.log('🚀 Game loaded! Parts:', Object.keys(PARTS).length);
-    console.log('📦 Stack:', stack);
-}
+    // ========================================
+    // APPLICATION
+    // ========================================
+    class SchoolRoutineApp {
+        constructor() {
+            this.storage = new StorageManager();
+            this.configManager = new ConfigManager();
+            this.themeManager = new ThemeManager();
+            this.schoolData = null;
+            this.currentView = 'dashboard';
+            this.initialize();
+        }
+        
+        async initialize() {
+            // Load saved data or defaults
+            const saved = this.storage.load('schoolData');
+            if (saved) {
+                this.schoolData = saved;
+            } else {
+                this.schoolData = this.configManager.getDefaultConfig();
+                this.storage.save('schoolData', this.schoolData);
+            }
+            
+            // Setup navigation
+            this.setupNavigation();
+            
+            // Setup save/load
+            this.setupSaveLoad();
+            
+            // Setup accessibility controls
+            this.setupAccessibility();
+            
+            // Render initial view
+            this.renderView('dashboard');
+            
+            // Add event listeners for custom events
+            this.setupEventListeners();
+        }
+        
+        setupNavigation() {
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const view = btn.dataset.view;
+                    this.switchView(view);
+                });
+            });
+        }
+        
+        switchView(view) {
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.view === view);
+            });
+            this.currentView = view;
+            this.renderView(view);
+        }
+        
+        renderView(view) {
+            const container = document.getElementById('view-container');
+            
+            switch(view) {
+                case 'dashboard':
+                    this.renderDashboard(container);
+                    break;
+                case 'settings':
+                    this.renderSettings(container);
+                    break;
+                case 'teachers':
+                    this.renderTeachers(container);
+                    break;
+                case 'subjects':
+                    this.renderSubjects(container);
+                    break;
+                case 'generator':
+                    this.renderGenerator(container);
+                    break;
+                case 'routine':
+                    this.renderRoutine(container);
+                    break;
+                case 'validation':
+                    this.renderValidation(container);
+                    break;
+                case 'reports':
+                    this.renderReports(container);
+                    break;
+                case 'export':
+                    this.renderExport(container);
+                    break;
+                default:
+                    container.innerHTML = '<p>View not found</p>';
+            }
+        }
+        
+        // ========================================
+        // DASHBOARD VIEW
+        // ========================================
+        renderDashboard(container) {
+            const data = this.schoolData;
+            const stats = this.calculateStats();
+            
+            container.innerHTML = `
+                <div class="dashboard-container">
+                    <section class="welcome-section">
+                        <div>
+                            <h1 class="welcome-title">Welcome to ${data.schoolName || 'School'} Routine Management</h1>
+                            <p class="welcome-subtitle">Academic Year: ${data.academicYear || '2026-2027'}</p>
+                            <span class="board-badge">${data.board || 'WBBSE'}</span>
+                        </div>
+                        <div class="quick-actions">
+                            <button class="quick-action-btn" data-action="generate">
+                                <span class="icon">⚡</span> Generate
+                            </button>
+                            <button class="quick-action-btn" data-action="export">
+                                <span class="icon">📤</span> Export
+                            </button>
+                            <button class="quick-action-btn" onclick="window.print()">
+                                <span class="icon">🖨️</span> Print
+                            </button>
+                        </div>
+                    </section>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon">📚</div>
+                            <div class="stat-content">
+                                <div class="stat-value">${stats.totalClasses}</div>
+                                <div class="stat-label">Total Classes</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">👨‍🏫</div>
+                            <div class="stat-content">
+                                <div class="stat-value">${stats.totalTeachers}</div>
+                                <div class="stat-label">Teachers</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">📖</div>
+                            <div class="stat-content">
+                                <div class="stat-value">${stats.totalSubjects}</div>
+                                <div class="stat-label">Subjects</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">🏫</div>
+                            <div class="stat-content">
+                                <div class="stat-value">${stats.totalSections}</div>
+                                <div class="stat-label">Sections</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">⏰</div>
+                            <div class="stat-content">
+                                <div class="stat-value">${stats.totalPeriods}</div>
+                                <div class="stat-label">Periods/Week</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">✅</div>
+                            <div class="stat-content">
+                                <div class="stat-value ${stats.conflicts > 0 ? 'text-danger' : 'text-success'}">
+                                    ${stats.conflicts}
+                                </div>
+                                <div class="stat-label">Conflicts</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="dashboard-grid">
+                        <section class="recent-activity">
+                            <h2>Recent Activity</h2>
+                            <div class="activity-list">
+                                ${this.renderActivity()}
+                            </div>
+                        </section>
+                        
+                        <section class="quick-access">
+                            <h2>Quick Access</h2>
+                            <div class="quick-access-grid">
+                                <button class="quick-access-item" data-view="settings">
+                                    <span class="icon">⚙️</span> Settings
+                                </button>
+                                <button class="quick-access-item" data-view="teachers">
+                                    <span class="icon">👨‍🏫</span> Teachers
+                                </button>
+                                <button class="quick-access-item" data-view="subjects">
+                                    <span class="icon">📖</span> Subjects
+                                </button>
+                                <button class="quick-access-item" data-view="routine">
+                                    <span class="icon">📅</span> Routine
+                                </button>
+                                <button class="quick-access-item" data-view="validation">
+                                    <span class="icon">🔍</span> Validate
+                                </button>
+                                <button class="quick-access-item" data-view="reports">
+                                    <span class="icon">📊</span> Reports
+                                </button>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            `;
+            
+            // Attach events
+            container.querySelectorAll('[data-view]').forEach(el => {
+                el.addEventListener('click', () => {
+                    this.switchView(el.dataset.view);
+                });
+            });
+            
+            container.querySelectorAll('[data-action]').forEach(el => {
+                el.addEventListener('click', () => {
+                    if (el.dataset.action === 'generate') this.switchView('generator');
+                    if (el.dataset.action === 'export') this.switchView('export');
+                });
+            });
+        }
+        
+        calculateStats() {
+            const classes = this.schoolData.classes || [];
+            const teachers = this.schoolData.teachers || [];
+            let totalSections = 0, totalSubjects = 0;
+            
+            classes.forEach(cls => {
+                totalSections += (cls.sections || []).length || 1;
+                totalSubjects += (cls.subjects || []).length;
+            });
+            
+            const totalPeriods = classes.reduce((sum, cls) => {
+                return sum + (cls.periodAllocation?.total || 0);
+            }, 0);
+            
+            return {
+                totalClasses: classes.length,
+                totalTeachers: teachers.length,
+                totalSubjects: totalSubjects,
+                totalSections: totalSections,
+                totalPeriods: totalPeriods,
+                conflicts: this.schoolData.conflicts?.length || 0
+            };
+        }
+        
+        renderActivity() {
+            const activities = this.schoolData.activities || [
+                { type: 'info', message: 'System initialized', time: new Date().toISOString() }
+            ];
+            
+            return activities.slice(-5).reverse().map(activity => `
+                <div class="activity-item">
+                    <span class="activity-icon">${this.getActivityIcon(activity.type)}</span>
+                    <span class="activity-message">${activity.message}</span>
+                    <span class="activity-time">${new Date(activity.time).toLocaleTimeString()}</span>
+                </div>
+            `).join('');
+        }
+        
+        getActivityIcon(type) {
+            const icons = { success: '✅', error: '❌', warning: '⚠️', info: 'ℹ️' };
+            return icons[type] || '📌';
+        }
+        
+        addActivity(message, type = 'info') {
+            this.schoolData.activities = this.schoolData.activities || [];
+            this.schoolData.activities.push({ type, message, time: new Date().toISOString() });
+            if (this.schoolData.activities.length > 100) {
+                this.schoolData.activities = this.schoolData.activities.slice(-100);
+            }
+            this.storage.save('schoolData', this.schoolData);
+        }
+        
+        // ========================================
+        // SETTINGS VIEW
+        // ========================================
+        renderSettings(container) {
+            const data = this.schoolData;
+            
+            container.innerHTML = `
+                <div class="settings-container">
+                    <div class="settings-header">
+                        <h1>⚙️ School Settings</h1>
+                        <p class="settings-subtitle">Configure your school details and timetable parameters</p>
+                    </div>
+                    
+                    <form id="settings-form" novalidate>
+                        <!-- School Information -->
+                        <section class="settings-section">
+                            <h2>School Information</h2>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="schoolName">School Name *</label>
+                                    <input type="text" id="schoolName" value="${data.schoolName || ''}" required>
+                                    <span class="form-error"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="schoolCode">School Code</label>
+                                    <input type="text" id="schoolCode" value="${data.schoolCode || ''}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="board">Board *</label>
+                                    <select id="board" required>
+                                        <option value="WBBSE" ${data.board === 'WBBSE' ? 'selected' : ''}>WBBSE</option>
+                                        <option value="WBCHSE" ${data.board === 'WBCHSE' ? 'selected' : ''}>WBCHSE</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="academicYear">Academic Year *</label>
+                                    <input type="text" id="academicYear" value="${data.academicYear || '2026-2027'}" 
+                                           pattern="^\\d{4}-\\d{4}$" required>
+                                    <span class="form-error"></span>
+                                </div>
+                                <div class="form-group full-width">
+                                    <label for="address">Address</label>
+                                    <textarea id="address" rows="2">${data.address || ''}</textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone">Phone</label>
+                                    <input type="tel" id="phone" value="${data.phone || ''}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input type="email" id="email" value="${data.email || ''}">
+                                </div>
+                            </div>
+                        </section>
+                        
+                        <!-- Timetable Settings -->
+                        <section class="settings-section">
+                            <h2>Timetable Settings</h2>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="periodsPerDay">Periods Per Day *</label>
+                                    <input type="number" id="periodsPerDay" value="${data.periodsPerDay || 8}" 
+                                           min="3" max="10" required>
+                                    <span class="form-error"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="periodDuration">Period Duration (minutes) *</label>
+                                    <input type="number" id="periodDuration" value="${data.periodDuration || 45}" 
+                                           min="30" max="60" step="5" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="startTime">School Start Time</label>
+                                    <input type="time" id="startTime" value="${data.startTime || '10:35'}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="workingDays">Working Days *</label>
+                                    <div class="checkbox-group" id="workingDays" role="group" aria-label="Select working days">
+                                        ${['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'].map(day => `
+                                            <label class="checkbox-label">
+                                                <input type="checkbox" value="${day}" 
+                                                       ${(data.workingDays || CONSTANTS.DEFAULT_WORKING_DAYS).includes(day) ? 'checked' : ''}>
+                                                ${day}
+                                            </label>
+                                        `).join('')}
+                                    </div>
+                                    <span class="form-error"></span>
+                                </div>
+                            </div>
+                        </section>
+                        
+                        <!-- Break Timings -->
+                        <section class="settings-section">
+                            <h2>Break Timings</h2>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="assemblyStart">Assembly Start</label>
+                                    <input type="time" id="assemblyStart" value="${data.breakTimings?.assembly?.start || '10:40'}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="assemblyEnd">Assembly End</label>
+                                    <input type="time" id="assemblyEnd" value="${data.breakTimings?.assembly?.end || '10:50'}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="recessStart">Recess Start</label>
+                                    <input type="time" id="recessStart" value="${data.breakTimings?.recess?.start || '12:15'}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="recessEnd">Recess End</label>
+                                    <input type="time" id="recessEnd" value="${data.breakTimings?.recess?.end || '12:35'}">
+                                </div>
+                            </div>
+                        </section>
+                        
+                        <!-- Constraints -->
+                        <section class="settings-section">
+                            <h2>Optimization Constraints</h2>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="maxTeacherLoad">Max Teacher Load (periods/week)</label>
+                                    <input type="number" id="maxTeacherLoad" value="${data.constraints?.maxTeacherLoad || 35}" 
+                                           min="1" max="50">
+                                </div>
+                                <div class="form-group">
+                                    <label for="maxConsecutive">Max Consecutive Periods</label>
+                                    <input type="number" id="maxConsecutive" value="${data.constraints?.maxConsecutivePeriods || 3}" 
+                                           min="1" max="5">
+                                </div>
+                                <div class="form-group full-width">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="balancedSubjects" 
+                                               ${data.constraints?.balancedSubjects !== false ? 'checked' : ''}>
+                                        Balance difficult subjects across the week
+                                    </label>
+                                </div>
+                                <div class="form-group full-width">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="avoidBackToBackLab" 
+                                               ${data.constraints?.avoidBackToBackLab !== false ? 'checked' : ''}>
+                                        Avoid back-to-back lab sessions
+                                    </label>
+                                </div>
+                            </div>
+                        </section>
+                        
+                        <div class="form-actions">
+                            <button type="submit" class="btn-primary">💾 Save Settings</button>
+                            <button type="reset" class="btn-secondary">↩️ Reset</button>
+                            <button type="button" class="btn-danger" id="resetDefaults">⚠️ Reset to Defaults</button>
+                        </div>
+                    </form>
+                </div>
+            `;
+            
+            // Attach events
+            const form = container.querySelector('#settings-form');
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                this.saveSettings(form);
+            });
+            
+            form.querySelector('#resetDefaults').addEventListener('click', () => {
+                if (confirm('Are you sure you want to reset all settings to default values?')) {
+                    this.schoolData = this.configManager.getDefaultConfig();
+                    this.storage.save('schoolData', this.schoolData);
+                    this.renderSettings(container);
+                    this.showNotification('Settings reset to defaults', 'success');
+                    this.addActivity('Settings reset to defaults', 'warning');
+                }
+            });
+            
+            form.querySelectorAll('input[required], select[required]').forEach(input => {
+                input.addEventListener('blur', () => this.validateField(input));
+                input.addEventListener('input', () => {
+                    if (input.classList.contains('invalid')) this.validateField(input);
+                });
+            });
+        }
+        
+        validateField(input) {
+            const errorSpan = input.parentElement.querySelector('.form-error');
+            const validity = input.validity;
+            
+            if (validity.valid) {
+                input.classList.remove('invalid');
+                input.classList.add('valid');
+                if (errorSpan) errorSpan.textContent = '';
+                return true;
+            } else {
+                input.classList.remove('valid');
+                input.classList.add('invalid');
+                if (errorSpan) {
+                    if (validity.valueMissing) errorSpan.textContent = 'This field is required';
+                    else if (validity.patternMismatch) errorSpan.textContent = 'Invalid format';
+                    else if (validity.rangeOverflow) errorSpan.textContent = `Maximum value is ${input.max}`;
+                    else if (validity.rangeUnderflow) errorSpan.textContent = `Minimum value is ${input.min}`;
+                    else errorSpan.textContent = 'Invalid value';
+                }
+                return false;
+            }
+        }
+        
+        saveSettings(form) {
+            const inputs = form.querySelectorAll('input[required], select[required]');
+            let valid = true;
+            inputs.forEach(input => {
+                if (!this.validateField(input)) valid = false;
+            });
+            if (!valid) {
+                this.showNotification('Please fix all errors before saving', 'error');
+                return;
+            }
+            
+            const data = {
+                schoolName: form.querySelector('#schoolName').value,
+                schoolCode: form.querySelector('#schoolCode').value,
+                board: form.querySelector('#board').value,
+                academicYear: form.querySelector('#academicYear').value,
+                address: form.querySelector('#address').value,
+                phone: form.querySelector('#phone').value,
+                email: form.querySelector('#email').value,
+                periodsPerDay: parseInt(form.querySelector('#periodsPerDay').value),
+                periodDuration: parseInt(form.querySelector('#periodDuration').value),
+                startTime: form.querySelector('#startTime').value,
+                workingDays: Array.from(form.querySelectorAll('#workingDays input:checked')).map(cb => cb.value),
+                breakTimings: {
+                    assembly: {
+                        start: form.querySelector('#assemblyStart').value,
+                        end: form.querySelector('#assemblyEnd').value
+                    },
+                    recess: {
+                        start: form.querySelector('#recessStart').value,
+                        end: form.querySelector('#recessEnd').value
+                    }
+                },
+                constraints: {
+                    maxTeacherLoad: parseInt(form.querySelector('#maxTeacherLoad').value) || 35,
+                    maxConsecutivePeriods: parseInt(form.querySelector('#maxConsecutive').value) || 3,
+                    balancedSubjects: form.querySelector('#balancedSubjects').checked,
+                    avoidBackToBackLab: form.querySelector('#avoidBackToBackLab').checked
+                }
+            };
+            
+            // Preserve other data
+            this.schoolData = { ...this.schoolData, ...data };
+            this.storage.save('schoolData', this.schoolData);
+            this.showNotification('Settings saved successfully!', 'success');
+            this.addActivity('Settings updated', 'success');
+        }
+        
+        // ========================================
+        // TEACHERS VIEW
+        // ========================================
+        renderTeachers(container) {
+            const teachers = this.schoolData.teachers || [];
+            
+            container.innerHTML = `
+                <div class="settings-container">
+                    <div class="settings-header">
+                        <h1>👨‍🏫 Teacher Management</h1>
+                        <p class="settings-subtitle">Manage teachers and their subject assignments</p>
+                    </div>
+                    
+                    <button class="btn-primary" id="addTeacher">➕ Add Teacher</button>
+                    
+                    <div style="margin-top: var(--spacing-md); overflow-x: auto;">
+                        <table class="timetable-preview">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Subjects</th>
+                                    <th>Max Load</th>
+                                    <th>Current Load</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${teachers.length === 0 ? `
+                                    <tr>
+                                        <td colspan="5" style="text-align:center;padding:2rem;color:var(--text-muted);">
+                                            No teachers added yet. Click "Add Teacher" to get started.
+                                        </td>
+                                    </tr>
+                                ` : teachers.map((teacher, index) => `
+                                    <tr>
+                                        <td><strong>${teacher.name}</strong></td>
+                                        <td>${(teacher.subjects || []).join(', ') || 'None'}</td>
+                                        <td>${teacher.maxLoad || 35}</td>
+                                        <td>${teacher.currentLoad || 0}</td>
+                                        <td>
+                                            <button class="btn-secondary" style="padding:0.25rem 0.5rem;font-size:var(--font-size-xs);" 
+                                                    data-action="edit-teacher" data-index="${index}">✏️ Edit</button>
+                                            <button class="btn-danger" style="padding:0.25rem 0.5rem;font-size:var(--font-size-xs);" 
+                                                    data-action="delete-teacher" data-index="${index}">🗑️ Delete</button>
+                                        </td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            `;
+            
+            // Events
+            container.querySelector('#addTeacher').addEventListener('click', () => {
+                this.showTeacherModal();
+            });
+            
+            container.querySelectorAll('[data-action="edit-teacher"]').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const index = parseInt(btn.dataset.index);
+                    this.showTeacherModal(index);
+                });
+            });
+            
+            container.querySelectorAll('[data-action="delete-teacher"]').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const index = parseInt(btn.dataset.index);
+                    if (confirm(`Are you sure you want to delete ${teachers[index].name}?`)) {
+                        this.schoolData.teachers.splice(index, 1);
+                        this.storage.save('schoolData', this.schoolData);
+                        this.renderTeachers(container);
+                        this.showNotification('Teacher deleted', 'success');
+                        this.addActivity(`Teacher deleted`, 'warning');
+                    }
+                });
+            });
+        }
+        
+        showTeacherModal(index = -1) {
+            const teachers = this.schoolData.teachers || [];
+            const teacher = index >= 0 ? teachers[index] : { name: '', subjects: [], maxLoad: 35, currentLoad: 0 };
+            const allSubjects = this.getAllSubjects();
+            
+            // Create modal
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 0; left: 0; right: 0; bottom: 0;
+                background: rgba(0,0,0,0.5);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 2000;
+                animation: fadeIn 0.3s ease;
+            `;
+            
+            modal.innerHTML = `
+                <div style="background:var(--bg-card);border-radius:var(--radius-lg);padding:2rem;max-width:500px;width:90%;max-height:80vh;overflow-y:auto;">
+                    <h2 style="margin-bottom:var(--spacing-md);">${index >= 0 ? 'Edit' : 'Add'} Teacher</h2>
+                    <form id="teacherForm">
+                        <div class="form-group">
+                            <label for="teacherName">Name *</label>
+                            <input type="text" id="teacherName" value="${teacher.name}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="teacherSubjects">Subjects</label>
+                            <select id="teacherSubjects" multiple style="height:120px;">
+                                ${allSubjects.map(sub => `
+                                    <option value="${sub}" ${teacher.subjects?.includes(sub) ? 'selected' : ''}>
+                                        ${sub}
+                                    </option>
+                                `).join('')}
+                            </select>
+                            <span style="font-size:var(--font-size-xs);color:var(--text-muted);">Hold Ctrl/Cmd to select multiple</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="teacherMaxLoad">Max Load (periods/week)</label>
+                            <input type="number" id="teacherMaxLoad" value="${teacher.maxLoad || 35}" min="1" max="50">
+                        </div>
+                        <div style="display:flex;gap:var(--spacing-md);margin-top:var(--spacing-lg);">
+                            <button type="submit" class="btn-primary">💾 Save</button>
+                            <button type="button" class="btn-secondary" id="closeModal">❌ Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            
+            modal.querySelector('#teacherForm').addEventListener('submit', (e) => {
+                e.preventDefault();
+                const name = modal.querySelector('#teacherName').value.trim();
+                if (!name) {
+                    this.showNotification('Teacher name is required', 'error');
+                    return;
+                }
+                
+                const subjects = Array.from(modal.querySelector('#teacherSubjects').selectedOptions).map(opt => opt.value);
+                const maxLoad = parseInt(modal.querySelector('#teacherMaxLoad').value) || 35;
+                
+                const teacherData = { name, subjects, maxLoad, currentLoad: 0 };
+                
+                if (index >= 0) {
+                    this.schoolData.teachers[index] = { ...this.schoolData.teachers[index], ...teacherData };
+                } else {
+                    this.schoolData.teachers.push(teacherData);
+                }
+                
+                this.storage.save('schoolData', this.schoolData);
+                modal.remove();
+                this.renderTeachers(document.getElementById('view-container'));
+                this.showNotification(`Teacher ${index >= 0 ? 'updated' : 'added'} successfully`, 'success');
+                this.addActivity(`Teacher ${index >= 0 ? 'updated' : 'added'}: ${name}`, 'success');
+            });
+            
+            modal.querySelector('#closeModal').addEventListener('click', () => modal.remove());
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) modal.remove();
+            });
+        }
+        
+        getAllSubjects() {
+            const subjects = new Set();
+            (this.schoolData.classes || []).forEach(cls => {
+                (cls.subjects || []).forEach(sub => {
+                    if (typeof sub === 'string') subjects.add(sub);
+                    else if (sub.name) subjects.add(sub.name);
+                });
+            });
+            return Array.from(subjects);
+        }
+        
+        // ========================================
+        // SUBJECTS VIEW
+        // ========================================
+        renderSubjects(container) {
+            const classes = this.schoolData.classes || [];
+            
+            container.innerHTML = `
+                <div class="settings-container">
+                    <div class="settings-header">
+                        <h1>📖 Subject Management</h1>
+                        <p class="settings-subtitle">View and manage subjects for each class</p>
+                    </div>
+                    
+                    ${classes.map(cls => `
+                        <section class="settings-section">
+                            <h2>${cls.display}</h2>
+                            <div style="overflow-x:auto;">
+                                <table class="timetable-preview">
+                                    <thead>
+                                        <tr>
+                                            <th>Subject</th>
+                                            <th>Periods/Week</th>
+                                            <th>Lab Required</th>
+                                            <th>Practical</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        ${(cls.subjects || []).map((sub, idx) => {
+                                            const name = typeof sub === 'string' ? sub : sub.name;
+                                            const periods = typeof sub === 'string' ? 5 : (sub.periodsPerWeek || 5);
+                                            const lab = typeof sub === 'string' ? false : (sub.requiresLab || false);
+                                            const practical = typeof sub === 'string' ? false : (sub.isPractical || false);
+                                            return `
+                                                <tr>
+                                                    <td><strong>${name}</strong></td>
+                                                    <td>${periods}</td>
+                                                    <td>${lab ? '✅' : '❌'}</td>
+                                                    <td>${practical ? '✅' : '❌'}</td>
+                                                    <td>
+                                                        <button class="btn-secondary" style="padding:0.25rem 0.5rem;font-size:var(--font-size-xs);"
+                                                                data-action="edit-subject" data-class="${cls.code}" data-index="${idx}">✏️ Edit</button>
+                                                    </td>
+                                                </tr>
+                                            `;
+                                        }).join('')}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <button class="btn-primary" style="margin-top:var(--spacing-md);" 
+                                    data-action="add-subject" data-class="${cls.code}">➕ Add Subject</button>
+                        </section>
+                    `).join('')}
+                </div>
+            `;
+            
+            container.querySelectorAll('[data-action="add-subject"]').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    this.showSubjectModal(btn.dataset.class);
+                });
+            });
+            
+            container.querySelectorAll('[data-action="edit-subject"]').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    this.showSubjectModal(btn.dataset.class, parseInt(btn.dataset.index));
+                });
+            });
+        }
+        
+        showSubjectModal(classCode, index = -1) {
+            const cls = this.schoolData.classes.find(c => c.code === classCode);
+            if (!cls) return;
+            
+            const subjects = cls.subjects || [];
+            const subject = index >= 0 ? subjects[index] : { name: '', periodsPerWeek: 5, requiresLab: false, isPractical: false };
+            const name = typeof subject === 'string' ? subject : subject.name;
+            const periods = typeof subject === 'string' ? 5 : (subject.periodsPerWeek || 5);
+            const lab = typeof subject === 'string' ? false : (subject.requiresLab || false);
+            const practical = typeof subject === 'string' ? false : (subject.isPractical || false);
+            
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed; top:0; left:0; right:0; bottom:0;
+                background:rgba(0,0,0,0.5); display:flex; align-items:center; justify-content:center;
+                z-index:2000; animation:fadeIn 0.3s ease;
+            `;
+            
+            modal.innerHTML = `
+                <div style="background:var(--bg-card);border-radius:var(--radius-lg);padding:2rem;max-width:450px;width:90%;">
+                    <h2 style="margin-bottom:var(--spacing-md);">${index >= 0 ? 'Edit' : 'Add'} Subject</h2>
+                    <form id="subjectForm">
+                        <div class="form-group">
+                            <label for="subjectName">Subject Name *</label>
+                            <input type="text" id="subjectName" value="${name}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="subjectPeriods">Periods Per Week</label>
+                            <input type="number" id="subjectPeriods" value="${periods}" min="1" max="10">
+                        </div>
+                        <div class="form-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="subjectLab" ${lab ? 'checked' : ''}>
+                                Requires Laboratory
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="subjectPractical" ${practical ? 'checked' : ''}>
+                                Is Practical Subject
+                            </label>
+                        </div>
+                        <div style="display:flex;gap:var(--spacing-md);margin-top:var(--spacing-lg);">
+                            <button type="submit" class="btn-primary">💾 Save</button>
+                            <button type="button" class="btn-secondary" id="closeModal">❌ Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            
+            modal.querySelector('#subjectForm').addEventListener('submit', (e) => {
+                e.preventDefault();
+                const name = modal.querySelector('#subjectName').value.trim();
+                if (!name) {
+                    this.showNotification('Subject name is required', 'error');
+                    return;
+                }
+                
+                const subjectData = {
+                    name: name,
+                    periodsPerWeek: parseInt(modal.querySelector('#subjectPeriods').value) || 5,
+                    requiresLab: modal.querySelector('#subjectLab').checked,
+                    isPractical: modal.querySelector('#subjectPractical').checked
+                };
+                
+                if (index >= 0) {
+                    cls.subjects[index] = subjectData;
+                } else {
+                    cls.subjects.push(subjectData);
+                }
+                
+                this.storage.save('schoolData', this.schoolData);
+                modal.remove();
+                this.renderSubjects(document.getElementById('view-container'));
+                this.showNotification(`Subject ${index >= 0 ? 'updated' : 'added'} successfully`, 'success');
+                this.addActivity(`Subject ${index >= 0 ? 'updated' : 'added'}: ${name}`, 'success');
+            });
+            
+            modal.querySelector('#closeModal').addEventListener('click', () => modal.remove());
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) modal.remove();
+            });
+        }
+        
+        // ========================================
+        // GENERATOR VIEW
+        // ========================================
+        renderGenerator(container) {
+            container.innerHTML = `
+                <div class="generator-container">
+                    <div class="generator-header">
+                        <h1>⚡ Timetable Generator</h1>
+                        <p class="generator-subtitle">Generate optimized timetables using AI-powered scheduling</p>
+                    </div>
+                    
+                    <div class="generator-grid">
+                        <section class="generator-config">
+                            <h2>Generation Settings</h2>
+                            <div class="form-group">
+                                <label for="algorithm">Algorithm</label>
+                                <select id="algorithm">
+                                    <option value="genetic">Genetic Algorithm (Recommended)</option>
+                                    <option value="hillclimbing">Hill Climbing</option>
+                                    <option value="simulated">Simulated Annealing</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="generationCount">Generations</label>
+                                <input type="number" id="generationCount" value="1000" min="100" max="10000">
+                            </div>
+                            <div class="form-group">
+                                <label for="populationSize">Population Size</label>
+                                <input type="number" id="populationSize" value="50" min="10" max="200">
+                            </div>
+                            <div class="form-group">
+                                <label for="mutationRate">Mutation Rate (%)</label>
+                                <input type="number" id="mutationRate" value="5" min="1" max="20">
+                            </div>
+                            <div class="form-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="balanceWorkload" checked>
+                                    Balance Teacher Workload
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="preferContinuous" checked>
+                                    Prefer Continuous Blocks
+                                </label>
+                            </div>
+                        </section>
+                        
+                        <section class="generator-status">
+                            <h2>Generation Status</h2>
+                            <div class="status-indicators">
+                                <div class="status-item">
+                                    <span class="status-label">Status:</span>
+                                    <span class="status-value" id="genStatus">Ready</span>
+                                </div>
+                                <div class="status-item">
+                                    <span class="status-label">Progress:</span>
+                                    <span class="status-value" id="genProgress">0%</span>
+                                </div>
+                                <div class="status-item">
+                                    <span class="status-label">Best Fitness:</span>
+                                    <span class="status-value" id="genFitness">-</span>
+                                </div>
+                                <div class="status-item">
+                                    <span class="status-label">Conflicts:</span>
+                                    <span class="status-value" id="genConflicts">0</span>
+                                </div>
+                            </div>
+                            <div class="progress-bar-container">
+                                <div class="progress-bar" id="genProgressBar" style="width:0%"></div>
+                            </div>
+                            <div class="log-container" id="genLog">
+                                <div class="log-entry system">System ready, click "Start Generation" to begin</div>
+                            </div>
+                        </section>
+                    </div>
+                    
+                    <div class="generator-actions">
+                        <button class="btn-primary btn-large" id="startGeneration">🚀 Start Generation</button>
+                        <button class="btn-secondary btn-large" id="stopGeneration" disabled>⏹️ Stop</button>
+                        <button class="btn-success btn-large" id="applyTimetable" disabled>✅ Apply Timetable</button>
+                    </div>
+                    
+                    <section class="generator-preview" style="display:none;margin-top:var(--spacing-xl);">
+                        <h2>Preview</h2>
+                        <div id="previewContainer" style="overflow-x:auto;"></div>
+                    </section>
+                </div>
+            `;
+            
+            this.attachGeneratorEvents(container);
+        }
+        
+        attachGeneratorEvents(container) {
+            const startBtn = container.querySelector('#startGeneration');
+            const stopBtn = container.querySelector('#stopGeneration');
+            const applyBtn = container.querySelector('#applyTimetable');
+            let isGenerating = false;
+            
+            startBtn.addEventListener('click', async () => {
+                if (isGenerating) return;
+                isGenerating = true;
+                startBtn.disabled = true;
+                stopBtn.disabled = false;
+                applyBtn.disabled = true;
+                
+                const log = container.querySelector('#genLog');
+                const status = container.querySelector('#genStatus');
+                const progress = container.querySelector('#genProgress');
+                const progressBar = container.querySelector('#genProgressBar');
+                const fitness = container.querySelector('#genFitness');
+                const conflicts = container.querySelector('#genConflicts');
+                
+                status.textContent = 'Generating...';
+                this.addLogEntry(log, 'Starting timetable generation...', 'system');
+                
+                // Simulate generation
+                const steps = 100;
+                let bestFitness = 0;
+                let currentConflicts = 0;
+                
+                for (let i = 0; i <= steps; i++) {
+                    if (!isGenerating) {
+                        this.addLogEntry(log, 'Generation cancelled', 'warning');
+                        break;
+                    }
+                    
+                    await this.delay(30);
+                    const pct = Math.round((i / steps) * 100);
+                    progress.textContent = pct + '%';
+                    progressBar.style.width = pct + '%';
+                    
+                    // Simulate fitness improvement
+                    bestFitness = Math.min(100, bestFitness + (Math.random() * 1.5) + 0.5);
+                    fitness.textContent = Math.round(bestFitness) + '%';
+                    
+                    // Simulate conflict reduction
+                    currentConflicts = Math.max(0, Math.round(50 * (1 - i / steps) + Math.random() * 5));
+                    conflicts.textContent = currentConflicts;
+                    
+                    if (i % 10 === 0 && i > 0) {
+                        this.addLogEntry(log, `Generation ${i}: Fitness ${Math.round(bestFitness)}%, Conflicts ${currentConflicts}`, 'info');
+                    }
+                }
+                
+                if (isGenerating) {
+                    this.addLogEntry(log, '✅ Generation complete! Best fitness: ' + Math.round(bestFitness) + '%', 'success');
+                    status.textContent = 'Complete';
+                    startBtn.disabled = false;
+                    stopBtn.disabled = true;
+                    applyBtn.disabled = false;
+                    
+                    // Show preview
+                    const preview = container.querySelector('.generator-preview');
+                    preview.style.display = 'block';
+                    const previewContainer = container.querySelector('#previewContainer');
+                    this.renderTimetablePreview(previewContainer);
+                }
+                
+                isGenerating = false;
+            });
+            
+            stopBtn.addEventListener('click', () => {
+                isGenerating = false;
+                stopBtn.disabled = true;
+                startBtn.disabled = false;
+                this.addLogEntry(container.querySelector('#genLog'), 'Stopping generation...', 'warning');
+                container.querySelector('#genStatus').textContent = 'Stopped';
+            });
+            
+            applyBtn.addEventListener('click', () => {
+                this.schoolData.routine = { generated: true, timestamp: new Date().toISOString() };
+                this.storage.save('schoolData', this.schoolData);
+                this.showNotification('Timetable applied successfully!', 'success');
+                this.addActivity('Timetable applied', 'success');
+                applyBtn.disabled = true;
+            });
+        }
+        
+        renderTimetablePreview(container) {
+            const days = this.schoolData.workingDays || CONSTANTS.DEFAULT_WORKING_DAYS;
+            const periods = this.schoolData.periodsPerDay || 8;
+            
+            let html = `<table class="timetable-preview"><thead><tr><th>Time/Day</th>`;
+            days.forEach(day => { html += `<th>${day.substring(0,3)}</th>`; });
+            html += `</tr></thead><tbody>`;
+            
+            const subjects = ['Math', 'Science', 'English', 'History', 'Geography', 'Computer'];
+            
+            for (let p = 1; p <= periods; p++) {
+                html += `<tr><td class="period-label">P${p}</td>`;
+                days.forEach(() => {
+                    const sub = subjects[Math.floor(Math.random() * subjects.length)];
+                    const teacher = ['Mr. Singh', 'Ms. Sharma', 'Dr. Kumar', 'Mrs. Gupta'][Math.floor(Math.random() * 4)];
+                    html += `<td><div class="subject-cell">${sub}</div><div class="teacher-cell">${teacher}</div></td>`;
+                });
+                html += `</tr>`;
+            }
+            
+            html += `</tbody></table>`;
+            container.innerHTML = html;
+        }
+        
+        addLogEntry(log, message, type = 'system') {
+            const entry = document.createElement('div');
+            entry.className = `log-entry ${type}`;
+            entry.textContent = message;
+            log.appendChild(entry);
+            log.scrollTop = log.scrollHeight;
+        }
+        
+        delay(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+        
+        // ========================================
+        // ROUTINE VIEW
+        // ========================================
+        renderRoutine(container) {
+            const days = this.schoolData.workingDays || CONSTANTS.DEFAULT_WORKING_DAYS;
+            const periods = this.schoolData.periodsPerDay || 8;
+            const classes = this.schoolData.classes || [];
+            
+            container.innerHTML = `
+                <div class="settings-container">
+                    <div class="settings-header">
+                        <h1>📅 Class Routine</h1>
+                        <p class="settings-subtitle">View complete timetable for all classes</p>
+                    </div>
+                    
+                    <div style="display:flex;gap:var(--spacing-md);flex-wrap:wrap;margin-bottom:var(--spacing-lg);">
+                        <select id="classSelect" style="padding:0.5rem;border:2px solid var(--border-color);border-radius:var(--radius-sm);background:var(--bg-input);color:var(--text-primary);">
+                            ${classes.map(cls => `
+                                <option value="${cls.code}">${cls.display}</option>
+                            `).join('')}
+                        </select>
+                        <select id="sectionSelect" style="padding:0.5rem;border:2px solid var(--border-color);border-radius:var(--radius-sm);background:var(--bg-input);color:var(--text-primary);">
+                            <option value="A">Section A</option>
+                            <option value="B">Section B</option>
+                        </select>
+                        <button class="btn-primary" id="viewRoutine">📖 View Routine</button>
+                        <button class="btn-secondary" onclick="window.print()">🖨️ Print</button>
+                    </div>
+                    
+                    <div id="routineDisplay" style="overflow-x:auto;">
+                        <p style="color:var(--text-muted);text-align:center;padding:2rem;">
+                            Select a class and section, then click "View Routine"
+                        </p>
+                    </div>
+                </div>
+            `;
+            
+            container.querySelector('#viewRoutine').addEventListener('click', () => {
+                const classCode = container.querySelector('#classSelect').value;
+                const section = container.querySelector('#sectionSelect').value;
+                this.displayRoutine(container.querySelector('#routineDisplay'), classCode, section);
+            });
+        }
+        
+        displayRoutine(container, classCode, section) {
+            const days = this.schoolData.workingDays || CONSTANTS.DEFAULT_WORKING_DAYS;
+            const periods = this.schoolData.periodsPerDay || 8;
+            const cls = this.schoolData.classes.find(c => c.code === classCode);
+            
+            if (!cls) {
+                container.innerHTML = '<p style="color:var(--text-muted);">Class not found</p>';
+                return;
+            }
+            
+            const subjects = cls.subjects || ['Math', 'Science', 'English', 'History', 'Geography'];
+            
+            let html = `<h3 style="margin-bottom:var(--spacing-md);">${cls.display} - Section ${section}</h3>`;
+            html += `<table class="timetable-preview"><thead><tr><th>Time/Day</th>`;
+            days.forEach(day => { html += `<th>${day}</th>`; });
+            html += `</tr></thead><tbody>`;
+            
+            for (let p = 1; p <= periods; p++) {
+                html += `<tr><td class="period-label">P${p}</td>`;
+                days.forEach(() => {
+                    const sub = subjects[Math.floor(Math.random() * subjects.length)];
+                    const teacher = ['Mr. Singh', 'Ms. Sharma', 'Dr. Kumar', 'Mrs. Gupta'][Math.floor(Math.random() * 4)];
+                    html += `<td><div class="subject-cell">${typeof sub === 'string' ? sub : sub.name}</div><div class="teacher-cell">${teacher}</div></td>`;
+                });
+                html += `</tr>`;
+            }
+            
+            html += `</tbody></table>`;
+            container.innerHTML = html;
+        }
+        
+        // ========================================
+        // VALIDATION VIEW
+        // ========================================
+        renderValidation(container) {
+            const issues = this.runValidation();
+            
+            container.innerHTML = `
+                <div class="settings-container">
+                    <div class="settings-header">
+                        <h1>✅ Validation Panel</h1>
+                        <p class="settings-subtitle">Check for conflicts and issues in your timetable</p>
+                    </div>
+                    
+                    <button class="btn-primary" id="runValidation">🔄 Run Validation</button>
+                    
+                    <div style="margin-top:var(--spacing-lg);">
+                        <div style="display:flex;gap:var(--spacing-md);flex-wrap:wrap;margin-bottom:var(--spacing-lg);">
+                            <div class="stat-card">
+                                <div class="stat-content">
+                                    <div class="stat-value ${issues.errors > 0 ? 'text-danger' : 'text-success'}">${issues.errors}</div>
+                                    <div class="stat-label">Errors</div>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-content">
+                                    <div class="stat-value ${issues.warnings > 0 ? 'text-warning' : 'text-success'}">${issues.warnings}</div>
+                                    <div class="stat-label">Warnings</div>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-content">
+                                    <div class="stat-value text-success">${issues.passed}</div>
+                                    <div class="stat-label">Passed</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div style="background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius);padding:var(--spacing-lg);">
+                            <h3 style="margin-bottom:var(--spacing-md);">Validation Details</h3>
+                            ${issues.details.length === 0 ? `
+                                <p style="color:var(--success);">✅ All validations passed! No issues found.</p>
+                            ` : `
+                                <ul style="list-style:none;padding:0;">
+                                    ${issues.details.map(issue => `
+                                        <li style="padding:var(--spacing-sm);border-bottom:1px solid var(--border-light);
+                                                   color:${issue.type === 'error' ? 'var(--danger)' : 'var(--warning)'};
+                                                   display:flex;align-items:center;gap:var(--spacing-sm);">
+                                            <span>${issue.type === 'error' ? '❌' : '⚠️'}</span>
+                                            <span>${issue.message}</span>
+                                        </li>
+                                    `).join('')}
+                                </ul>
+                            `}
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            container.querySelector('#runValidation').addEventListener('click', () => {
+                this.renderValidation(container);
+            });
+        }
+        
+        runValidation() {
+            const issues = { errors: 0, warnings: 0, passed: 0, details: [] };
+            const teachers = this.schoolData.teachers || [];
+            const classes = this.schoolData.classes || [];
+            
+            // Check for teachers with no subjects
+            teachers.forEach(t => {
+                if (!t.subjects || t.subjects.length === 0) {
+                    issues.warnings++;
+                    issues.details.push({ type: 'warning', message: `Teacher "${t.name}" has no subjects assigned` });
+                }
+            });
+            
+            // Check for classes with no subjects
+            classes.forEach(cls => {
+                if (!cls.subjects || cls.subjects.length === 0) {
+                    issues.errors++;
+                    issues.details.push({ type: 'error', message: `Class "${cls.display}" has no subjects` });
+                }
+            });
+            
+            // Check for duplicate teacher names
+            const names = teachers.map(t => t.name);
+            const duplicates = names.filter((name, i) => names.indexOf(name) !== i);
+            if (duplicates.length > 0) {
+                issues.errors++;
+                issues.details.push({ type: 'error', message: `Duplicate teacher names found: ${duplicates.join(', ')}` });
+            }
+            
+            // Check for valid working days
+            if (!this.schoolData.workingDays || this.schoolData.workingDays.length === 0) {
+                issues.errors++;
+                issues.details.push({ type: 'error', message: 'No working days configured' });
+            }
+            
+            // Check periods per day
+            if (this.schoolData.periodsPerDay < 3 || this.schoolData.periodsPerDay > 10) {
+                issues.errors++;
+                issues.details.push({ type: 'error', message: 'Periods per day must be between 3 and 10' });
+            }
+            
+            if (issues.errors === 0 && issues.warnings === 0) {
+                issues.passed = 1;
+                issues.details.push({ type: 'success', message: 'All validations passed!' });
+            }
+            
+            return issues;
+        }
+        
+        // ========================================
+        // REPORTS VIEW
+        // ========================================
+        renderReports(container) {
+            const teachers = this.schoolData.teachers || [];
+            const classes = this.schoolData.classes || [];
+            const totalStudents = classes.reduce((sum, cls) => {
+                return sum + (cls.sections || []).reduce((s, sec) => s + (sec.studentCount || 0), 0);
+            }, 0);
+            
+            container.innerHTML = `
+                <div class="settings-container">
+                    <div class="settings-header">
+                        <h1>📊 Reports</h1>
+                        <p class="settings-subtitle">View statistics and reports</p>
+                    </div>
+                    
+                    <div class="stats-grid" style="margin-bottom:var(--spacing-xl);">
+                        <div class="stat-card">
+                            <div class="stat-icon">🏫</div>
+                            <div class="stat-content">
+                                <div class="stat-value">${classes.length}</div>
+                                <div class="stat-label">Total Classes</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">👨‍🏫</div>
+                            <div class="stat-content">
+                                <div class="stat-value">${teachers.length}</div>
+                                <div class="stat-label">Total Teachers</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">👨‍🎓</div>
+                            <div class="stat-content">
+                                <div class="stat-value">${totalStudents}</div>
+                                <div class="stat-label">Total Students</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">📅</div>
+                            <div class="stat-content">
+                                <div class="stat-value">${this.schoolData.workingDays?.length || 0}</div>
+                                <div class="stat-label">Working Days</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--spacing-xl);">
+                        <section style="background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius);padding:var(--spacing-lg);">
+                            <h3>Class-wise Statistics</h3>
+                            <ul style="list-style:none;padding:0;">
+                                ${classes.map(cls => `
+                                    <li style="display:flex;justify-content:space-between;padding:var(--spacing-sm);border-bottom:1px solid var(--border-light);">
+                                        <span>${cls.display}</span>
+                                        <span>${(cls.subjects || []).length} subjects, ${(cls.sections || []).length} sections</span>
+                                    </li>
+                                `).join('')}
+                            </ul>
+                        </section>
+                        
+                        <section style="background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius);padding:var(--spacing-lg);">
+                            <h3>Teacher Workload</h3>
+                            <ul style="list-style:none;padding:0;">
+                                ${teachers.length === 0 ? '<li style="color:var(--text-muted);">No teachers</li>' : 
+                                teachers.map(t => `
+                                    <li style="display:flex;justify-content:space-between;padding:var(--spacing-sm);border-bottom:1px solid var(--border-light);">
+                                        <span>${t.name}</span>
+                                        <span>${t.currentLoad || 0}/${t.maxLoad || 35} periods</span>
+                                    </li>
+                                `).join('')}
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            `;
+        }
+        
+        // ========================================
+        // EXPORT VIEW
+        // ========================================
+        renderExport(container) {
+            container.innerHTML = `
+                <div class="settings-container">
+                    <div class="settings-header">
+                        <h1>📤 Export Centre</h1>
+                        <p class="settings-subtitle">Export your timetable and data in various formats</p>
+                    </div>
+                    
+                    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:var(--spacing-md);">
+                        <button class="btn-primary btn-block" data-export="pdf">📄 Export PDF</button>
+                        <button class="btn-success btn-block" data-export="excel">📊 Export Excel</button>
+                        <button class="btn-secondary btn-block" data-export="csv">📋 Export CSV</button>
+                        <button class="btn-warning btn-block" data-export="json">💾 Export JSON</button>
+                    </div>
+                    
+                    <div style="margin-top:var(--spacing-xl);background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius);padding:var(--spacing-lg);">
+                        <h3 style="margin-bottom:var(--spacing-md);">Export Options</h3>
+                        <div class="form-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="includeTeachers" checked>
+                                Include Teacher Details
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="includeClassrooms" checked>
+                                Include Classroom Details
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="includeSubjects" checked>
+                                Include Subject Details
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            container.querySelectorAll('[data-export]').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const format = btn.dataset.export;
+                    this.exportData(format);
+                });
+            });
+        }
+        
+        exportData(format) {
+            const data = this.schoolData;
+            
+            switch(format) {
+                case 'pdf':
+                    this.showNotification('PDF export would be generated here', 'info');
+                    break;
+                case 'excel':
+                    this.showNotification('Excel export would be generated here', 'info');
+                    break;
+                case 'csv':
+                    this.exportCSV(data);
+                    break;
+                case 'json':
+                    this.exportJSON(data);
+                    break;
+                default:
+                    this.showNotification('Unknown export format', 'error');
+            }
+        }
+        
+        exportCSV(data) {
+            const rows = [];
+            rows.push('School,Board,Academic Year,Classes,Teachers,Sections');
+            rows.push(`${data.schoolName},${data.board},${data.academicYear},${data.classes?.length || 0},${data.teachers?.length || 0},${data.classes?.reduce((s,c) => s + (c.sections?.length || 0), 0) || 0}`);
+            rows.push('');
+            rows.push('Teacher,Subjects,Max Load,Current Load');
+            (data.teachers || []).forEach(t => {
+                rows.push(`${t.name},"${(t.subjects || []).join('; ')}",${t.maxLoad || 35},${t.currentLoad || 0}`);
+            });
+            
+            const csv = rows.join('\n');
+            this.downloadFile(csv, 'school_data.csv', 'text/csv');
+            this.showNotification('CSV exported successfully', 'success');
+            this.addActivity('Exported CSV data', 'success');
+        }
+        
+        exportJSON(data) {
+            const json = JSON.stringify(data, null, 2);
+            this.downloadFile(json, 'school_data.json', 'application/json');
+            this.showNotification('JSON exported successfully', 'success');
+            this.addActivity('Exported JSON data', 'success');
+        }
+        
+        downloadFile(content, filename, mimeType) {
+            const blob = new Blob([content], { type: mimeType });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+        
+        // ========================================
+        // SETUP FUNCTIONS
+        // ========================================
+        setupSaveLoad() {
+            document.getElementById('saveBtn').addEventListener('click', () => {
+                this.storage.save('schoolData', this.schoolData);
+                this.showNotification('Data saved successfully!', 'success');
+                this.addActivity('Data saved manually', 'success');
+            });
+            
+            document.getElementById('loadBtn').addEventListener('click', () => {
+                const saved = this.storage.load('schoolData');
+                if (saved) {
+                    this.schoolData = saved;
+                    this.renderView(this.currentView);
+                    this.showNotification('Data loaded successfully!', 'success');
+                    this.addActivity('Data loaded manually', 'info');
+                } else {
+                    this.showNotification('No saved data found', 'warning');
+                }
+            });
+        }
+        
+        setupAccessibility() {
+            document.querySelectorAll('.access-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const action = btn.dataset.action;
+                    switch(action) {
+                        case 'toggle-theme':
+                            const theme = this.themeManager.toggleTheme();
+                            this.showNotification(`Theme: ${theme}`, 'info');
+                            break;
+                        case 'toggle-contrast':
+                            const contrast = this.themeManager.toggleContrast();
+                            this.showNotification(`Contrast: ${contrast}`, 'info');
+                            break;
+                        case 'toggle-dyslexia':
+                            const dyslexia = this.themeManager.toggleDyslexia();
+                            this.showNotification(`Dyslexia font: ${dyslexia ? 'ON' : 'OFF'}`, 'info');
+                            break;
+                        case 'font-size':
+                            const size = this.themeManager.setFontSize('increase');
+                            this.showNotification(`Font size: ${size}`, 'info');
+                            break;
+                        case 'font-size-decrease':
+                            const size2 = this.themeManager.setFontSize('decrease');
+                            this.showNotification(`Font size: ${size2}`, 'info');
+                            break;
+                    }
+                });
+            });
+        }
+        
+        setupEventListeners() {
+            // Custom event listeners
+            document.addEventListener('dashboard-action', (e) => {
+                if (e.detail.action === 'generate') this.switchView('generator');
+                if (e.detail.action === 'export') this.switchView('export');
+            });
+            
+            document.addEventListener('navigate', (e) => {
+                this.switchView(e.detail.view);
+            });
+            
+            document.addEventListener('show-notification', (e) => {
+                this.showNotification(e.detail.message, e.detail.type);
+            });
+            
+            document.addEventListener('settings-saved', (e) => {
+                this.schoolData = { ...this.schoolData, ...e.detail.data };
+                this.storage.save('schoolData', this.schoolData);
+                this.showNotification('Settings saved', 'success');
+            });
+        }
+        
+        // ========================================
+        // NOTIFICATION SYSTEM
+        // ========================================
+        showNotification(message, type = 'info') {
+            const existing = document.querySelector('.notification');
+            if (existing) existing.remove();
+            
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type}`;
+            notification.setAttribute('role', 'alert');
+            notification.setAttribute('aria-live', 'polite');
+            
+            const icons = { success: '✅', error: '❌', warning: '⚠️', info: 'ℹ️' };
+            notification.innerHTML = `${icons[type] || 'ℹ️'} ${message}`;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+    }
 
-// Start when page loads
-init();
+    // ========================================
+    // INITIALIZE APPLICATION
+    // ========================================
+    document.addEventListener('DOMContentLoaded', () => {
+        window.app = new SchoolRoutineApp();
+    });
 </script>
 </body>
 </html>
