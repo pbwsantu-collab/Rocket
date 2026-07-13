@@ -3,98 +3,520 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>STACK &amp; LAUNCH — Rocket Assembly Blueprint</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+<title>STACK &amp; LAUNCH</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: Arial, sans-serif; background: #f0ebe3; padding: 12px; }
+
+.titleblock {
+    background: white;
+    border: 2px solid #1a1a1a;
+    padding: 12px 16px;
+    margin-bottom: 16px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.titleblock h1 { font-size: 22px; }
+.titleblock .sub { color: #555; font-size: 13px; }
+.titleblock .meta { display: flex; gap: 16px; font-size: 13px; margin-top: 6px; }
+.titleblock .meta span { color: #888; }
+
+.layout { max-width: 600px; margin: 0 auto; }
+.panel {
+    background: white;
+    border: 2px solid #1a1a1a;
+    padding: 12px;
+    margin-bottom: 16px;
+}
+.panel h2 { font-size: 15px; border-bottom: 2px solid #1a1a1a; padding-bottom: 6px; margin-bottom: 10px; }
+.hint { font-size: 12px; color: #888; font-style: italic; margin-bottom: 10px; }
+
+.part-btn {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 8px 10px;
+    margin-bottom: 4px;
+    background: #f8f5f0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 13px;
+    cursor: pointer;
+}
+.part-btn:active { background: #d5c8bc; }
+.part-btn .name { font-weight: 600; display: block; }
+.part-btn .stats { font-size: 11px; color: #666; }
+
+.actions { display: flex; gap: 8px; margin-bottom: 10px; }
+.actions button {
+    padding: 6px 14px;
+    border: 2px solid #aaa;
+    background: transparent;
+    font-weight: 600;
+    font-size: 12px;
+    cursor: pointer;
+}
+.actions button:active { background: #1a1a1a; color: white; }
+
+.blueprint {
+    min-height: 250px;
+    background: #f8f5f0;
+    border: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+.blueprint svg { width: 100%; height: 250px; }
+.empty { color: #aaa; text-align: center; font-style: italic; }
+
+.stacklist {
+    background: #f8f5f0;
+    border: 1px solid #ddd;
+    padding: 6px;
+    margin-top: 10px;
+    font-size: 12px;
+    min-height: 30px;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px 12px;
+}
+.stat { display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid #eee; font-size: 13px; }
+.stat dt { color: #666; }
+.stat dd { font-weight: 600; }
+
+.warnings {
+    background: #fff8e1;
+    border: 1px solid #f9a825;
+    padding: 6px 8px;
+    margin: 8px 0;
+    font-size: 13px;
+    color: #e65100;
+    min-height: 30px;
+}
+
+.launch-btn {
+    width: 100%;
+    padding: 12px;
+    font-size: 18px;
+    background: #c0392b;
+    color: white;
+    border: 2px solid #c0392b;
+    cursor: pointer;
+    font-weight: 700;
+}
+.launch-btn:active { background: #e74c3c; }
+
+.launch-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+.launch-overlay .status {
+    color: white;
+    font-size: 48px;
+    font-weight: 700;
+}
+.launch-overlay .close-btn {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px 24px;
+    background: transparent;
+    border: 2px solid white;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+[hidden] { display: none !important; }
+</style>
 </head>
 <body>
 
-<header class="titleblock">
-  <div class="titleblock__mark">✦</div>
-  <div class="titleblock__text">
-    <h1>STACK &amp; LAUNCH</h1>
-    <span class="titleblock__sub">Rocket Assembly Blueprint — Build a Vehicle, Read Its Numbers, Send It Up</span>
-  </div>
-  <div class="titleblock__meta">
-    <div><span>DWG NO.</span> SL-001</div>
-    <div><span>SCALE</span> N.T.S.</div>
-    <div id="budgetReadout"><span>BUDGET</span> $0</div>
-  </div>
-</header>
-
-<main class="layout">
-
-  <!-- PALETTE -->
-  <section class="palette" aria-label="Parts catalog">
-    <h2 class="panel-title">Parts Catalog</h2>
-    <div class="palette__hint">Tap a part to add it to the top of your stack.</div>
-    <div id="paletteGroups"></div>
-  </section>
-
-  <!-- BUILD / BLUEPRINT VIEW -->
-  <section class="build" aria-label="Assembly view">
-    <div class="build__header">
-      <h2 class="panel-title">Assembly</h2>
-      <div class="build__actions">
-        <button id="removeTopBtn" class="btn btn--ghost">Remove Top</button>
-        <button id="clearBtn" class="btn btn--ghost">Clear All</button>
-      </div>
-    </div>
-    <div class="blueprint" id="blueprint">
-      <svg id="rocketSvg" viewBox="0 0 420 640" preserveAspectRatio="xMidYMax meet"></svg>
-      <div class="blueprint__empty" id="blueprintEmpty">Your stack is empty.<br>Add an engine to lay the first stage.</div>
-    </div>
-    <div class="stacklist" id="stackList" aria-label="Current stack order"></div>
-  </section>
-
-  <!-- TELEMETRY / STATS -->
-  <section class="telemetry" aria-label="Vehicle telemetry">
-    <h2 class="panel-title">Telemetry</h2>
-    <dl class="stats" id="statsPanel">
-      <div class="stat"><dt>Total Height</dt><dd id="statHeight">0.0 m</dd></div>
-      <div class="stat"><dt>Wet Mass</dt><dd id="statMass">0 kg</dd></div>
-      <div class="stat"><dt>Liftoff Thrust</dt><dd id="statThrust">0 kN</dd></div>
-      <div class="stat"><dt>Thrust/Weight</dt><dd id="statTWR">—</dd></div>
-      <div class="stat"><dt>Δv (est.)</dt><dd id="statDeltaV">0 m/s</dd></div>
-      <div class="stat"><dt>Stages</dt><dd id="statStages">0</dd></div>
-      <div class="stat"><dt>Build Cost</dt><dd id="statCost">$0</dd></div>
-    </dl>
-    <div id="warnings" class="warnings"></div>
-    <button id="launchBtn" class="btn btn--launch">LAUNCH VEHICLE</button>
-    <div class="legend">
-      <div class="legend__title">Reference — Isp fuel families</div>
-      <div class="legend__row"><span class="swatch swatch--kerolox"></span>Kerolox (RP-1 / LOX)</div>
-      <div class="legend__row"><span class="swatch swatch--hydrolox"></span>Hydrolox (LH2 / LOX)</div>
-      <div class="legend__row"><span class="swatch swatch--methalox"></span>Methalox (CH4 / LOX)</div>
-    </div>
-  </section>
-
-</main>
-
-<footer class="footer">
-  Simplified single-axis Tsiolkovsky model for gameplay — not flight software. Part stats loosely inspired by Soyuz, N1, Shuttle, Raptor &amp; Orion reference data.
-</footer>
-
-<!-- LAUNCH OVERLAY -->
-<div id="launchOverlay" class="launch-overlay" hidden>
-  <canvas id="launchCanvas"></canvas>
-  <div class="launch-overlay__hud">
-    <div id="launchStatus" class="launch-overlay__status">T-3</div>
-    <button id="closeLaunchBtn" class="btn btn--ghost" hidden>Back to Assembly</button>
+<div class="titleblock">
+  <h1>🚀 STACK &amp; LAUNCH</h1>
+  <div class="sub">Rocket Assembly Blueprint</div>
+  <div class="meta">
+    <div><span>DWG</span> SL-001</div>
+    <div><span>BUDGET</span> $<span id="budgetDisplay">0</span></div>
   </div>
 </div>
 
-<!-- ======================================== -->
-<!-- SOUND SYSTEM - Audio library             -->
-<!-- ======================================== -->
-<script src="https://unpkg.com/sounds-some-sounds@3.1.1/build/index.js"></script>
+<div class="layout">
 
-<!-- ======================================== -->
-<!-- GAME SCRIPT                             -->
-<!-- ======================================== -->
-<script src="game.js"></script>
+  <div class="panel">
+    <h2>PARTS CATALOG</h2>
+    <div class="hint">Tap a part to add it</div>
+    <div id="paletteGroups"></div>
+  </div>
 
+  <div class="panel">
+    <h2>ASSEMBLY</h2>
+    <div class="actions">
+      <button id="removeBtn">REMOVE TOP</button>
+      <button id="clearBtn">CLEAR ALL</button>
+    </div>
+    <div class="blueprint" id="blueprint">
+      <svg id="rocketSvg" viewBox="0 0 420 400"></svg>
+      <div class="empty" id="emptyMsg">Your stack is empty.<br>Add an engine first.</div>
+    </div>
+    <div class="stacklist" id="stackList">No parts stacked</div>
+  </div>
+
+  <div class="panel">
+    <h2>TELEMETRY</h2>
+    <div class="stats-grid">
+      <div class="stat"><dt>Height</dt><dd id="h">0.0 m</dd></div>
+      <div class="stat"><dt>Mass</dt><dd id="m">0 kg</dd></div>
+      <div class="stat"><dt>Thrust</dt><dd id="t">0 kN</dd></div>
+      <div class="stat"><dt>TWR</dt><dd id="twr">—</dd></div>
+      <div class="stat"><dt>Delta-V</dt><dd id="dv">0 m/s</dd></div>
+      <div class="stat"><dt>Stages</dt><dd id="s">0</dd></div>
+      <div class="stat"><dt>Cost</dt><dd id="c">$0</dd></div>
+    </div>
+    <div class="warnings" id="warnings"></div>
+    <button class="launch-btn" id="launchBtn">🚀 LAUNCH</button>
+  </div>
+
+</div>
+
+<div id="launchOverlay" class="launch-overlay" hidden>
+  <div class="status" id="launchStatus">T-3</div>
+  <button class="close-btn" id="closeLaunchBtn" hidden>Back</button>
+</div>
+
+<script>
+// ========================================
+// GAME DATA
+// ========================================
+
+const PARTS = {
+    'vostok': { name: 'Vostok Capsule', mass: 2460, cost: 500, height: 2.3, type: 'capsule', color: '#8a9ba8' },
+    'soyuz': { name: 'Soyuz Module', mass: 2900, cost: 650, height: 2.2, type: 'capsule', color: '#6d8a7d' },
+    'orion': { name: 'Orion Module', mass: 8900, cost: 1400, height: 3.3, type: 'capsule', color: '#c4b8a8' },
+    'fairing': { name: 'Cargo Fairing', mass: 1700, cost: 350, height: 4.0, type: 'capsule', color: '#b8b0a0' },
+    'rd107': { name: 'RD-107/108', mass: 1200, cost: 900, height: 2.8, type: 'engine', color: '#5a6a7a', thrust: 1000, isp: 320 },
+    'nk33': { name: 'NK-33', mass: 1400, cost: 1050, height: 3.0, type: 'engine', color: '#4a5a6a', thrust: 1638, isp: 331 },
+    'ssme': { name: 'SSME (RS-25)', mass: 3500, cost: 2200, height: 4.3, type: 'engine', color: '#6a7a8a', thrust: 2279, isp: 452 },
+    'raptor': { name: 'Raptor 2', mass: 1600, cost: 1800, height: 3.1, type: 'engine', color: '#8a7a5a', thrust: 2300, isp: 380 }
+};
+
+// ========================================
+// GAME STATE
+// ========================================
+
+let stack = [];
+let totalMass = 0, totalHeight = 0, totalThrust = 0, totalCost = 0, stageCount = 0;
+
+// ========================================
+// DOM REFS
+// ========================================
+
+const $ = id => document.getElementById(id);
+const paletteGroups = $('paletteGroups');
+const rocketSvg = $('rocketSvg');
+const emptyMsg = $('emptyMsg');
+const stackList = $('stackList');
+const h = $('h'), m = $('m'), t = $('t'), twr = $('twr'), dv = $('dv'), s = $('s'), c = $('c');
+const budgetDisplay = $('budgetDisplay');
+const warnings = $('warnings');
+const launchBtn = $('launchBtn');
+const removeBtn = $('removeBtn');
+const clearBtn = $('clearBtn');
+
+// ========================================
+// RENDER PARTS
+// ========================================
+
+function renderParts() {
+    let html = '';
+    const types = {
+        'capsule': 'CAPSULES & PAYLOAD',
+        'engine': 'ENGINES'
+    };
+    
+    // Group by type
+    const grouped = { capsule: [], engine: [] };
+    Object.entries(PARTS).forEach(([id, part]) => {
+        if (grouped[part.type]) grouped[part.type].push({ id, ...part });
+    });
+    
+    Object.entries(grouped).forEach(([type, parts]) => {
+        if (parts.length === 0) return;
+        html += `<div style="margin-bottom:12px;"><strong style="font-size:12px;color:#666;">${types[type]}</strong>`;
+        parts.forEach(p => {
+            let info = `${p.mass.toLocaleString()} kg · $${p.cost}`;
+            if (p.thrust) info += ` · ${p.thrust} kN`;
+            html += `
+                <button class="part-btn" data-id="${p.id}">
+                    <span class="name">${p.name}</span>
+                    <span class="stats">${info}</span>
+                </button>
+            `;
+        });
+        html += '</div>';
+    });
+    
+    paletteGroups.innerHTML = html;
+    
+    // Add click listeners
+    document.querySelectorAll('.part-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            addPart(this.dataset.id);
+        });
+    });
+}
+
+// ========================================
+// GAME FUNCTIONS
+// ========================================
+
+function addPart(id) {
+    const part = PARTS[id];
+    if (!part) return;
+    
+    // First part must be an engine
+    if (stack.length === 0 && part.type !== 'engine') {
+        warnings.textContent = '⚠️ First part must be an engine!';
+        setTimeout(() => { warnings.textContent = ''; }, 3000);
+        return;
+    }
+    
+    stack.push(id);
+    updateAll();
+}
+
+function removeTop() {
+    if (stack.length === 0) {
+        warnings.textContent = '⚠️ Stack is empty!';
+        setTimeout(() => { warnings.textContent = ''; }, 2000);
+        return;
+    }
+    stack.pop();
+    updateAll();
+}
+
+function clearAll() {
+    if (stack.length === 0) return;
+    stack = [];
+    updateAll();
+}
+
+function updateAll() {
+    updateStats();
+    renderBlueprint();
+    updateStackList();
+    updateBudget();
+}
+
+function updateStats() {
+    totalMass = 0;
+    totalHeight = 0;
+    totalThrust = 0;
+    totalCost = 0;
+    stageCount = 0;
+    let hasEngine = false;
+    
+    stack.forEach(id => {
+        const part = PARTS[id];
+        if (!part) return;
+        totalMass += part.mass;
+        totalHeight += part.height;
+        totalCost += part.cost;
+        if (part.thrust) {
+            totalThrust += part.thrust;
+            hasEngine = true;
+            stageCount++;
+        }
+    });
+    
+    h.textContent = totalHeight.toFixed(1) + ' m';
+    m.textContent = totalMass.toLocaleString() + ' kg';
+    t.textContent = totalThrust.toLocaleString() + ' kN';
+    c.textContent = '$' + totalCost.toLocaleString();
+    s.textContent = stageCount;
+    
+    // TWR
+    const weight = totalMass * 9.81 / 1000;
+    if (totalThrust > 0 && totalMass > 0) {
+        twr.textContent = (totalThrust / weight).toFixed(2);
+    } else {
+        twr.textContent = '—';
+    }
+    
+    // Delta-V
+    let maxIsp = 0;
+    stack.forEach(id => {
+        const p = PARTS[id];
+        if (p && p.isp && p.isp > maxIsp) maxIsp = p.isp;
+    });
+    if (maxIsp > 0 && totalMass > 0) {
+        dv.textContent = Math.round(maxIsp * 9.81 * Math.log(1 + totalMass / 10000)) + ' m/s';
+    } else {
+        dv.textContent = '0 m/s';
+    }
+    
+    // Warnings
+    let msg = '';
+    if (stack.length > 0 && !hasEngine) {
+        msg = '⚠️ No engine detected!';
+    } else if (totalThrust > 0 && totalMass > 0) {
+        const twrVal = totalThrust / weight;
+        if (twrVal < 1.0) msg = `⚠️ Low TWR (${twrVal.toFixed(2)}) - May not lift off!`;
+    }
+    warnings.textContent = msg;
+}
+
+function renderBlueprint() {
+    if (stack.length === 0) {
+        emptyMsg.style.display = 'block';
+        rocketSvg.innerHTML = '';
+        return;
+    }
+    emptyMsg.style.display = 'none';
+    
+    const cx = 210;
+    const baseY = 380;
+    let html = '';
+    let currentY = baseY;
+    
+    const totalH = stack.reduce((sum, id) => sum + (PARTS[id] ? PARTS[id].height : 0), 0);
+    const scale = Math.min(350 / Math.max(totalH, 1), 1);
+    
+    stack.forEach((id, idx) => {
+        const part = PARTS[id];
+        if (!part) return;
+        const h = part.height * scale * 18;
+        const w = 36 + (part.type === 'engine' ? 8 : 0);
+        const x = cx - w/2;
+        const y = currentY - h;
+        
+        html += `<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="${part.color}" stroke="#1a1a1a" stroke-width="1.5" rx="2"/>`;
+        
+        if (part.type === 'engine') {
+            html += `<polygon points="${cx-12},${currentY} ${cx},${currentY+8} ${cx+12},${currentY}" fill="#3a3a3a" stroke="#1a1a1a" stroke-width="1"/>`;
+        }
+        if (part.type === 'capsule' && idx === stack.length - 1) {
+            html += `<polygon points="${cx},${y-6} ${cx-w/2},${y} ${cx+w/2},${y}" fill="${part.color}" stroke="#1a1a1a" stroke-width="1.5"/>`;
+        }
+        
+        const label = part.name.length > 12 ? part.name.substring(0, 10) + '…' : part.name;
+        html += `<text x="${cx}" y="${y + h/2 + 3}" font-family="monospace" font-size="8" fill="#1a1a1a" text-anchor="middle">${label}</text>`;
+        currentY = y;
+    });
+    
+    rocketSvg.innerHTML = html;
+}
+
+function updateStackList() {
+    if (stack.length === 0) {
+        stackList.textContent = 'No parts stacked';
+        return;
+    }
+    let text = '';
+    [...stack].reverse().forEach((id, i) => {
+        const part = PARTS[id];
+        if (!part) return;
+        text += `#${stack.length - i} ${part.name}\n`;
+    });
+    stackList.textContent = text;
+}
+
+function updateBudget() {
+    budgetDisplay.textContent = totalCost.toLocaleString();
+}
+
+// ========================================
+// LAUNCH
+// ========================================
+
+function launch() {
+    if (stack.length === 0) {
+        warnings.textContent = '⚠️ Build a rocket first!';
+        setTimeout(() => { warnings.textContent = ''; }, 3000);
+        return;
+    }
+    
+    let hasEngine = false;
+    stack.forEach(id => { if (PARTS[id] && PARTS[id].thrust) hasEngine = true; });
+    if (!hasEngine) {
+        warnings.textContent = '⚠️ No engine on the rocket!';
+        setTimeout(() => { warnings.textContent = ''; }, 3000);
+        return;
+    }
+    
+    const weight = totalMass * 9.81 / 1000;
+    const twrVal = totalThrust / weight;
+    if (twrVal < 1.0) {
+        warnings.textContent = `⚠️ TWR ${twrVal.toFixed(2)} - Not enough thrust!`;
+        setTimeout(() => { warnings.textContent = ''; }, 3000);
+        return;
+    }
+    
+    // Show launch overlay
+    const overlay = $('launchOverlay');
+    overlay.hidden = false;
+    const status = $('launchStatus');
+    const closeBtn = $('closeLaunchBtn');
+    closeBtn.hidden = true;
+    
+    let count = 3;
+    status.textContent = 'T-' + count;
+    
+    const interval = setInterval(() => {
+        count--;
+        if (count > 0) {
+            status.textContent = 'T-' + count;
+        } else if (count === 0) {
+            status.textContent = '🚀 LIFTOFF!';
+        } else {
+            clearInterval(interval);
+            const success = twrVal > 1.5 && Math.random() > 0.3;
+            if (success) {
+                status.textContent = '✅ SUCCESS! 🎉';
+            } else {
+                status.textContent = '💥 EXPLOSION!';
+            }
+            closeBtn.hidden = false;
+        }
+    }, 1000);
+}
+
+function closeLaunch() {
+    $('launchOverlay').hidden = true;
+    $('closeLaunchBtn').hidden = true;
+    $('launchStatus').textContent = 'T-3';
+}
+
+// ========================================
+// INIT
+// ========================================
+
+function init() {
+    renderParts();
+    updateAll();
+    
+    removeBtn.addEventListener('click', removeTop);
+    clearBtn.addEventListener('click', clearAll);
+    launchBtn.addEventListener('click', launch);
+    $('closeLaunchBtn').addEventListener('click', closeLaunch);
+    
+    console.log('🚀 Game loaded! Parts:', Object.keys(PARTS).length);
+    console.log('📦 Stack:', stack);
+}
+
+// Start when page loads
+init();
+</script>
 </body>
 </html>
