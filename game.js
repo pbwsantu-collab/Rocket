@@ -1,4 +1,4 @@
-                 // ========================================
+// ========================================
 // SOUND SYSTEM
 // ========================================
 
@@ -25,7 +25,6 @@ function startAudio() {
 function playSound(type) {
     if (!sss) return;
     if (!sss.state.audioStarted) {
-        // Auto-start on first sound attempt
         sss.startAudio();
     }
     
@@ -48,517 +47,426 @@ function playSound(type) {
 }
 
 // ========================================
-// YOUR EXISTING GAME CODE GOES BELOW
+// GAME DATA
 // ========================================
 
-// ... (your existing game.js code here)    /* ============================================================
-   STACK & LAUNCH — Rocket Assembly Blueprint
-   Simplified single-axis Tsiolkovsky rocket-building game.
-   ============================================================ */
-
-const G0 = 9.81;
-
-/* ---------------- Parts catalog ---------------- */
-/* Stats are loosely inspired by real vehicles (Soyuz, N1, Shuttle,
-   Raptor, Orion) but simplified/rebalanced for gameplay. */
-
-const PARTS = {
-  capsule: [
-    { id: 'vostok', name: 'Vostok Capsule', mass: 2460, cost: 500, h: 46,
-      desc: 'Single-seat spherical descent module.' },
-    { id: 'soyuz',  name: 'Soyuz Descent Module', mass: 2900, cost: 650, h: 50,
-      desc: '3-seat reentry capsule.' },
-    { id: 'orion',  name: 'Orion Crew Module', mass: 8900, cost: 1400, h: 60,
-      desc: 'Deep-space capsule with abort tower.' },
-    { id: 'fairing',name: 'Cargo Fairing', mass: 1700, cost: 350, h: 55,
-      desc: 'Payload shroud for satellites.' }
-  ],
-  engine: [
-    { id: 'rd107',  name: 'RD-107/108', thrust: 1000, isp: 320, mass: 1250, cost: 900,  fuel: 'kerolox', h: 34 },
-    { id: 'nk33',   name: 'NK-33',      thrust: 1638, isp: 331, mass: 1222, cost: 1050, fuel: 'kerolox', h: 32 },
-    { id: 'ssme',   name: 'SSME (RS-25)', thrust: 2279, isp: 452, mass: 3177, cost: 2200, fuel: 'hydrolox', h: 40 },
-    { id: 'raptor', name: 'Raptor 2',   thrust: 2300, isp: 350, mass: 1600, cost: 1300, fuel: 'methalox', h: 30 },
-    { id: 'rd124',  name: 'RD-124 (Upper Stage)', thrust: 30, isp: 340, mass: 65, cost: 400, fuel: 'kerolox', h: 20 }
-  ],
-  nozzle: [
-    { id: 'bell',      name: 'Bell Nozzle',      ispMult: 1.00, thrustMult: 1.00, mass: 60,  cost: 100, h: 16,
-      desc: 'Most efficient — standard on modern rockets.' },
-    { id: 'conical',   name: 'Conical Nozzle',   ispMult: 0.85, thrustMult: 0.92, mass: 40,  cost: 50,  h: 14,
-      desc: 'Simple and cheap, lower performance.' },
-    { id: 'aerospike', name: 'Aerospike Nozzle', ispMult: 1.10, thrustMult: 1.02, mass: 110, cost: 320, h: 18,
-      desc: 'Altitude-compensating, complex to build.' }
-  ],
-  tank: [
-    { id: 'ktank_s', name: 'Kerolox Tank (S)', dry: 800,  fuel: 4000,  cost: 300, propellant: 'kerolox',  h: 60 },
-    { id: 'ktank_l', name: 'Kerolox Tank (L)', dry: 2200, fuel: 12000, cost: 700, propellant: 'kerolox',  h: 110 },
-    { id: 'htank',   name: 'Hydrolox Tank',    dry: 1800, fuel: 6000,  cost: 900, propellant: 'hydrolox', h: 90 },
-    { id: 'mtank',   name: 'Methalox Tank',    dry: 2600, fuel: 15000, cost: 850, propellant: 'methalox', h: 120 }
-  ]
+const PART_CATALOG = {
+    // Capsules & Payload
+    'vostok': { name: 'Vostok Capsule', mass: 2460, cost: 500, height: 2.3, category: 'capsule', color: '#8a9ba8' },
+    'soyuz': { name: 'Soyuz Descent Module', mass: 2900, cost: 650, height: 2.2, category: 'capsule', color: '#6d8a7d' },
+    'orion': { name: 'Orion Crew Module', mass: 8900, cost: 1400, height: 3.3, category: 'capsule', color: '#c4b8a8' },
+    'fairing': { name: 'Cargo Fairing', mass: 1700, cost: 350, height: 4.0, category: 'capsule', color: '#b8b0a0' },
+    
+    // Engines
+    'rd107': { name: 'RD-107/108', mass: 1200, cost: 900, height: 2.8, category: 'engine', color: '#5a6a7a', thrust: 1000, isp: 320, fuel: 'kerolox' },
+    'nk33': { name: 'NK-33', mass: 1400, cost: 1050, height: 3.0, category: 'engine', color: '#4a5a6a', thrust: 1638, isp: 331, fuel: 'kerolox' },
+    'ssme': { name: 'SSME (RS-25)', mass: 3500, cost: 2200, height: 4.3, category: 'engine', color: '#6a7a8a', thrust: 2279, isp: 452, fuel: 'hydrolox' },
+    'raptor': { name: 'Raptor 2', mass: 1600, cost: 1800, height: 3.1, category: 'engine', color: '#8a7a5a', thrust: 2300, isp: 380, fuel: 'methalox' },
 };
 
-const GROUP_LABELS = {
-  capsule: 'Capsules & Payload',
-  engine: 'Engines',
-  nozzle: 'Nozzles',
-  tank: 'Fuel Tanks'
-};
+const STACK = [];
+let totalCost = 0;
+let totalMass = 0;
+let totalHeight = 0;
+let totalThrust = 0;
+let stageCount = 0;
 
-const GROUP_ORDER = ['capsule', 'engine', 'nozzle', 'tank'];
+// ========================================
+// DOM REFERENCES
+// ========================================
 
-/* ---------------- State ---------------- */
-/* stack: array of { category, data }, ordered bottom(0) -> top(last) */
-let stack = [];
+const paletteGroups = document.getElementById('paletteGroups');
+const blueprint = document.getElementById('blueprint');
+const rocketSvg = document.getElementById('rocketSvg');
+const blueprintEmpty = document.getElementById('blueprintEmpty');
+const stackList = document.getElementById('stackList');
+const statHeight = document.getElementById('statHeight');
+const statMass = document.getElementById('statMass');
+const statThrust = document.getElementById('statThrust');
+const statTWR = document.getElementById('statTWR');
+const statDeltaV = document.getElementById('statDeltaV');
+const statStages = document.getElementById('statStages');
+const statCost = document.getElementById('statCost');
+const budgetReadout = document.getElementById('budgetReadout');
+const warnings = document.getElementById('warnings');
+const launchBtn = document.getElementById('launchBtn');
+const removeTopBtn = document.getElementById('removeTopBtn');
+const clearBtn = document.getElementById('clearBtn');
 
-/* ---------------- Palette rendering ---------------- */
-function fuelDot(fuel) {
-  if (!fuel) return '';
-  return `<span class="partcard__fuel fuel--${fuel}"></span>`;
-}
+// ========================================
+// RENDER PALETTE
+// ========================================
 
 function renderPalette() {
-  const root = document.getElementById('paletteGroups');
-  root.innerHTML = '';
-  GROUP_ORDER.forEach(cat => {
-    const wrap = document.createElement('div');
-    wrap.className = 'partgroup';
-    const label = document.createElement('div');
-    label.className = 'partgroup__label';
-    label.textContent = GROUP_LABELS[cat];
-    wrap.appendChild(label);
-
-    PARTS[cat].forEach(part => {
-      const card = document.createElement('div');
-      card.className = 'partcard';
-      card.title = part.desc || '';
-      let spec = '';
-      if (cat === 'capsule') spec = `${part.mass.toLocaleString()} kg · $${part.cost}`;
-      if (cat === 'engine') spec = `${part.thrust} kN · Isp ${part.isp}s · $${part.cost}`;
-      if (cat === 'nozzle') spec = `Isp x${part.ispMult.toFixed(2)} · $${part.cost}`;
-      if (cat === 'tank') spec = `${part.fuel.toLocaleString()} kg fuel · $${part.cost}`;
-
-      card.innerHTML = `
-        <div class="partcard__name">${fuelDot(part.fuel || part.propellant)}${part.name}</div>
-        <div class="partcard__spec">${spec}</div>`;
-      card.addEventListener('click', () => addPart(cat, part));
-      wrap.appendChild(card);
+    const categories = {
+        'capsule': { label: 'Capsules & Payload', parts: [] },
+        'engine': { label: 'Engines', parts: [] }
+    };
+    
+    Object.entries(PART_CATALOG).forEach(([id, part]) => {
+        if (categories[part.category]) {
+            categories[part.category].parts.push({ id, ...part });
+        }
     });
-    root.appendChild(wrap);
-  });
+    
+    let html = '';
+    Object.values(categories).forEach(cat => {
+        if (cat.parts.length === 0) return;
+        html += `<div class="palette-group"><h3 class="palette-group__title">${cat.label}</h3>`;
+        cat.parts.forEach(part => {
+            let details = `${part.mass.toLocaleString()} kg · $${part.cost}`;
+            if (part.thrust) details += ` · ${part.thrust} kN · Isp ${part.isp}s`;
+            html += `
+                <button class="part-btn" data-part-id="${part.id}">
+                    <span class="part-btn__name">${part.name}</span>
+                    <span class="part-btn__stats">${details}</span>
+                </button>
+            `;
+        });
+        html += '</div>';
+    });
+    paletteGroups.innerHTML = html;
+    
+    // Add click listeners to part buttons
+    document.querySelectorAll('.part-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const partId = this.dataset.partId;
+            addPart(partId);
+        });
+    });
 }
 
-/* ---------------- Stack mutation ---------------- */
-function addPart(category, data) {
-  stack.push({ category, data });
-  update();
+// ========================================
+// ADD PART
+// ========================================
+
+function addPart(partId) {
+    // Start audio on first interaction
+    startAudio();
+    
+    const part = PART_CATALOG[partId];
+    if (!part) return;
+    
+    // Check if we have an engine (first part must be an engine)
+    if (STACK.length === 0 && part.category !== 'engine') {
+        showWarning('First part must be an engine!');
+        return;
+    }
+    
+    // Add to stack
+    STACK.push(partId);
+    updateStats();
+    renderBlueprint();
+    renderStackList();
+    updateBudget();
+    
+    // Play sound
+    playSound('part');
 }
-function removeAt(index) {
-  stack.splice(index, 1);
-  update();
-}
+
+// ========================================
+// REMOVE TOP
+// ========================================
+
 function removeTop() {
-  stack.pop();
-  update();
+    if (STACK.length === 0) return;
+    STACK.pop();
+    updateStats();
+    renderBlueprint();
+    renderStackList();
+    updateBudget();
+    playSound('remove');
 }
+
+// ========================================
+// CLEAR ALL
+// ========================================
+
 function clearAll() {
-  stack = [];
-  update();
+    if (STACK.length === 0) return;
+    STACK.length = 0;
+    updateStats();
+    renderBlueprint();
+    renderStackList();
+    updateBudget();
+    playSound('remove');
 }
 
-/* ---------------- Stage parsing ---------------- */
-function parseStages() {
-  const stages = [];
-  let current = null;
-  let payloadMass = 0;
-  let strayTankMass = 0;
+// ========================================
+// UPDATE STATS
+// ========================================
 
-  stack.forEach(item => {
-    if (item.category === 'capsule') {
-      payloadMass += item.data.mass;
-    } else if (item.category === 'engine') {
-      current = { engine: item.data, nozzle: null, tanks: [] };
-      stages.push(current);
-    } else if (item.category === 'nozzle') {
-      if (current && !current.nozzle) current.nozzle = item.data;
-    } else if (item.category === 'tank') {
-      if (current) current.tanks.push(item.data);
-      else strayTankMass += (item.data.dry + item.data.fuel);
-    }
-  });
-
-  return { stages, payloadMass, strayTankMass };
-}
-
-/* ---------------- Physics-lite computation ---------------- */
-function computeStats() {
-  const { stages, payloadMass, strayTankMass } = parseStages();
-  const warnings = [];
-
-  if (strayTankMass > 0) {
-    warnings.push('Fuel tank placed with no engine below it — counted as dead weight.');
-  }
-
-  const stageCalc = stages.map(st => {
-    const fuelMismatch = st.tanks.some(t => t.propellant !== st.engine.fuel);
-    if (fuelMismatch) warnings.push(`${st.engine.name} is burning the wrong propellant — output cut 40%.`);
-    const efficiency = fuelMismatch ? 0.6 : 1.0;
-
-    const nozzleIspMult = st.nozzle ? st.nozzle.ispMult : 0.75;
-    const nozzleThrustMult = st.nozzle ? st.nozzle.thrustMult : 0.9;
-    if (!st.nozzle) warnings.push(`${st.engine.name} has no nozzle attached — losing efficiency.`);
-
-    const tanksDry = st.tanks.reduce((s, t) => s + t.dry, 0);
-    const tanksFuel = st.tanks.reduce((s, t) => s + t.fuel, 0);
-    const nozzleMass = st.nozzle ? st.nozzle.mass : 0;
-
-    const dryMass = st.engine.mass + nozzleMass + tanksDry;
-    const wetMass = dryMass + tanksFuel;
-
-    const ispEff = st.engine.isp * nozzleIspMult * efficiency;
-    const thrustEff = st.engine.thrust * nozzleThrustMult * efficiency;
-    const cost = st.engine.cost + (st.nozzle ? st.nozzle.cost : 0) + st.tanks.reduce((s, t) => s + t.cost, 0);
-    const height = st.engine.h + (st.nozzle ? st.nozzle.h : 0) + st.tanks.reduce((s, t) => s + t.h, 0);
-
-    if (tanksFuel === 0) warnings.push(`${st.engine.name} has no fuel tank — it's dead weight.`);
-
-    return { dryMass, wetMass, ispEff, thrustEff, cost, height, hasFuel: tanksFuel > 0 };
-  });
-
-  // total wet mass (bottom to top): payload + all stage wet masses
-  const totalWetMass = payloadMass + strayTankMass + stageCalc.reduce((s, c) => s + c.wetMass, 0);
-  const totalCost = stageCalc.reduce((s, c) => s + c.cost, 0) +
-    stack.filter(i => i.category === 'capsule').reduce((s, i) => s + i.data.cost, 0);
-  const totalHeight = (stack.filter(i => i.category === 'capsule').reduce((s, i) => s + i.data.h, 0) +
-    stageCalc.reduce((s, c) => s + c.height, 0)) / 20; // scale px-ish stat to meters
-
-  // delta-v: sum from bottom stage (index 0, fires first) upward
-  let deltaV = 0;
-  const perStageDeltaV = [];
-  for (let i = 0; i < stageCalc.length; i++) {
-    let massAbove = payloadMass;
-    for (let j = i + 1; j < stageCalc.length; j++) massAbove += stageCalc[j].wetMass;
-    const c = stageCalc[i];
-    let dv = 0;
-    if (c.hasFuel && c.wetMass > c.dryMass) {
-      dv = c.ispEff * G0 * Math.log((massAbove + c.wetMass) / (massAbove + c.dryMass));
-    }
-    perStageDeltaV.push(dv);
-    deltaV += dv;
-  }
-
-  const liftoffThrustKN = stageCalc.length ? stageCalc[0].thrustEff : 0;
-  const twr = totalWetMass > 0 ? (liftoffThrustKN * 1000) / (totalWetMass * G0) : 0;
-
-  if (stageCalc.length === 0) warnings.push('Add at least one engine to begin your first stage.');
-
-  return {
-    stages: stageCalc, perStageDeltaV, payloadMass, totalWetMass, totalCost,
-    totalHeight, deltaV, twr, liftoffThrustKN, warnings
-  };
-}
-
-/* ---------------- Blueprint SVG rendering ---------------- */
-function renderBlueprint(stats) {
-  const svg = document.getElementById('rocketSvg');
-  const empty = document.getElementById('blueprintEmpty');
-  svg.innerHTML = '';
-
-  if (stack.length === 0) {
-    empty.style.display = 'block';
-    return;
-  }
-  empty.style.display = 'none';
-
-  const W = 420, baseY = 620;
-  const cx = 150;
-  let y = baseY;
-
-  const ns = 'http://www.w3.org/2000/svg';
-  const g = document.createElementNS(ns, 'g');
-
-  function rect(x, yTop, w, h, fill, stroke) {
-    const r = document.createElementNS(ns, 'rect');
-    r.setAttribute('x', x); r.setAttribute('y', yTop);
-    r.setAttribute('width', w); r.setAttribute('height', h);
-    r.setAttribute('fill', fill); r.setAttribute('stroke', stroke || '#6FD6E8');
-    r.setAttribute('stroke-width', '1.2');
-    return r;
-  }
-  function label(text, yMid) {
-    const t = document.createElementNS(ns, 'text');
-    t.setAttribute('x', cx + 60); t.setAttribute('y', yMid + 4);
-    t.setAttribute('fill', '#82A2C6'); t.setAttribute('font-size', '11');
-    t.setAttribute('font-family', 'IBM Plex Mono, monospace');
-    t.textContent = text;
-    const line = document.createElementNS(ns, 'line');
-    line.setAttribute('x1', cx + 40); line.setAttribute('y1', yMid);
-    line.setAttribute('x2', cx + 56); line.setAttribute('y2', yMid);
-    line.setAttribute('stroke', '#23456e');
-    g.appendChild(line);
-    g.appendChild(t);
-  }
-
-  const fuelColor = { kerolox: '#E8C24C', hydrolox: '#6FD6E8', methalox: '#F0793C' };
-
-  stack.forEach(item => {
-    const d = item.data;
-    const h = d.h;
-    const yTop = y - h;
-
-    if (item.category === 'capsule') {
-      const w = 60;
-      const p = document.createElementNS(ns, 'polygon');
-      const points = [
-        [cx - w / 2, y], [cx - w / 2, yTop + 12], [cx, yTop], [cx + w / 2, yTop + 12], [cx + w / 2, y]
-      ].map(p => p.join(',')).join(' ');
-      p.setAttribute('points', points);
-      p.setAttribute('fill', '#123055');
-      p.setAttribute('stroke', '#EAF3FB');
-      p.setAttribute('stroke-width', '1.4');
-      g.appendChild(p);
-      label(d.name, yTop + h / 2);
-    } else if (item.category === 'tank') {
-      const w = 80;
-      g.appendChild(rect(cx - w / 2, yTop, w, h, 'rgba(111,214,232,0.08)', fuelColor[d.propellant] || '#6FD6E8'));
-      label(`${d.name}`, yTop + h / 2);
-    } else if (item.category === 'engine') {
-      const w = 50;
-      g.appendChild(rect(cx - w / 2, yTop, w, h, '#0F2340', '#F0793C'));
-      label(d.name, yTop + h / 2);
-    } else if (item.category === 'nozzle') {
-      const wTop = 44, wBot = 66;
-      const p = document.createElementNS(ns, 'polygon');
-      const points = [
-        [cx - wTop / 2, yTop], [cx + wTop / 2, yTop], [cx + wBot / 2, y], [cx - wBot / 2, y]
-      ].map(p => p.join(',')).join(' ');
-      p.setAttribute('points', points);
-      p.setAttribute('fill', '#0A1930');
-      p.setAttribute('stroke', '#F0793C');
-      p.setAttribute('stroke-width', '1.2');
-      g.appendChild(p);
-      label(d.name, yTop + h / 2);
-    }
-    y = yTop;
-  });
-
-  // overall height dimension line
-  const dimX = cx - 100;
-  const dim = document.createElementNS(ns, 'g');
-  [['line', { x1: dimX, y1: baseY, x2: dimX, y2: y, stroke: '#23456e' }],
-   ['line', { x1: dimX - 5, y1: baseY, x2: dimX + 5, y2: baseY, stroke: '#23456e' }],
-   ['line', { x1: dimX - 5, y1: y, x2: dimX + 5, y2: y, stroke: '#23456e' }]
-  ].forEach(([tag, attrs]) => {
-    const el = document.createElementNS(ns, tag);
-    Object.entries(attrs).forEach(([k, v]) => el.setAttribute(k, v));
-    dim.appendChild(el);
-  });
-  const t = document.createElementNS(ns, 'text');
-  t.setAttribute('x', dimX - 10); t.setAttribute('y', (baseY + y) / 2);
-  t.setAttribute('fill', '#6FD6E8'); t.setAttribute('font-size', '11');
-  t.setAttribute('font-family', 'IBM Plex Mono, monospace');
-  t.setAttribute('text-anchor', 'end');
-  t.textContent = `${stats.totalHeight.toFixed(1)} m`;
-  dim.appendChild(t);
-  g.appendChild(dim);
-
-  svg.setAttribute('viewBox', `0 0 420 ${baseY + 20}`);
-  svg.appendChild(g);
-}
-
-/* ---------------- Stack list rendering ---------------- */
-function renderStackList() {
-  const root = document.getElementById('stackList');
-  root.innerHTML = '';
-  stack.forEach((item, i) => {
-    const row = document.createElement('div');
-    row.className = 'stackitem';
-    row.innerHTML = `<span>${i + 1}. ${item.data.name}</span>`;
-    const btn = document.createElement('button');
-    btn.textContent = '✕';
-    btn.addEventListener('click', () => removeAt(i));
-    row.appendChild(btn);
-    root.appendChild(row);
-  });
-}
-
-/* ---------------- Stats panel rendering ---------------- */
-function renderStats(stats) {
-  document.getElementById('statHeight').textContent = `${stats.totalHeight.toFixed(1)} m`;
-  document.getElementById('statMass').textContent = `${Math.round(stats.totalWetMass).toLocaleString()} kg`;
-  document.getElementById('statThrust').textContent = `${stats.liftoffThrustKN.toFixed(0)} kN`;
-  document.getElementById('statTWR').textContent = stats.twr ? stats.twr.toFixed(2) : '—';
-  document.getElementById('statDeltaV').textContent = `${Math.round(stats.deltaV).toLocaleString()} m/s`;
-  document.getElementById('statStages').textContent = stats.stages.length;
-  document.getElementById('statCost').textContent = `$${Math.round(stats.totalCost).toLocaleString()}`;
-  document.getElementById('budgetReadout').innerHTML = `<span>BUDGET</span> $${Math.round(stats.totalCost).toLocaleString()}`;
-
-  const twrEl = document.getElementById('statTWR');
-  twrEl.style.color = stats.twr >= 1 ? '#6FD6E8' : '#F0793C';
-
-  const warnRoot = document.getElementById('warnings');
-  warnRoot.innerHTML = '';
-  stats.warnings.forEach(w => {
-    const div = document.createElement('div');
-    div.className = 'warning';
-    div.textContent = w;
-    warnRoot.appendChild(div);
-  });
-
-  const launchBtn = document.getElementById('launchBtn');
-  launchBtn.disabled = stats.stages.length === 0;
-}
-
-/* ---------------- Main update loop ---------------- */
-function update() {
-  const stats = computeStats();
-  renderBlueprint(stats);
-  renderStackList();
-  renderStats(stats);
-}
-
-/* ---------------- Launch sequence ---------------- */
-function classifyOutcome(stats) {
-  if (stats.twr < 1) return { key: 'nolift', title: 'FAILURE TO LAUNCH', msg: 'Thrust-to-weight ratio below 1.0 — the vehicle never leaves the pad.' };
-  const effectiveDv = Math.max(0, stats.deltaV - 1500); // gravity + drag loss estimate
-  if (effectiveDv >= 9400) return { key: 'orbit', title: 'ORBIT ACHIEVED', msg: `Effective Δv of ${Math.round(effectiveDv).toLocaleString()} m/s clears the ~9,400 m/s needed for stable low Earth orbit.` };
-  if (effectiveDv >= 4000) return { key: 'suborbital', title: 'SUBORBITAL — NO ORBIT', msg: `Effective Δv of ${Math.round(effectiveDv).toLocaleString()} m/s gets the vehicle up and over, but it falls back before completing an orbit.` };
-  return { key: 'lowarc', title: 'LOW ARC — DID NOT REACH SPACE', msg: `Only ${Math.round(effectiveDv).toLocaleString()} m/s of effective Δv. Add more stages or fuel.` };
-}
-
-function runLaunch() {
-  const stats = computeStats();
-  if (stats.stages.length === 0) return;
-  const outcome = classifyOutcome(stats);
-
-  const overlay = document.getElementById('launchOverlay');
-  const canvas = document.getElementById('launchCanvas');
-  const statusEl = document.getElementById('launchStatus');
-  const closeBtn = document.getElementById('closeLaunchBtn');
-  closeBtn.hidden = true;
-  overlay.hidden = false;
-
-  const ctx = canvas.getContext('2d');
-  function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-  resize();
-  window.addEventListener('resize', resize);
-
-  const stars = Array.from({ length: 140 }, () => ({
-    x: Math.random() * canvas.width, y: Math.random() * canvas.height, r: Math.random() * 1.4
-  }));
-
-  let t = 0;
-  let phase = 'countdown';
-  let countdown = 3;
-  let rocketY = 0;      // 0 = on pad, grows upward
-  let liftFail = outcome.key === 'nolift';
-  const flightSeconds = 6;
-  let flightT = 0;
-
-  let countdownTimer = setInterval(() => {
-    countdown -= 1;
-    if (countdown <= 0) {
-      clearInterval(countdownTimer);
-      phase = 'flight';
-      statusEl.textContent = 'LIFTOFF';
+function updateStats() {
+    totalMass = 0;
+    totalHeight = 0;
+    totalThrust = 0;
+    totalCost = 0;
+    stageCount = 0;
+    let hasEngine = false;
+    
+    STACK.forEach(id => {
+        const part = PART_CATALOG[id];
+        totalMass += part.mass;
+        totalHeight += part.height;
+        totalCost += part.cost;
+        if (part.thrust) {
+            totalThrust += part.thrust;
+            hasEngine = true;
+            stageCount++;
+        }
+    });
+    
+    // Update display
+    statHeight.textContent = totalHeight.toFixed(1) + ' m';
+    statMass.textContent = totalMass.toLocaleString() + ' kg';
+    statThrust.textContent = totalThrust.toLocaleString() + ' kN';
+    statCost.textContent = '$' + totalCost.toLocaleString();
+    statStages.textContent = stageCount;
+    
+    // Calculate TWR
+    const weight = totalMass * 9.81 / 1000; // kN
+    if (totalThrust > 0 && totalMass > 0) {
+        const twr = (totalThrust / weight).toFixed(2);
+        statTWR.textContent = twr;
     } else {
-      statusEl.textContent = `T-${countdown}`;
+        statTWR.textContent = '—';
     }
-  }, 700);
-  statusEl.textContent = `T-${countdown}`;
-
-  function drawRocket(x, y, scale, flame) {
-    ctx.save();
-    ctx.translate(x, y);
-    ctx.scale(scale, scale);
-    // body
-    ctx.fillStyle = '#EAF3FB';
-    ctx.strokeStyle = '#6FD6E8';
-    ctx.lineWidth = 1.5;
-    ctx.beginPath();
-    ctx.moveTo(0, -60);
-    ctx.lineTo(14, -30);
-    ctx.lineTo(14, 40);
-    ctx.lineTo(-14, 40);
-    ctx.lineTo(-14, -30);
-    ctx.closePath();
-    ctx.fill(); ctx.stroke();
-    // fins
-    ctx.fillStyle = '#F0793C';
-    ctx.beginPath();
-    ctx.moveTo(-14, 30); ctx.lineTo(-28, 48); ctx.lineTo(-14, 48); ctx.closePath(); ctx.fill();
-    ctx.beginPath();
-    ctx.moveTo(14, 30); ctx.lineTo(28, 48); ctx.lineTo(14, 48); ctx.closePath(); ctx.fill();
-    if (flame) {
-      const flicker = 20 + Math.random() * 18;
-      const grad = ctx.createLinearGradient(0, 40, 0, 40 + flicker);
-      grad.addColorStop(0, '#F0793C');
-      grad.addColorStop(1, 'rgba(240,121,60,0)');
-      ctx.fillStyle = grad;
-      ctx.beginPath();
-      ctx.moveTo(-10, 40); ctx.lineTo(10, 40); ctx.lineTo(0, 40 + flicker); ctx.closePath();
-      ctx.fill();
-    }
-    ctx.restore();
-  }
-
-  function frame() {
-    t += 1;
-    ctx.fillStyle = '#010812';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = '#EAF3FB';
-    stars.forEach(s => ctx.fillRect(s.x, s.y, s.r, s.r));
-
-    const groundY = canvas.height - 90;
-    ctx.strokeStyle = '#23456e';
-    ctx.beginPath(); ctx.moveTo(0, groundY); ctx.lineTo(canvas.width, groundY); ctx.stroke();
-
-    if (phase === 'countdown') {
-      drawRocket(canvas.width / 2, groundY, 2, false);
-    } else if (phase === 'flight') {
-      flightT += 1 / 60;
-      const progress = Math.min(1, flightT / flightSeconds);
-
-      if (liftFail) {
-        // shake in place, small flame, then fail
-        const shake = Math.sin(t * 2) * (progress < 0.4 ? 4 : 0);
-        drawRocket(canvas.width / 2 + shake, groundY, 2, progress < 0.4);
-        if (progress >= 0.4 && phase !== 'done') {
-          statusEl.textContent = outcome.title;
-          phase = 'done';
-          closeBtn.hidden = false;
+    
+    // Calculate Delta-V (simplified)
+    if (totalThrust > 0 && totalMass > 0) {
+        // Find the engine with highest Isp
+        let maxIsp = 0;
+        STACK.forEach(id => {
+            const part = PART_CATALOG[id];
+            if (part.isp && part.isp > maxIsp) maxIsp = part.isp;
+        });
+        if (maxIsp > 0) {
+            const dv = maxIsp * 9.81 * Math.log(1 + (totalMass / 1000));
+            statDeltaV.textContent = Math.round(dv) + ' m/s';
+        } else {
+            statDeltaV.textContent = '0 m/s';
         }
-      } else {
-        const eased = 1 - Math.pow(1 - progress, 2);
-        const travel = eased * (canvas.height * 1.1);
-        const scale = Math.max(0.4, 2 - eased * 1.3);
-        const y = groundY - travel;
-        drawRocket(canvas.width / 2, y, scale, true);
-
-        if (progress < 1) {
-          statusEl.textContent = `ALTITUDE ${(eased * 400).toFixed(0)} km · Δv burn in progress`;
-        } else if (phase !== 'done') {
-          statusEl.textContent = `${outcome.title}`;
-          phase = 'done';
-          closeBtn.hidden = false;
-        }
-      }
+    } else {
+        statDeltaV.textContent = '0 m/s';
     }
-
-    if (phase !== 'stopped') requestAnimationFrame(frame);
-  }
-  requestAnimationFrame(frame);
-
-  closeBtn.onclick = () => {
-    phase = 'stopped';
-    window.removeEventListener('resize', resize);
-    overlay.hidden = true;
-  };
+    
+    // Check warnings
+    let warningMsg = '';
+    if (STACK.length > 0 && !hasEngine) {
+        warningMsg = '⚠️ No engine detected!';
+    } else if (totalThrust > 0 && totalMass > 0) {
+        const twr = totalThrust / (totalMass * 9.81 / 1000);
+        if (twr < 1.0) {
+            warningMsg = `⚠️ Low TWR (${twr.toFixed(2)}) - Rocket may not lift off!`;
+        } else if (twr < 1.2) {
+            warningMsg = `⚠️ TWR ${twr.toFixed(2)} - Minimal thrust-to-weight ratio`;
+        }
+    }
+    warnings.textContent = warningMsg;
 }
 
-/* ---------------- Init ---------------- */
-document.addEventListener('DOMContentLoaded', () => {
-  renderPalette();
-  update();
-  document.getElementById('removeTopBtn').addEventListener('click', removeTop);
-  document.getElementById('clearBtn').addEventListener('click', clearAll);
-  document.getElementById('launchBtn').addEventListener('click', runLaunch);
-});
+// ========================================
+// RENDER BLUEPRINT
+// ========================================
+
+function renderBlueprint() {
+    if (STACK.length === 0) {
+        blueprintEmpty.style.display = 'block';
+        rocketSvg.innerHTML = '';
+        return;
+    }
+    blueprintEmpty.style.display = 'none';
+    
+    const svgWidth = 420;
+    const svgHeight = 640;
+    const maxStackHeight = 580;
+    const baseY = 620;
+    const centerX = svgWidth / 2;
+    
+    let html = '';
+    let currentY = baseY;
+    const totalStackHeight = STACK.reduce((sum, id) => sum + PART_CATALOG[id].height, 0);
+    const scale = Math.min(maxStackHeight / totalStackHeight, 1);
+    
+    STACK.forEach((id, index) => {
+        const part = PART_CATALOG[id];
+        const height = part.height * scale * 20;
+        const width = 40 + (part.category === 'engine' ? 10 : 0);
+        const x = centerX - width/2;
+        const y = currentY - height;
+        const isEngine = part.category === 'engine';
+        
+        // Body
+        html += `<rect x="${x}" y="${y}" width="${width}" height="${height}" 
+                      fill="${part.color}" stroke="#1a1a1a" stroke-width="1.5" rx="2"/>`;
+        
+        // Engine nozzle (if engine)
+        if (isEngine) {
+            const nozzleWidth = 30;
+            const nozzleX = centerX - nozzleWidth/2;
+            html += `<polygon points="${nozzleX},${currentY} ${centerX},${currentY + 10} ${centerX + nozzleWidth/2},${currentY}" 
+                          fill="#3a3a3a" stroke="#1a1a1a" stroke-width="1"/>`;
+        }
+        
+        // Capsule shape (if capsule)
+        if (part.category === 'capsule' && index === STACK.length - 1) {
+            // Nose cone
+            html += `<polygon points="${centerX},${y - 8} ${centerX - width/2},${y} ${centerX + width/2},${y}" 
+                          fill="${part.color}" stroke="#1a1a1a" stroke-width="1.5"/>`;
+        }
+        
+        // Part label
+        const label = part.name.length > 15 ? part.name.substring(0, 12) + '…' : part.name;
+        html += `<text x="${centerX}" y="${y + height/2 + 4}" 
+                      font-family="IBM Plex Mono, monospace" font-size="9" 
+                      fill="#1a1a1a" text-anchor="middle" font-weight="500">${label}</text>`;
+        
+        currentY = y;
+    });
+    
+    rocketSvg.innerHTML = html;
+}
+
+// ========================================
+// RENDER STACK LIST
+// ========================================
+
+function renderStackList() {
+    if (STACK.length === 0) {
+        stackList.innerHTML = '<span style="color:#888; font-style:italic;">No parts stacked</span>';
+        return;
+    }
+    
+    let html = '';
+    STACK.forEach((id, index) => {
+        const part = PART_CATALOG[id];
+        const num = STACK.length - index;
+        html += `<div class="stack-item"><span class="stack-item__num">#${num}</span> ${part.name}</div>`;
+    });
+    stackList.innerHTML = html;
+}
+
+// ========================================
+// UPDATE BUDGET
+// ========================================
+
+function updateBudget() {
+    budgetReadout.innerHTML = `<span>BUDGET</span> $${totalCost.toLocaleString()}`;
+}
+
+// ========================================
+// SHOW WARNING
+// ========================================
+
+function showWarning(msg) {
+    warnings.textContent = '⚠️ ' + msg;
+    playSound('error');
+    setTimeout(() => {
+        warnings.textContent = '';
+    }, 3000);
+}
+
+// ========================================
+// LAUNCH
+// ========================================
+
+function launch() {
+    // Start audio
+    startAudio();
+    
+    if (STACK.length === 0) {
+        showWarning('Build a rocket first!');
+        return;
+    }
+    
+    // Check if rocket can launch
+    let hasEngine = false;
+    STACK.forEach(id => {
+        if (PART_CATALOG[id].thrust) hasEngine = true;
+    });
+    
+    if (!hasEngine) {
+        showWarning('No engine on the rocket!');
+        return;
+    }
+    
+    // Calculate TWR
+    const weight = totalMass * 9.81 / 1000;
+    const twr = totalThrust / weight;
+    
+    if (twr < 1.0) {
+        showWarning(`TWR ${twr.toFixed(2)} - Not enough thrust!`);
+        playSound('error');
+        return;
+    }
+    
+    // Play launch sound
+    playSound('launch');
+    
+    // Show launch overlay
+    const overlay = document.getElementById('launchOverlay');
+    overlay.hidden = false;
+    const status = document.getElementById('launchStatus');
+    
+    // Simple countdown
+    let count = 3;
+    status.textContent = 'T-' + count;
+    
+    const interval = setInterval(() => {
+        count--;
+        if (count > 0) {
+            status.textContent = 'T-' + count;
+        } else if (count === 0) {
+            status.textContent = '🚀 LIFTOFF!';
+            playSound('success');
+        } else {
+            clearInterval(interval);
+            const success = twr > 1.5 && Math.random() > 0.3;
+            if (success) {
+                status.textContent = '✅ SUCCESS! 🎉';
+                playSound('success');
+            } else {
+                status.textContent = '💥 EXPLOSION!';
+                playSound('explosion');
+            }
+            document.getElementById('closeLaunchBtn').hidden = false;
+        }
+    }, 1000);
+}
+
+// ========================================
+// CLOSE LAUNCH OVERLAY
+// ========================================
+
+function closeLaunch() {
+    document.getElementById('launchOverlay').hidden = true;
+    document.getElementById('closeLaunchBtn').hidden = true;
+    document.getElementById('launchStatus').textContent = 'T-3';
+}
+
+// ========================================
+// INITIALIZE
+// ========================================
+
+function init() {
+    // Initialize sound
+    initSound();
+    
+    // Render UI
+    renderPalette();
+    updateStats();
+    renderBlueprint();
+    renderStackList();
+    updateBudget();
+    
+    // Event listeners
+    removeTopBtn.addEventListener('click', removeTop);
+    clearBtn.addEventListener('click', clearAll);
+    launchBtn.addEventListener('click', launch);
+    document.getElementById('closeLaunchBtn').addEventListener('click', closeLaunch);
+    
+    console.log('🚀 STACK & LAUNCH ready!');
+}
+
+// Start the game when DOM is loaded
+document.addEventListener('DOMContentLoaded', init);
