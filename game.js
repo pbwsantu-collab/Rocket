@@ -47,21 +47,89 @@ function playSound(type) {
 }
 
 // ========================================
-// GAME DATA
+// GAME DATA - FIXED PARTS CATALOG
 // ========================================
 
 const PART_CATALOG = {
     // Capsules & Payload
-    'vostok': { name: 'Vostok Capsule', mass: 2460, cost: 500, height: 2.3, category: 'capsule', color: '#8a9ba8' },
-    'soyuz': { name: 'Soyuz Descent Module', mass: 2900, cost: 650, height: 2.2, category: 'capsule', color: '#6d8a7d' },
-    'orion': { name: 'Orion Crew Module', mass: 8900, cost: 1400, height: 3.3, category: 'capsule', color: '#c4b8a8' },
-    'fairing': { name: 'Cargo Fairing', mass: 1700, cost: 350, height: 4.0, category: 'capsule', color: '#b8b0a0' },
+    'vostok': { 
+        name: 'Vostok Capsule', 
+        mass: 2460, 
+        cost: 500, 
+        height: 2.3, 
+        category: 'capsule', 
+        color: '#8a9ba8' 
+    },
+    'soyuz': { 
+        name: 'Soyuz Descent Module', 
+        mass: 2900, 
+        cost: 650, 
+        height: 2.2, 
+        category: 'capsule', 
+        color: '#6d8a7d' 
+    },
+    'orion': { 
+        name: 'Orion Crew Module', 
+        mass: 8900, 
+        cost: 1400, 
+        height: 3.3, 
+        category: 'capsule', 
+        color: '#c4b8a8' 
+    },
+    'fairing': { 
+        name: 'Cargo Fairing', 
+        mass: 1700, 
+        cost: 350, 
+        height: 4.0, 
+        category: 'capsule', 
+        color: '#b8b0a0' 
+    },
     
     // Engines
-    'rd107': { name: 'RD-107/108', mass: 1200, cost: 900, height: 2.8, category: 'engine', color: '#5a6a7a', thrust: 1000, isp: 320, fuel: 'kerolox' },
-    'nk33': { name: 'NK-33', mass: 1400, cost: 1050, height: 3.0, category: 'engine', color: '#4a5a6a', thrust: 1638, isp: 331, fuel: 'kerolox' },
-    'ssme': { name: 'SSME (RS-25)', mass: 3500, cost: 2200, height: 4.3, category: 'engine', color: '#6a7a8a', thrust: 2279, isp: 452, fuel: 'hydrolox' },
-    'raptor': { name: 'Raptor 2', mass: 1600, cost: 1800, height: 3.1, category: 'engine', color: '#8a7a5a', thrust: 2300, isp: 380, fuel: 'methalox' },
+    'rd107': { 
+        name: 'RD-107/108', 
+        mass: 1200, 
+        cost: 900, 
+        height: 2.8, 
+        category: 'engine', 
+        color: '#5a6a7a', 
+        thrust: 1000, 
+        isp: 320, 
+        fuel: 'kerolox' 
+    },
+    'nk33': { 
+        name: 'NK-33', 
+        mass: 1400, 
+        cost: 1050, 
+        height: 3.0, 
+        category: 'engine', 
+        color: '#4a5a6a', 
+        thrust: 1638, 
+        isp: 331, 
+        fuel: 'kerolox' 
+    },
+    'ssme': { 
+        name: 'SSME (RS-25)', 
+        mass: 3500, 
+        cost: 2200, 
+        height: 4.3, 
+        category: 'engine', 
+        color: '#6a7a8a', 
+        thrust: 2279, 
+        isp: 452, 
+        fuel: 'hydrolox' 
+    },
+    'raptor': { 
+        name: 'Raptor 2', 
+        mass: 1600, 
+        cost: 1800, 
+        height: 3.1, 
+        category: 'engine', 
+        color: '#8a7a5a', 
+        thrust: 2300, 
+        isp: 380, 
+        fuel: 'methalox' 
+    }
 };
 
 const STACK = [];
@@ -76,7 +144,6 @@ let stageCount = 0;
 // ========================================
 
 const paletteGroups = document.getElementById('paletteGroups');
-const blueprint = document.getElementById('blueprint');
 const rocketSvg = document.getElementById('rocketSvg');
 const blueprintEmpty = document.getElementById('blueprintEmpty');
 const stackList = document.getElementById('stackList');
@@ -94,28 +161,37 @@ const removeTopBtn = document.getElementById('removeTopBtn');
 const clearBtn = document.getElementById('clearBtn');
 
 // ========================================
-// RENDER PALETTE
+// RENDER PALETTE - FIXED VERSION
 // ========================================
 
 function renderPalette() {
+    // Group parts by category
     const categories = {
-        'capsule': { label: 'Capsules & Payload', parts: [] },
-        'engine': { label: 'Engines', parts: [] }
+        'capsule': { label: 'CAPSULES & PAYLOAD', parts: [] },
+        'engine': { label: 'ENGINES', parts: [] }
     };
     
+    // Add parts to their categories
     Object.entries(PART_CATALOG).forEach(([id, part]) => {
         if (categories[part.category]) {
             categories[part.category].parts.push({ id, ...part });
         }
     });
     
+    // Build HTML
     let html = '';
     Object.values(categories).forEach(cat => {
         if (cat.parts.length === 0) return;
-        html += `<div class="palette-group"><h3 class="palette-group__title">${cat.label}</h3>`;
+        
+        html += `<div class="palette-group">`;
+        html += `<h3 class="palette-group__title">${cat.label}</h3>`;
+        html += `<div class="palette-group__parts">`;
+        
         cat.parts.forEach(part => {
             let details = `${part.mass.toLocaleString()} kg · $${part.cost}`;
-            if (part.thrust) details += ` · ${part.thrust} kN · Isp ${part.isp}s`;
+            if (part.thrust) {
+                details += ` · ${part.thrust.toLocaleString()} kN · Isp ${part.isp}s`;
+            }
             html += `
                 <button class="part-btn" data-part-id="${part.id}">
                     <span class="part-btn__name">${part.name}</span>
@@ -123,11 +199,13 @@ function renderPalette() {
                 </button>
             `;
         });
-        html += '</div>';
+        
+        html += `</div></div>`;
     });
+    
     paletteGroups.innerHTML = html;
     
-    // Add click listeners to part buttons
+    // Add click listeners
     document.querySelectorAll('.part-btn').forEach(btn => {
         btn.addEventListener('click', function() {
             const partId = this.dataset.partId;
@@ -145,11 +223,15 @@ function addPart(partId) {
     startAudio();
     
     const part = PART_CATALOG[partId];
-    if (!part) return;
+    if (!part) {
+        console.error('Part not found:', partId);
+        return;
+    }
     
     // Check if we have an engine (first part must be an engine)
     if (STACK.length === 0 && part.category !== 'engine') {
         showWarning('First part must be an engine!');
+        playSound('error');
         return;
     }
     
@@ -162,6 +244,7 @@ function addPart(partId) {
     
     // Play sound
     playSound('part');
+    console.log(`✅ Added: ${part.name}`);
 }
 
 // ========================================
@@ -169,13 +252,17 @@ function addPart(partId) {
 // ========================================
 
 function removeTop() {
-    if (STACK.length === 0) return;
-    STACK.pop();
+    if (STACK.length === 0) {
+        showWarning('Stack is empty!');
+        return;
+    }
+    const removed = STACK.pop();
     updateStats();
     renderBlueprint();
     renderStackList();
     updateBudget();
     playSound('remove');
+    console.log(`❌ Removed: ${PART_CATALOG[removed].name}`);
 }
 
 // ========================================
@@ -183,13 +270,17 @@ function removeTop() {
 // ========================================
 
 function clearAll() {
-    if (STACK.length === 0) return;
+    if (STACK.length === 0) {
+        showWarning('Stack is already empty!');
+        return;
+    }
     STACK.length = 0;
     updateStats();
     renderBlueprint();
     renderStackList();
     updateBudget();
     playSound('remove');
+    console.log('🗑️ Stack cleared');
 }
 
 // ========================================
@@ -206,6 +297,7 @@ function updateStats() {
     
     STACK.forEach(id => {
         const part = PART_CATALOG[id];
+        if (!part) return;
         totalMass += part.mass;
         totalHeight += part.height;
         totalCost += part.cost;
@@ -234,14 +326,13 @@ function updateStats() {
     
     // Calculate Delta-V (simplified)
     if (totalThrust > 0 && totalMass > 0) {
-        // Find the engine with highest Isp
         let maxIsp = 0;
         STACK.forEach(id => {
             const part = PART_CATALOG[id];
-            if (part.isp && part.isp > maxIsp) maxIsp = part.isp;
+            if (part && part.isp && part.isp > maxIsp) maxIsp = part.isp;
         });
         if (maxIsp > 0) {
-            const dv = maxIsp * 9.81 * Math.log(1 + (totalMass / 1000));
+            const dv = maxIsp * 9.81 * Math.log(1 + (totalMass / 10000));
             statDeltaV.textContent = Math.round(dv) + ' m/s';
         } else {
             statDeltaV.textContent = '0 m/s';
@@ -285,11 +376,15 @@ function renderBlueprint() {
     
     let html = '';
     let currentY = baseY;
-    const totalStackHeight = STACK.reduce((sum, id) => sum + PART_CATALOG[id].height, 0);
-    const scale = Math.min(maxStackHeight / totalStackHeight, 1);
+    const totalStackHeight = STACK.reduce((sum, id) => {
+        const part = PART_CATALOG[id];
+        return sum + (part ? part.height : 0);
+    }, 0);
+    const scale = Math.min(maxStackHeight / Math.max(totalStackHeight, 1), 1);
     
     STACK.forEach((id, index) => {
         const part = PART_CATALOG[id];
+        if (!part) return;
         const height = part.height * scale * 20;
         const width = 40 + (part.category === 'engine' ? 10 : 0);
         const x = centerX - width/2;
@@ -298,7 +393,7 @@ function renderBlueprint() {
         
         // Body
         html += `<rect x="${x}" y="${y}" width="${width}" height="${height}" 
-                      fill="${part.color}" stroke="#1a1a1a" stroke-width="1.5" rx="2"/>`;
+                      fill="${part.color || '#888'}" stroke="#1a1a1a" stroke-width="1.5" rx="2"/>`;
         
         // Engine nozzle (if engine)
         if (isEngine) {
@@ -308,11 +403,10 @@ function renderBlueprint() {
                           fill="#3a3a3a" stroke="#1a1a1a" stroke-width="1"/>`;
         }
         
-        // Capsule shape (if capsule)
+        // Capsule shape (if capsule and it's the top)
         if (part.category === 'capsule' && index === STACK.length - 1) {
-            // Nose cone
             html += `<polygon points="${centerX},${y - 8} ${centerX - width/2},${y} ${centerX + width/2},${y}" 
-                          fill="${part.color}" stroke="#1a1a1a" stroke-width="1.5"/>`;
+                          fill="${part.color || '#888'}" stroke="#1a1a1a" stroke-width="1.5"/>`;
         }
         
         // Part label
@@ -338,8 +432,10 @@ function renderStackList() {
     }
     
     let html = '';
-    STACK.forEach((id, index) => {
+    const reversed = [...STACK].reverse();
+    reversed.forEach((id, index) => {
         const part = PART_CATALOG[id];
+        if (!part) return;
         const num = STACK.length - index;
         html += `<div class="stack-item"><span class="stack-item__num">#${num}</span> ${part.name}</div>`;
     });
@@ -360,7 +456,6 @@ function updateBudget() {
 
 function showWarning(msg) {
     warnings.textContent = '⚠️ ' + msg;
-    playSound('error');
     setTimeout(() => {
         warnings.textContent = '';
     }, 3000);
@@ -376,17 +471,19 @@ function launch() {
     
     if (STACK.length === 0) {
         showWarning('Build a rocket first!');
+        playSound('error');
         return;
     }
     
     // Check if rocket can launch
     let hasEngine = false;
     STACK.forEach(id => {
-        if (PART_CATALOG[id].thrust) hasEngine = true;
+        if (PART_CATALOG[id] && PART_CATALOG[id].thrust) hasEngine = true;
     });
     
     if (!hasEngine) {
         showWarning('No engine on the rocket!');
+        playSound('error');
         return;
     }
     
@@ -407,6 +504,8 @@ function launch() {
     const overlay = document.getElementById('launchOverlay');
     overlay.hidden = false;
     const status = document.getElementById('launchStatus');
+    const closeBtn = document.getElementById('closeLaunchBtn');
+    closeBtn.hidden = true;
     
     // Simple countdown
     let count = 3;
@@ -418,7 +517,6 @@ function launch() {
             status.textContent = 'T-' + count;
         } else if (count === 0) {
             status.textContent = '🚀 LIFTOFF!';
-            playSound('success');
         } else {
             clearInterval(interval);
             const success = twr > 1.5 && Math.random() > 0.3;
@@ -429,7 +527,7 @@ function launch() {
                 status.textContent = '💥 EXPLOSION!';
                 playSound('explosion');
             }
-            document.getElementById('closeLaunchBtn').hidden = false;
+            closeBtn.hidden = false;
         }
     }, 1000);
 }
@@ -466,6 +564,7 @@ function init() {
     document.getElementById('closeLaunchBtn').addEventListener('click', closeLaunch);
     
     console.log('🚀 STACK & LAUNCH ready!');
+    console.log('📦 Parts loaded:', Object.keys(PART_CATALOG).length);
 }
 
 // Start the game when DOM is loaded
