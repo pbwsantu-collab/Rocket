@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>STACK &amp; LAUNCH — Rocket Assembly Blueprint</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="titleblock">
+  <div class="titleblock__mark">✦</div>
+  <div class="titleblock__text">
+    <h1>STACK &amp; LAUNCH</h1>
+    <span class="titleblock__sub">Rocket Assembly Blueprint — Build a Vehicle, Read Its Numbers, Send It Up</span>
+  </div>
+  <div class="titleblock__meta">
+    <div><span>DWG NO.</span> SL-001</div>
+    <div><span>SCALE</span> N.T.S.</div>
+    <div id="budgetReadout"><span>BUDGET</span> $0</div>
+  </div>
+</header>
+
+<main class="layout">
+
+  <!-- PALETTE -->
+  <section class="palette" aria-label="Parts catalog">
+    <h2 class="panel-title">Parts Catalog</h2>
+    <div class="palette__hint">Tap a part to add it to the top of your stack.</div>
+    <div id="paletteGroups"></div>
+  </section>
+
+  <!-- BUILD / BLUEPRINT VIEW -->
+  <section class="build" aria-label="Assembly view">
+    <div class="build__header">
+      <h2 class="panel-title">Assembly</h2>
+      <div class="build__actions">
+        <button id="removeTopBtn" class="btn btn--ghost">Remove Top</button>
+        <button id="clearBtn" class="btn btn--ghost">Clear All</button>
+      </div>
+    </div>
+    <div class="blueprint" id="blueprint">
+      <svg id="rocketSvg" viewBox="0 0 420 640" preserveAspectRatio="xMidYMax meet"></svg>
+      <div class="blueprint__empty" id="blueprintEmpty">Your stack is empty.<br>Add an engine to lay the first stage.</div>
+    </div>
+    <div class="stacklist" id="stackList" aria-label="Current stack order"></div>
+  </section>
+
+  <!-- TELEMETRY / STATS -->
+  <section class="telemetry" aria-label="Vehicle telemetry">
+    <h2 class="panel-title">Telemetry</h2>
+    <dl class="stats" id="statsPanel">
+      <div class="stat"><dt>Total Height</dt><dd id="statHeight">0.0 m</dd></div>
+      <div class="stat"><dt>Wet Mass</dt><dd id="statMass">0 kg</dd></div>
+      <div class="stat"><dt>Liftoff Thrust</dt><dd id="statThrust">0 kN</dd></div>
+      <div class="stat"><dt>Thrust/Weight</dt><dd id="statTWR">—</dd></div>
+      <div class="stat"><dt>Δv (est.)</dt><dd id="statDeltaV">0 m/s</dd></div>
+      <div class="stat"><dt>Stages</dt><dd id="statStages">0</dd></div>
+      <div class="stat"><dt>Build Cost</dt><dd id="statCost">$0</dd></div>
+    </dl>
+    <div id="warnings" class="warnings"></div>
+    <button id="launchBtn" class="btn btn--launch">LAUNCH VEHICLE</button>
+    <div class="legend">
+      <div class="legend__title">Reference — Isp fuel families</div>
+      <div class="legend__row"><span class="swatch swatch--kerolox"></span>Kerolox (RP-1 / LOX)</div>
+      <div class="legend__row"><span class="swatch swatch--hydrolox"></span>Hydrolox (LH2 / LOX)</div>
+      <div class="legend__row"><span class="swatch swatch--methalox"></span>Methalox (CH4 / LOX)</div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  Simplified single-axis Tsiolkovsky model for gameplay — not flight software. Part stats loosely inspired by Soyuz, N1, Shuttle, Raptor &amp; Orion reference data.
+</footer>
+
+<!-- LAUNCH OVERLAY -->
+<div id="launchOverlay" class="launch-overlay" hidden>
+  <canvas id="launchCanvas"></canvas>
+  <div class="launch-overlay__hud">
+    <div id="launchStatus" class="launch-overlay__status">T-3</div>
+    <button id="closeLaunchBtn" class="btn btn--ghost" hidden>Back to Assembly</button>
+  </div>
+</div>
+
+<script src="game.js"></script>
+</body>
+</html>
