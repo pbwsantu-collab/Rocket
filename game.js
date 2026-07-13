@@ -1,4 +1,57 @@
-/* ============================================================
+                 // ========================================
+// SOUND SYSTEM
+// ========================================
+
+const sss = window.sss;
+
+// Initialize sound
+function initSound() {
+    if (sss) {
+        sss.init();
+        sss.setMasterVolume(0.5);
+        console.log("🎵 Sound system ready!");
+    }
+}
+
+// Start audio (must be called after user interaction)
+function startAudio() {
+    if (sss && !sss.state.audioStarted) {
+        sss.startAudio();
+        console.log("🔊 Audio started!");
+    }
+}
+
+// Play sound effects
+function playSound(type) {
+    if (!sss) return;
+    if (!sss.state.audioStarted) {
+        // Auto-start on first sound attempt
+        sss.startAudio();
+    }
+    
+    const sounds = {
+        'part': 'select',
+        'launch': 'tone',
+        'success': 'coin',
+        'explosion': 'explosion',
+        'error': 'error',
+        'click': 'click',
+        'remove': 'click'
+    };
+    
+    const soundName = sounds[type] || 'click';
+    try {
+        sss.playSoundEffect(soundName);
+    } catch(e) {
+        // Silent fail if sound not available
+    }
+}
+
+// ========================================
+// YOUR EXISTING GAME CODE GOES BELOW
+// ========================================
+
+// ... (your existing game.js code here)    /* ============================================================
    STACK & LAUNCH — Rocket Assembly Blueprint
    Simplified single-axis Tsiolkovsky rocket-building game.
    ============================================================ */
