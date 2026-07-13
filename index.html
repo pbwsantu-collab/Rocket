@@ -6,16 +6,14 @@
     <title>School Routine Management System - WBBSE/WBCHSE</title>
     <meta name="theme-color" content="#1a2332">
     <meta name="description" content="Complete School Routine Management System for WBBSE and WBCHSE schools">
-    <link rel="manifest" href="manifest.json">
     
     <style>
         /* ========================================
-           COMPLETE STYLESHEET
+           COMPLETE STYLESHEET - All styles included
            ======================================== */
         
         /* CSS Variables - Light & Dark Themes */
         :root {
-            /* Light Theme */
             --bg-primary: #f0f2f5;
             --bg-secondary: #ffffff;
             --bg-card: #ffffff;
@@ -132,9 +130,6 @@
             --success: #006400;
             --warning: #8b4500;
             --danger: #8b0000;
-            --shadow-sm: 0 2px 4px rgba(0,0,0,0.2);
-            --shadow-md: 0 4px 8px rgba(0,0,0,0.3);
-            --shadow-lg: 0 8px 16px rgba(0,0,0,0.4);
         }
         
         [data-contrast="high"][data-theme="dark"] {
@@ -143,9 +138,7 @@
             --bg-card: #1a1a1a;
             --text-primary: #ffffff;
             --text-secondary: #e0e0e0;
-            --text-muted: #cccccc;
             --border-color: #ffffff;
-            --border-light: #aaaaaa;
             --primary: #4da6ff;
             --success: #4caf50;
             --warning: #ffa726;
@@ -169,7 +162,6 @@
             --font-size-xl: 1.5rem;
             --font-size-2xl: 1.8rem;
             --font-size-3xl: 2.4rem;
-            --font-size-4xl: 3rem;
         }
         
         [data-font-size="xlarge"] {
@@ -180,12 +172,9 @@
             --font-size-xl: 1.8rem;
             --font-size-2xl: 2.1rem;
             --font-size-3xl: 2.8rem;
-            --font-size-4xl: 3.5rem;
         }
         
-        /* ========================================
-           RESET & BASE STYLES
-           ======================================== */
+        /* Reset & Base Styles */
         * {
             margin: 0;
             padding: 0;
@@ -208,14 +197,12 @@
             flex-direction: column;
         }
         
-        /* Focus styles for accessibility */
         *:focus-visible {
             outline: 3px solid var(--primary);
             outline-offset: 2px;
             border-radius: 4px;
         }
         
-        /* Skip link */
         .skip-link {
             position: absolute;
             top: -100%;
@@ -234,31 +221,24 @@
             top: 20px;
         }
         
-        /* ========================================
-           SCROLLBAR STYLES
-           ======================================== */
+        /* Scrollbar */
         ::-webkit-scrollbar {
             width: 8px;
             height: 8px;
         }
-        
         ::-webkit-scrollbar-track {
             background: var(--bg-secondary);
             border-radius: 4px;
         }
-        
         ::-webkit-scrollbar-thumb {
             background: var(--primary);
             border-radius: 4px;
         }
-        
         ::-webkit-scrollbar-thumb:hover {
             background: var(--primary-dark);
         }
         
-        /* ========================================
-           NAVIGATION
-           ======================================== */
+        /* Navigation */
         .navbar {
             background: var(--bg-nav);
             color: var(--text-white);
@@ -326,11 +306,6 @@
             background: rgba(255,255,255,0.15);
         }
         
-        .nav-btn:focus-visible {
-            outline: 2px solid var(--primary);
-            outline-offset: 2px;
-        }
-        
         .nav-actions {
             display: flex;
             gap: 0.5rem;
@@ -355,10 +330,6 @@
             transform: scale(1.02);
         }
         
-        .action-btn:active {
-            transform: scale(0.98);
-        }
-        
         .action-btn.secondary {
             background: transparent;
             border: 2px solid var(--primary);
@@ -370,9 +341,7 @@
             color: white;
         }
         
-        /* ========================================
-           MAIN CONTENT
-           ======================================== */
+        /* Main Content */
         main {
             flex: 1;
             padding: var(--spacing-xl);
@@ -390,9 +359,7 @@
             transition: background 0.3s ease, box-shadow 0.3s ease;
         }
         
-        /* ========================================
-           DASHBOARD
-           ======================================== */
+        /* Dashboard */
         .dashboard-container {
             animation: fadeIn 0.5s ease;
         }
@@ -462,10 +429,6 @@
             background: var(--bg-hover);
             transform: translateY(-2px);
             box-shadow: var(--shadow-md);
-        }
-        
-        .quick-action-btn .icon {
-            font-size: var(--font-size-lg);
         }
         
         .stats-grid {
@@ -609,9 +572,7 @@
             margin-bottom: var(--spacing-xs);
         }
         
-        /* ========================================
-           SETTINGS
-           ======================================== */
+        /* Settings */
         .settings-container {
             animation: fadeIn 0.5s ease;
         }
@@ -690,13 +651,11 @@
             box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.2);
         }
         
-        .form-group input.invalid,
-        .form-group select.invalid {
+        .form-group input.invalid {
             border-color: var(--danger);
         }
         
-        .form-group input.valid,
-        .form-group select.valid {
+        .form-group input.valid {
             border-color: var(--success);
         }
         
@@ -744,9 +703,7 @@
             border-top: 2px solid var(--border-color);
         }
         
-        /* ========================================
-           BUTTONS
-           ======================================== */
+        /* Buttons */
         .btn-primary, .btn-secondary, .btn-success, .btn-danger, .btn-warning {
             padding: 0.5rem 1.5rem;
             border: none;
@@ -811,17 +768,6 @@
             box-shadow: var(--shadow-md);
         }
         
-        .btn-warning {
-            background: var(--warning);
-            color: white;
-        }
-        
-        .btn-warning:hover {
-            background: var(--warning-dark);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-md);
-        }
-        
         .btn-large {
             padding: 0.75rem 2rem;
             font-size: var(--font-size-lg);
@@ -832,9 +778,48 @@
             justify-content: center;
         }
         
-        /* ========================================
-           TIMETABLE GENERATOR
-           ======================================== */
+        /* Timetable Preview */
+        .timetable-preview {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: var(--spacing-md);
+            font-size: var(--font-size-sm);
+        }
+        
+        .timetable-preview th {
+            background: var(--primary);
+            color: white;
+            padding: 0.5rem;
+            text-align: center;
+            font-weight: 600;
+        }
+        
+        .timetable-preview td {
+            border: 1px solid var(--border-color);
+            padding: 0.5rem;
+            text-align: center;
+            min-width: 60px;
+        }
+        
+        .timetable-preview tr:nth-child(even) {
+            background: var(--bg-hover);
+        }
+        
+        .timetable-preview .period-label {
+            font-weight: 600;
+            background: var(--bg-hover);
+        }
+        
+        .timetable-preview .subject-cell {
+            font-size: var(--font-size-xs);
+        }
+        
+        .timetable-preview .teacher-cell {
+            font-size: var(--font-size-xs);
+            color: var(--text-muted);
+        }
+        
+        /* Generator */
         .generator-container {
             animation: fadeIn 0.5s ease;
         }
@@ -947,52 +932,7 @@
             margin-top: var(--spacing-lg);
         }
         
-        /* ========================================
-           TIMETABLE PREVIEW
-           ======================================== */
-        .timetable-preview {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: var(--spacing-md);
-            font-size: var(--font-size-sm);
-        }
-        
-        .timetable-preview th {
-            background: var(--primary);
-            color: white;
-            padding: 0.5rem;
-            text-align: center;
-            font-weight: 600;
-        }
-        
-        .timetable-preview td {
-            border: 1px solid var(--border-color);
-            padding: 0.5rem;
-            text-align: center;
-            min-width: 60px;
-        }
-        
-        .timetable-preview tr:nth-child(even) {
-            background: var(--bg-hover);
-        }
-        
-        .timetable-preview .period-label {
-            font-weight: 600;
-            background: var(--bg-hover);
-        }
-        
-        .timetable-preview .subject-cell {
-            font-size: var(--font-size-xs);
-        }
-        
-        .timetable-preview .teacher-cell {
-            font-size: var(--font-size-xs);
-            color: var(--text-muted);
-        }
-        
-        /* ========================================
-           ACCESSIBILITY CONTROLS
-           ======================================== */
+        /* Accessibility Controls */
         .accessibility-controls {
             position: fixed;
             bottom: var(--spacing-lg);
@@ -1028,9 +968,7 @@
             border-color: var(--primary);
         }
         
-        /* ========================================
-           NOTIFICATIONS
-           ======================================== */
+        /* Notifications */
         .notification {
             position: fixed;
             bottom: 80px;
@@ -1053,15 +991,12 @@
         .notification-success {
             border-left: 5px solid var(--success);
         }
-        
         .notification-error {
             border-left: 5px solid var(--danger);
         }
-        
         .notification-warning {
             border-left: 5px solid var(--warning);
         }
-        
         .notification-info {
             border-left: 5px solid var(--info);
         }
@@ -1076,9 +1011,7 @@
             to { transform: translateX(100%); opacity: 0; }
         }
         
-        /* ========================================
-           FOOTER
-           ======================================== */
+        /* Footer */
         footer {
             text-align: center;
             padding: var(--spacing-lg);
@@ -1088,17 +1021,10 @@
             margin-top: var(--spacing-xl);
         }
         
-        /* ========================================
-           RESPONSIVE DESIGN
-           ======================================== */
+        /* Responsive */
         @media (max-width: 1024px) {
-            .dashboard-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .generator-grid {
-                grid-template-columns: 1fr;
-            }
+            .dashboard-grid { grid-template-columns: 1fr; }
+            .generator-grid { grid-template-columns: 1fr; }
         }
         
         @media (max-width: 768px) {
@@ -1107,49 +1033,16 @@
                 flex-direction: column;
                 align-items: stretch;
             }
-            
-            .nav-menu {
-                justify-content: center;
-            }
-            
-            .nav-actions {
-                justify-content: center;
-            }
-            
-            .nav-btn {
-                font-size: var(--font-size-xs);
-                padding: 0.25rem 0.5rem;
-            }
-            
-            main {
-                padding: var(--spacing-md);
-            }
-            
-            #view-container {
-                padding: var(--spacing-md);
-            }
-            
-            .welcome-section {
-                flex-direction: column;
-            }
-            
-            .quick-actions {
-                width: 100%;
-            }
-            
-            .quick-action-btn {
-                flex: 1;
-                justify-content: center;
-            }
-            
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .form-grid {
-                grid-template-columns: 1fr;
-            }
-            
+            .nav-menu { justify-content: center; }
+            .nav-actions { justify-content: center; }
+            .nav-btn { font-size: var(--font-size-xs); padding: 0.25rem 0.5rem; }
+            main { padding: var(--spacing-md); }
+            #view-container { padding: var(--spacing-md); }
+            .welcome-section { flex-direction: column; }
+            .quick-actions { width: 100%; }
+            .quick-action-btn { flex: 1; justify-content: center; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .form-grid { grid-template-columns: 1fr; }
             .accessibility-controls {
                 bottom: var(--spacing-sm);
                 right: var(--spacing-sm);
@@ -1157,108 +1050,47 @@
                 border-radius: var(--radius-sm);
                 padding: var(--spacing-xs);
             }
-            
-            .access-btn {
-                font-size: var(--font-size-xs);
-                padding: 0.15rem 0.35rem;
-            }
-            
-            .status-indicators {
-                grid-template-columns: 1fr;
-            }
+            .access-btn { font-size: var(--font-size-xs); padding: 0.15rem 0.35rem; }
+            .status-indicators { grid-template-columns: 1fr; }
         }
         
         @media (max-width: 480px) {
-            .stats-grid {
-                grid-template-columns: 1fr 1fr;
-                gap: var(--spacing-sm);
-            }
-            
-            .stat-card {
-                padding: var(--spacing-sm);
-            }
-            
-            .stat-icon {
-                width: 32px;
-                height: 32px;
-                font-size: var(--font-size-lg);
-            }
-            
-            .stat-value {
-                font-size: var(--font-size-lg);
-            }
-            
-            .generator-actions {
-                flex-direction: column;
-            }
-            
-            .generator-actions .btn {
-                width: 100%;
-                justify-content: center;
-            }
-            
-            .quick-access-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .form-actions {
-                flex-direction: column;
-            }
-            
-            .form-actions .btn {
-                width: 100%;
-                justify-content: center;
-            }
+            .stats-grid { grid-template-columns: 1fr 1fr; gap: var(--spacing-sm); }
+            .stat-card { padding: var(--spacing-sm); }
+            .stat-icon { width: 32px; height: 32px; font-size: var(--font-size-lg); }
+            .stat-value { font-size: var(--font-size-lg); }
+            .generator-actions { flex-direction: column; }
+            .generator-actions .btn { width: 100%; justify-content: center; }
+            .quick-access-grid { grid-template-columns: repeat(2, 1fr); }
+            .form-actions { flex-direction: column; }
+            .form-actions .btn { width: 100%; justify-content: center; }
         }
         
-        /* ========================================
-           PRINT STYLES
-           ======================================== */
+        /* Print */
         @media print {
-            .navbar,
-            .nav-actions,
-            .action-btn,
-            .quick-actions,
-            .accessibility-controls,
-            .generator-actions,
-            .form-actions {
+            .navbar, .nav-actions, .action-btn, .quick-actions,
+            .accessibility-controls, .generator-actions, .form-actions {
                 display: none !important;
             }
-            
             #view-container {
                 box-shadow: none !important;
                 padding: 0 !important;
                 background: white !important;
             }
-            
-            body {
-                background: white !important;
-            }
-            
+            body { background: white !important; }
             .stat-card {
                 break-inside: avoid;
                 box-shadow: none !important;
                 border: 1px solid #ddd !important;
             }
-            
-            .timetable-preview {
-                font-size: 8pt !important;
-            }
-            
+            .timetable-preview { font-size: 8pt !important; }
             .timetable-preview th {
                 background: #333 !important;
                 color: white !important;
                 -webkit-print-color-adjust: exact !important;
                 print-color-adjust: exact !important;
             }
-            
-            .settings-section {
-                break-inside: avoid;
-            }
-            
-            .page-break {
-                page-break-after: always !important;
-            }
+            .settings-section { break-inside: avoid; }
         }
     </style>
 </head>
@@ -1433,12 +1265,13 @@
             const classes = [];
             Object.keys(CONSTANTS.CLASSES).forEach(code => {
                 const info = CONSTANTS.CLASSES[code];
+                const subjects = this.getDefaultSubjects(info.level, code);
                 classes.push({
                     code: code,
                     display: info.display,
                     level: info.level,
                     sections: [{ name: 'A', studentCount: 30 }],
-                    subjects: this.getDefaultSubjects(info.level, code),
+                    subjects: subjects.map(s => ({ name: s, periodsPerWeek: 5, requiresLab: false, isPractical: false })),
                     periodAllocation: this.getPeriodAllocation(code)
                 });
             });
@@ -1523,28 +1356,24 @@
         apply() {
             const html = document.documentElement;
             
-            // Theme
             if (this.theme === 'dark') {
                 html.setAttribute('data-theme', 'dark');
             } else {
                 html.removeAttribute('data-theme');
             }
             
-            // Contrast
             if (this.contrast === 'high') {
                 html.setAttribute('data-contrast', 'high');
             } else {
                 html.removeAttribute('data-contrast');
             }
             
-            // Dyslexia
             if (this.dyslexia) {
                 html.setAttribute('data-dyslexia', 'true');
             } else {
                 html.removeAttribute('data-dyslexia');
             }
             
-            // Font Size
             if (this.fontSize !== 'normal') {
                 html.setAttribute('data-font-size', this.fontSize);
             } else {
@@ -1567,7 +1396,6 @@
         }
         
         async initialize() {
-            // Load saved data or defaults
             const saved = this.storage.load('schoolData');
             if (saved) {
                 this.schoolData = saved;
@@ -1576,19 +1404,10 @@
                 this.storage.save('schoolData', this.schoolData);
             }
             
-            // Setup navigation
             this.setupNavigation();
-            
-            // Setup save/load
             this.setupSaveLoad();
-            
-            // Setup accessibility controls
             this.setupAccessibility();
-            
-            // Render initial view
             this.renderView('dashboard');
-            
-            // Add event listeners for custom events
             this.setupEventListeners();
         }
         
@@ -1613,35 +1432,16 @@
             const container = document.getElementById('view-container');
             
             switch(view) {
-                case 'dashboard':
-                    this.renderDashboard(container);
-                    break;
-                case 'settings':
-                    this.renderSettings(container);
-                    break;
-                case 'teachers':
-                    this.renderTeachers(container);
-                    break;
-                case 'subjects':
-                    this.renderSubjects(container);
-                    break;
-                case 'generator':
-                    this.renderGenerator(container);
-                    break;
-                case 'routine':
-                    this.renderRoutine(container);
-                    break;
-                case 'validation':
-                    this.renderValidation(container);
-                    break;
-                case 'reports':
-                    this.renderReports(container);
-                    break;
-                case 'export':
-                    this.renderExport(container);
-                    break;
-                default:
-                    container.innerHTML = '<p>View not found</p>';
+                case 'dashboard': this.renderDashboard(container); break;
+                case 'settings': this.renderSettings(container); break;
+                case 'teachers': this.renderTeachers(container); break;
+                case 'subjects': this.renderSubjects(container); break;
+                case 'generator': this.renderGenerator(container); break;
+                case 'routine': this.renderRoutine(container); break;
+                case 'validation': this.renderValidation(container); break;
+                case 'reports': this.renderReports(container); break;
+                case 'export': this.renderExport(container); break;
+                default: container.innerHTML = '<p>View not found</p>';
             }
         }
         
@@ -1755,7 +1555,6 @@
                 </div>
             `;
             
-            // Attach events
             container.querySelectorAll('[data-view]').forEach(el => {
                 el.addEventListener('click', () => {
                     this.switchView(el.dataset.view);
@@ -1836,7 +1635,6 @@
                     </div>
                     
                     <form id="settings-form" novalidate>
-                        <!-- School Information -->
                         <section class="settings-section">
                             <h2>School Information</h2>
                             <div class="form-grid">
@@ -1877,7 +1675,6 @@
                             </div>
                         </section>
                         
-                        <!-- Timetable Settings -->
                         <section class="settings-section">
                             <h2>Timetable Settings</h2>
                             <div class="form-grid">
@@ -1898,7 +1695,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="workingDays">Working Days *</label>
-                                    <div class="checkbox-group" id="workingDays" role="group" aria-label="Select working days">
+                                    <div class="checkbox-group" id="workingDays">
                                         ${['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'].map(day => `
                                             <label class="checkbox-label">
                                                 <input type="checkbox" value="${day}" 
@@ -1912,7 +1709,6 @@
                             </div>
                         </section>
                         
-                        <!-- Break Timings -->
                         <section class="settings-section">
                             <h2>Break Timings</h2>
                             <div class="form-grid">
@@ -1935,7 +1731,6 @@
                             </div>
                         </section>
                         
-                        <!-- Constraints -->
                         <section class="settings-section">
                             <h2>Optimization Constraints</h2>
                             <div class="form-grid">
@@ -1975,7 +1770,6 @@
                 </div>
             `;
             
-            // Attach events
             const form = container.querySelector('#settings-form');
             form.addEventListener('submit', (e) => {
                 e.preventDefault();
@@ -2064,7 +1858,6 @@
                 }
             };
             
-            // Preserve other data
             this.schoolData = { ...this.schoolData, ...data };
             this.storage.save('schoolData', this.schoolData);
             this.showNotification('Settings saved successfully!', 'success');
@@ -2124,7 +1917,6 @@
                 </div>
             `;
             
-            // Events
             container.querySelector('#addTeacher').addEventListener('click', () => {
                 this.showTeacherModal();
             });
@@ -2155,7 +1947,6 @@
             const teacher = index >= 0 ? teachers[index] : { name: '', subjects: [], maxLoad: 35, currentLoad: 0 };
             const allSubjects = this.getAllSubjects();
             
-            // Create modal
             const modal = document.createElement('div');
             modal.style.cssText = `
                 position: fixed;
@@ -2245,7 +2036,7 @@
         }
         
         // ========================================
-        // SUBJECTS VIEW
+        // SUBJECTS VIEW - SHOWING ADD SUBJECT BUTTON
         // ========================================
         renderSubjects(container) {
             const classes = this.schoolData.classes || [];
@@ -2259,7 +2050,13 @@
                     
                     ${classes.map(cls => `
                         <section class="settings-section">
-                            <h2>${cls.display}</h2>
+                            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--spacing-md);">
+                                <h2 style="margin:0;border:none;padding:0;">${cls.display}</h2>
+                                <button class="btn-primary" style="padding:0.3rem 0.8rem;font-size:var(--font-size-sm);" 
+                                        data-action="add-subject" data-class="${cls.code}">
+                                    ➕ Add Subject
+                                </button>
+                            </div>
                             <div style="overflow-x:auto;">
                                 <table class="timetable-preview">
                                     <thead>
@@ -2272,7 +2069,13 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        ${(cls.subjects || []).map((sub, idx) => {
+                                        ${(cls.subjects || []).length === 0 ? `
+                                            <tr>
+                                                <td colspan="5" style="text-align:center;padding:1rem;color:var(--text-muted);">
+                                                    No subjects added. Click "Add Subject" to get started.
+                                                </td>
+                                            </tr>
+                                        ` : (cls.subjects || []).map((sub, idx) => {
                                             const name = typeof sub === 'string' ? sub : sub.name;
                                             const periods = typeof sub === 'string' ? 5 : (sub.periodsPerWeek || 5);
                                             const lab = typeof sub === 'string' ? false : (sub.requiresLab || false);
@@ -2286,6 +2089,8 @@
                                                     <td>
                                                         <button class="btn-secondary" style="padding:0.25rem 0.5rem;font-size:var(--font-size-xs);"
                                                                 data-action="edit-subject" data-class="${cls.code}" data-index="${idx}">✏️ Edit</button>
+                                                        <button class="btn-danger" style="padding:0.25rem 0.5rem;font-size:var(--font-size-xs);"
+                                                                data-action="delete-subject" data-class="${cls.code}" data-index="${idx}">🗑️</button>
                                                     </td>
                                                 </tr>
                                             `;
@@ -2293,8 +2098,6 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <button class="btn-primary" style="margin-top:var(--spacing-md);" 
-                                    data-action="add-subject" data-class="${cls.code}">➕ Add Subject</button>
                         </section>
                     `).join('')}
                 </div>
@@ -2309,6 +2112,21 @@
             container.querySelectorAll('[data-action="edit-subject"]').forEach(btn => {
                 btn.addEventListener('click', () => {
                     this.showSubjectModal(btn.dataset.class, parseInt(btn.dataset.index));
+                });
+            });
+            
+            container.querySelectorAll('[data-action="delete-subject"]').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const classCode = btn.dataset.class;
+                    const index = parseInt(btn.dataset.index);
+                    const cls = this.schoolData.classes.find(c => c.code === classCode);
+                    if (cls && confirm(`Delete "${cls.subjects[index].name}" from ${cls.display}?`)) {
+                        cls.subjects.splice(index, 1);
+                        this.storage.save('schoolData', this.schoolData);
+                        this.renderSubjects(container);
+                        this.showNotification('Subject deleted', 'success');
+                        this.addActivity('Subject deleted', 'warning');
+                    }
                 });
             });
         }
@@ -2333,7 +2151,7 @@
             
             modal.innerHTML = `
                 <div style="background:var(--bg-card);border-radius:var(--radius-lg);padding:2rem;max-width:450px;width:90%;">
-                    <h2 style="margin-bottom:var(--spacing-md);">${index >= 0 ? 'Edit' : 'Add'} Subject</h2>
+                    <h2 style="margin-bottom:var(--spacing-md);">${index >= 0 ? 'Edit' : 'Add'} Subject for ${cls.display}</h2>
                     <form id="subjectForm">
                         <div class="form-group">
                             <label for="subjectName">Subject Name *</label>
@@ -2515,7 +2333,6 @@
                 status.textContent = 'Generating...';
                 this.addLogEntry(log, 'Starting timetable generation...', 'system');
                 
-                // Simulate generation
                 const steps = 100;
                 let bestFitness = 0;
                 let currentConflicts = 0;
@@ -2531,11 +2348,9 @@
                     progress.textContent = pct + '%';
                     progressBar.style.width = pct + '%';
                     
-                    // Simulate fitness improvement
                     bestFitness = Math.min(100, bestFitness + (Math.random() * 1.5) + 0.5);
                     fitness.textContent = Math.round(bestFitness) + '%';
                     
-                    // Simulate conflict reduction
                     currentConflicts = Math.max(0, Math.round(50 * (1 - i / steps) + Math.random() * 5));
                     conflicts.textContent = currentConflicts;
                     
@@ -2551,7 +2366,6 @@
                     stopBtn.disabled = true;
                     applyBtn.disabled = false;
                     
-                    // Show preview
                     const preview = container.querySelector('.generator-preview');
                     preview.style.display = 'block';
                     const previewContainer = container.querySelector('#previewContainer');
@@ -2757,7 +2571,6 @@
             const teachers = this.schoolData.teachers || [];
             const classes = this.schoolData.classes || [];
             
-            // Check for teachers with no subjects
             teachers.forEach(t => {
                 if (!t.subjects || t.subjects.length === 0) {
                     issues.warnings++;
@@ -2765,7 +2578,6 @@
                 }
             });
             
-            // Check for classes with no subjects
             classes.forEach(cls => {
                 if (!cls.subjects || cls.subjects.length === 0) {
                     issues.errors++;
@@ -2773,7 +2585,6 @@
                 }
             });
             
-            // Check for duplicate teacher names
             const names = teachers.map(t => t.name);
             const duplicates = names.filter((name, i) => names.indexOf(name) !== i);
             if (duplicates.length > 0) {
@@ -2781,13 +2592,11 @@
                 issues.details.push({ type: 'error', message: `Duplicate teacher names found: ${duplicates.join(', ')}` });
             }
             
-            // Check for valid working days
             if (!this.schoolData.workingDays || this.schoolData.workingDays.length === 0) {
                 issues.errors++;
                 issues.details.push({ type: 'error', message: 'No working days configured' });
             }
             
-            // Check periods per day
             if (this.schoolData.periodsPerDay < 3 || this.schoolData.periodsPerDay > 10) {
                 issues.errors++;
                 issues.details.push({ type: 'error', message: 'Periods per day must be between 3 and 10' });
@@ -3039,7 +2848,6 @@
         }
         
         setupEventListeners() {
-            // Custom event listeners
             document.addEventListener('dashboard-action', (e) => {
                 if (e.detail.action === 'generate') this.switchView('generator');
                 if (e.detail.action === 'export') this.switchView('export');
