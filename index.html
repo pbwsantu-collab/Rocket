@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>School Routine Management System - WBBSE/WBCHSE</title>
+    <title>School Routine Management System - Dynamic Sections</title>
     <meta name="theme-color" content="#1a2332">
-    <meta name="description" content="Complete School Routine Management System for WBBSE and WBCHSE schools">
+    <meta name="description" content="Complete School Routine Management System with Dynamic Sections">
     
     <style>
         /* ========================================
@@ -63,7 +63,6 @@
             --font-size-xl: 1.25rem;
             --font-size-2xl: 1.5rem;
             --font-size-3xl: 2rem;
-            --font-size-4xl: 2.5rem;
             
             --spacing-xs: 0.25rem;
             --spacing-sm: 0.5rem;
@@ -572,7 +571,7 @@
             margin-bottom: var(--spacing-xs);
         }
         
-        /* Settings */
+        /* Settings / Configuration */
         .settings-container {
             animation: fadeIn 0.5s ease;
         }
@@ -778,6 +777,72 @@
             justify-content: center;
         }
         
+        /* Section Configuration Table */
+        .section-config-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: var(--spacing-md);
+        }
+        
+        .section-config-table th {
+            background: var(--primary);
+            color: white;
+            padding: 0.5rem;
+            text-align: center;
+            font-weight: 600;
+        }
+        
+        .section-config-table td {
+            border: 1px solid var(--border-color);
+            padding: 0.5rem;
+            text-align: center;
+        }
+        
+        .section-config-table tr:nth-child(even) {
+            background: var(--bg-hover);
+        }
+        
+        .section-config-table .section-count-input {
+            width: 80px;
+            padding: 0.25rem;
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            text-align: center;
+            font-size: var(--font-size-md);
+            font-family: var(--font-family);
+            background: var(--bg-input);
+            color: var(--text-primary);
+        }
+        
+        .section-config-table .section-count-input:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+        
+        .section-config-table .stream-toggle {
+            padding: 0.25rem 0.5rem;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: var(--transition);
+            border: 2px solid var(--border-color);
+            background: var(--bg-input);
+            color: var(--text-primary);
+            font-family: var(--font-family);
+            font-size: var(--font-size-xs);
+        }
+        
+        .section-config-table .stream-toggle.active {
+            background: var(--success);
+            color: white;
+            border-color: var(--success);
+        }
+        
+        .section-config-table .stream-toggle.inactive {
+            background: var(--danger);
+            color: white;
+            border-color: var(--danger);
+        }
+        
         /* Timetable Preview */
         .timetable-preview {
             width: 100%;
@@ -808,15 +873,6 @@
         .timetable-preview .period-label {
             font-weight: 600;
             background: var(--bg-hover);
-        }
-        
-        .timetable-preview .subject-cell {
-            font-size: var(--font-size-xs);
-        }
-        
-        .timetable-preview .teacher-cell {
-            font-size: var(--font-size-xs);
-            color: var(--text-muted);
         }
         
         /* Generator */
@@ -1052,6 +1108,8 @@
             }
             .access-btn { font-size: var(--font-size-xs); padding: 0.15rem 0.35rem; }
             .status-indicators { grid-template-columns: 1fr; }
+            .section-config-table { font-size: var(--font-size-xs); }
+            .section-config-table .section-count-input { width: 60px; }
         }
         
         @media (max-width: 480px) {
@@ -1109,8 +1167,8 @@
         
         <div class="nav-menu" role="menubar">
             <button class="nav-btn active" data-view="dashboard" role="menuitem">📊 Dashboard</button>
+            <button class="nav-btn" data-view="configuration" role="menuitem">⚙️ Configuration</button>
             <button class="nav-btn" data-view="routine" role="menuitem">📅 Routine</button>
-            <button class="nav-btn" data-view="settings" role="menuitem">⚙️ Settings</button>
             <button class="nav-btn" data-view="teachers" role="menuitem">👨‍🏫 Teachers</button>
             <button class="nav-btn" data-view="subjects" role="menuitem">📖 Subjects</button>
             <button class="nav-btn" data-view="generator" role="menuitem">⚡ Generator</button>
@@ -1144,7 +1202,7 @@
 
 <!-- Footer -->
 <footer role="contentinfo">
-    <p>&copy; 2026 School Routine Management System | WBBSE/WBCHSE Compliant | v2.0.0</p>
+    <p>&copy; 2026 School Routine Management System | WBBSE/WBCHSE Compliant | v3.0.0 - Dynamic Sections</p>
 </footer>
 
 <!-- ========================================
@@ -1155,32 +1213,41 @@
     // CONFIGURATION & CONSTANTS
     // ========================================
     const CONSTANTS = {
-        CLASSES: {
-            'V': { code: 'V', display: 'Class V', level: 'primary' },
-            'VI': { code: 'VI', display: 'Class VI', level: 'secondary' },
-            'VII': { code: 'VII', display: 'Class VII', level: 'secondary' },
-            'VIII': { code: 'VIII', display: 'Class VIII', level: 'secondary' },
-            'IX': { code: 'IX', display: 'Class IX', level: 'secondary' },
-            'X': { code: 'X', display: 'Class X', level: 'secondary' },
-            'XI_SCIENCE': { code: 'XI_SCIENCE', display: 'Class XI Science', level: 'higher_secondary' },
-            'XI_ARTS': { code: 'XI_ARTS', display: 'Class XI Arts', level: 'higher_secondary' },
-            'XI_COMMERCE': { code: 'XI_COMMERCE', display: 'Class XI Commerce', level: 'higher_secondary' },
-            'XII_SCIENCE': { code: 'XII_SCIENCE', display: 'Class XII Science', level: 'higher_secondary' },
-            'XII_ARTS': { code: 'XII_ARTS', display: 'Class XII Arts', level: 'higher_secondary' },
-            'XII_COMMERCE': { code: 'XII_COMMERCE', display: 'Class XII Commerce', level: 'higher_secondary' }
+        /** 
+         * Class definitions with stream support
+         * Each class can have multiple streams (for higher secondary)
+         */
+        CLASS_DEFINITIONS: [
+            { id: 'V', display: 'Class V', level: 'primary', streams: ['primary'] },
+            { id: 'VI', display: 'Class VI', level: 'secondary', streams: ['secondary'] },
+            { id: 'VII', display: 'Class VII', level: 'secondary', streams: ['secondary'] },
+            { id: 'VIII', display: 'Class VIII', level: 'secondary', streams: ['secondary'] },
+            { id: 'IX', display: 'Class IX', level: 'secondary', streams: ['secondary'] },
+            { id: 'X', display: 'Class X', level: 'secondary', streams: ['secondary'] },
+            { id: 'XI', display: 'Class XI', level: 'higher_secondary', streams: ['Science', 'Arts', 'Commerce'] },
+            { id: 'XII', display: 'Class XII', level: 'higher_secondary', streams: ['Science', 'Arts', 'Commerce'] }
+        ],
+        
+        /** Stream-specific subjects for higher secondary */
+        STREAM_SUBJECTS: {
+            'Science': ['Bengali', 'English', 'Physics', 'Chemistry', 'Mathematics', 'Biology', 'Computer Science'],
+            'Arts': ['Bengali', 'English', 'History', 'Geography', 'Political Science', 'Philosophy', 'Sociology', 'Economics'],
+            'Commerce': ['Bengali', 'English', 'Accountancy', 'Business Studies', 'Economics', 'Mathematics', 'Computer Science']
         },
-        WBBSE_SUBJECTS: {
-            primary: ['Bengali', 'English', 'Mathematics', 'Environmental Science'],
-            secondary: ['Bengali', 'English', 'Mathematics', 'Physical Science', 'Life Science', 'History', 'Geography', 'Computer Science']
+        
+        /** Subject definitions for primary and secondary levels */
+        LEVEL_SUBJECTS: {
+            'primary': ['Bengali', 'English', 'Mathematics', 'Environmental Science'],
+            'secondary': ['Bengali', 'English', 'Mathematics', 'Physical Science', 'Life Science', 'History', 'Geography', 'Computer Science']
         },
-        WBCHSE_SUBJECTS: {
-            science: ['Bengali', 'English', 'Physics', 'Chemistry', 'Mathematics', 'Biology', 'Computer Science'],
-            arts: ['Bengali', 'English', 'History', 'Geography', 'Political Science', 'Philosophy', 'Sociology', 'Economics'],
-            commerce: ['Bengali', 'English', 'Accountancy', 'Business Studies', 'Economics', 'Mathematics', 'Computer Science']
-        },
+        
+        /** Default working days */
         DEFAULT_WORKING_DAYS: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
         DEFAULT_PERIODS_PER_DAY: 8,
         PERIOD_DURATION: 45,
+        MAX_SECTIONS_PER_CLASS: 20, // Configurable maximum
+        MIN_SECTIONS_PER_CLASS: 0,
+        
         BREAK_TIMINGS: {
             assembly: { start: '10:40', end: '10:50', duration: 10 },
             recess: { start: '12:15', end: '12:35', duration: 20 }
@@ -1191,8 +1258,9 @@
     // STORAGE MANAGER
     // ========================================
     class StorageManager {
+        /** Handles localStorage operations with prefix */
         constructor() {
-            this.prefix = 'routine_manager_';
+            this.prefix = 'routine_manager_v3_';
         }
         
         save(key, data) {
@@ -1227,10 +1295,17 @@
     }
 
     // ========================================
-    // CONFIG MANAGER
+    // CONFIG MANAGER - Dynamic Sections
     // ========================================
     class ConfigManager {
+        /**
+         * Generates default configuration with dynamic sections
+         * Each class can have 0-20 sections configured by the user
+         */
         getDefaultConfig() {
+            // Build section configuration for each class
+            const sectionConfig = this.buildDefaultSectionConfig();
+            
             return {
                 schoolName: 'My School',
                 schoolCode: '',
@@ -1244,7 +1319,13 @@
                 periodDuration: CONSTANTS.PERIOD_DURATION,
                 startTime: '10:35',
                 breakTimings: JSON.parse(JSON.stringify(CONSTANTS.BREAK_TIMINGS)),
-                classes: this.getDefaultClasses(),
+                
+                // Section configuration - completely dynamic
+                sectionConfig: sectionConfig,
+                
+                // Generated classes based on section config
+                classes: this.generateClassesFromConfig(sectionConfig),
+                
                 teachers: [],
                 classrooms: [],
                 laboratories: [],
@@ -1256,38 +1337,140 @@
                 },
                 routine: null,
                 activities: [
-                    { type: 'info', message: 'System initialized', time: new Date().toISOString() }
+                    { type: 'info', message: 'System initialized with dynamic sections', time: new Date().toISOString() }
                 ]
             };
         }
         
-        getDefaultClasses() {
-            const classes = [];
-            Object.keys(CONSTANTS.CLASSES).forEach(code => {
-                const info = CONSTANTS.CLASSES[code];
-                const subjects = this.getDefaultSubjects(info.level, code);
-                classes.push({
-                    code: code,
-                    display: info.display,
-                    level: info.level,
-                    sections: [{ name: 'A', studentCount: 30 }],
-                    subjects: subjects.map(s => ({ name: s, periodsPerWeek: 5, requiresLab: false, isPractical: false })),
-                    periodAllocation: this.getPeriodAllocation(code)
-                });
+        /**
+         * Build default section configuration
+         * Primary: 1 section, Secondary: 2 sections, Higher Secondary: 1 section per stream
+         */
+        buildDefaultSectionConfig() {
+            const config = {};
+            
+            CONSTANTS.CLASS_DEFINITIONS.forEach(classDef => {
+                const key = classDef.id;
+                config[key] = {
+                    streams: {}
+                };
+                
+                if (classDef.level === 'higher_secondary') {
+                    // Each stream gets 1 section by default
+                    classDef.streams.forEach(stream => {
+                        config[key].streams[stream] = { enabled: true, sections: 1 };
+                    });
+                } else {
+                    // Primary and secondary have a single stream
+                    config[key].streams['default'] = { enabled: true, sections: 2 };
+                }
             });
+            
+            return config;
+        }
+        
+        /**
+         * Generate class objects from section configuration
+         * This creates all sections dynamically
+         */
+        generateClassesFromConfig(sectionConfig) {
+            const classes = [];
+            
+            CONSTANTS.CLASS_DEFINITIONS.forEach(classDef => {
+                const classKey = classDef.id;
+                const classConfig = sectionConfig[classKey];
+                
+                if (!classConfig) return;
+                
+                const classObj = {
+                    code: classKey,
+                    display: classDef.display,
+                    level: classDef.level,
+                    sections: [],
+                    subjects: [],
+                    periodAllocation: this.getPeriodAllocation(classKey)
+                };
+                
+                // Process each stream for this class
+                Object.entries(classConfig.streams).forEach(([stream, config]) => {
+                    if (!config.enabled || config.sections <= 0) return;
+                    
+                    // Generate section names: V-A, V-B, XI Science-A, etc.
+                    const sectionPrefix = this.getSectionPrefix(classDef, stream);
+                    
+                    for (let i = 0; i < config.sections; i++) {
+                        const sectionName = String.fromCharCode(65 + i); // A, B, C, ...
+                        const fullSectionName = stream === 'default' 
+                            ? `${sectionPrefix}-${sectionName}`
+                            : `${sectionPrefix} ${stream}-${sectionName}`;
+                        
+                        classObj.sections.push({
+                            name: fullSectionName,
+                            stream: stream,
+                            studentCount: 30,
+                            sectionLetter: sectionName
+                        });
+                    }
+                    
+                    // Add subjects for this stream/class level
+                    const subjects = this.getSubjectsForClass(classDef, stream);
+                    classObj.subjects = subjects.map(s => ({
+                        name: s,
+                        periodsPerWeek: 5,
+                        requiresLab: this.isLabSubject(s),
+                        isPractical: this.isPracticalSubject(s),
+                        stream: stream
+                    }));
+                });
+                
+                if (classObj.sections.length > 0) {
+                    classes.push(classObj);
+                }
+            });
+            
             return classes;
         }
         
-        getDefaultSubjects(level, classCode) {
-            if (level === 'higher_secondary') {
-                if (classCode.includes('SCIENCE')) return CONSTANTS.WBCHSE_SUBJECTS.science;
-                if (classCode.includes('COMMERCE')) return CONSTANTS.WBCHSE_SUBJECTS.commerce;
-                if (classCode.includes('ARTS')) return CONSTANTS.WBCHSE_SUBJECTS.arts;
+        /**
+         * Get section prefix for display names
+         */
+        getSectionPrefix(classDef, stream) {
+            if (classDef.level === 'higher_secondary') {
+                return classDef.id; // XI, XII
             }
-            return level === 'primary' ? CONSTANTS.WBBSE_SUBJECTS.primary : CONSTANTS.WBBSE_SUBJECTS.secondary;
+            return classDef.id; // V, VI, VII, VIII, IX, X
         }
         
-        getPeriodAllocation(code) {
+        /**
+         * Get subjects for a class based on level and stream
+         */
+        getSubjectsForClass(classDef, stream) {
+            if (classDef.level === 'higher_secondary') {
+                return CONSTANTS.STREAM_SUBJECTS[stream] || [];
+            }
+            return CONSTANTS.LEVEL_SUBJECTS[classDef.level] || [];
+        }
+        
+        /**
+         * Determine if a subject requires a laboratory
+         */
+        isLabSubject(subjectName) {
+            const labSubjects = ['Physical Science', 'Life Science', 'Physics', 'Chemistry', 'Biology', 'Computer Science'];
+            return labSubjects.includes(subjectName);
+        }
+        
+        /**
+         * Determine if a subject is practical
+         */
+        isPracticalSubject(subjectName) {
+            const practicalSubjects = ['Physical Science', 'Life Science', 'Physics', 'Chemistry', 'Biology'];
+            return practicalSubjects.includes(subjectName);
+        }
+        
+        /**
+         * Get period allocation for a class
+         */
+        getPeriodAllocation(classKey) {
             const allocations = {
                 'V': { total: 39, instruction: 36, library: 1, smart: 1, lab: 1 },
                 'VI': { total: 44, instruction: 40, smart: 1, lab: 1 },
@@ -1295,14 +1478,80 @@
                 'VIII': { total: 44, instruction: 40, smart: 1, lab: 1 },
                 'IX': { total: 42, instruction: 38, ict: 2, library: 1, mock: 1 },
                 'X': { total: 42, instruction: 38, ict: 2, library: 1, mock: 1 },
-                'XI_SCIENCE': { total: 45, instruction: 40, lab: 3, library: 2 },
-                'XI_ARTS': { total: 45, instruction: 42, library: 3 },
-                'XI_COMMERCE': { total: 45, instruction: 42, library: 3 },
-                'XII_SCIENCE': { total: 45, instruction: 40, lab: 3, library: 2 },
-                'XII_ARTS': { total: 45, instruction: 42, library: 3 },
-                'XII_COMMERCE': { total: 45, instruction: 42, library: 3 }
+                'XI': { total: 45, instruction: 40, lab: 3, library: 2 },
+                'XII': { total: 45, instruction: 40, lab: 3, library: 2 }
             };
-            return allocations[code] || { total: 40, instruction: 37, library: 1, smart: 1, lab: 1 };
+            return allocations[classKey] || { total: 40, instruction: 37, library: 1, smart: 1, lab: 1 };
+        }
+        
+        /**
+         * Rebuild classes when section configuration changes
+         */
+        rebuildClasses(sectionConfig) {
+            return this.generateClassesFromConfig(sectionConfig);
+        }
+        
+        /**
+         * Calculate total sections across all classes
+         */
+        getTotalSections(classes) {
+            return classes.reduce((sum, cls) => sum + (cls.sections || []).length, 0);
+        }
+        
+        /**
+         * Calculate total classrooms required based on sections
+         */
+        getClassroomDemand(classes) {
+            return this.getTotalSections(classes);
+        }
+        
+        /**
+         * Calculate teacher demand based on subjects and sections
+         */
+        getTeacherDemand(classes) {
+            const demand = {};
+            classes.forEach(cls => {
+                (cls.subjects || []).forEach(sub => {
+                    const name = typeof sub === 'string' ? sub : sub.name;
+                    demand[name] = (demand[name] || 0) + (cls.sections || []).length;
+                });
+            });
+            return demand;
+        }
+        
+        /**
+         * Calculate laboratory demand
+         */
+        getLaboratoryDemand(classes) {
+            const demand = {};
+            classes.forEach(cls => {
+                (cls.subjects || []).forEach(sub => {
+                    if (sub.requiresLab) {
+                        const name = sub.name;
+                        demand[name] = (demand[name] || 0) + (cls.sections || []).length;
+                    }
+                });
+            });
+            return demand;
+        }
+        
+        /**
+         * Validate section configuration
+         */
+        validateSectionConfig(sectionConfig) {
+            const errors = [];
+            const warnings = [];
+            
+            Object.entries(sectionConfig).forEach(([classKey, config]) => {
+                Object.entries(config.streams).forEach(([stream, streamConfig]) => {
+                    const sections = streamConfig.sections;
+                    if (sections < CONSTANTS.MIN_SECTIONS_PER_CLASS || sections > CONSTANTS.MAX_SECTIONS_PER_CLASS) {
+                        errors.push(`${classKey} ${stream}: Sections must be between ${CONSTANTS.MIN_SECTIONS_PER_CLASS} and ${CONSTANTS.MAX_SECTIONS_PER_CLASS}`);
+                    }
+                });
+            });
+            
+            return { errors, warnings, isValid: errors.length === 0 };
         }
     }
 
@@ -1399,6 +1648,11 @@
             const saved = this.storage.load('schoolData');
             if (saved) {
                 this.schoolData = saved;
+                // Ensure compatibility with new version
+                if (!this.schoolData.sectionConfig) {
+                    this.schoolData.sectionConfig = this.configManager.buildDefaultSectionConfig();
+                    this.schoolData.classes = this.configManager.rebuildClasses(this.schoolData.sectionConfig);
+                }
             } else {
                 this.schoolData = this.configManager.getDefaultConfig();
                 this.storage.save('schoolData', this.schoolData);
@@ -1433,7 +1687,7 @@
             
             switch(view) {
                 case 'dashboard': this.renderDashboard(container); break;
-                case 'settings': this.renderSettings(container); break;
+                case 'configuration': this.renderConfiguration(container); break;
                 case 'teachers': this.renderTeachers(container); break;
                 case 'subjects': this.renderSubjects(container); break;
                 case 'generator': this.renderGenerator(container); break;
@@ -1451,6 +1705,7 @@
         renderDashboard(container) {
             const data = this.schoolData;
             const stats = this.calculateStats();
+            const totalSections = this.configManager.getTotalSections(data.classes || []);
             
             container.innerHTML = `
                 <div class="dashboard-container">
@@ -1459,6 +1714,7 @@
                             <h1 class="welcome-title">Welcome to ${data.schoolName || 'School'} Routine Management</h1>
                             <p class="welcome-subtitle">Academic Year: ${data.academicYear || '2026-2027'}</p>
                             <span class="board-badge">${data.board || 'WBBSE'}</span>
+                            <span class="board-badge" style="background:var(--success);margin-left:8px;">${totalSections} Sections</span>
                         </div>
                         <div class="quick-actions">
                             <button class="quick-action-btn" data-action="generate">
@@ -1482,6 +1738,13 @@
                             </div>
                         </div>
                         <div class="stat-card">
+                            <div class="stat-icon">📋</div>
+                            <div class="stat-content">
+                                <div class="stat-value">${totalSections}</div>
+                                <div class="stat-label">Total Sections</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
                             <div class="stat-icon">👨‍🏫</div>
                             <div class="stat-content">
                                 <div class="stat-value">${stats.totalTeachers}</div>
@@ -1493,13 +1756,6 @@
                             <div class="stat-content">
                                 <div class="stat-value">${stats.totalSubjects}</div>
                                 <div class="stat-label">Subjects</div>
-                            </div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-icon">🏫</div>
-                            <div class="stat-content">
-                                <div class="stat-value">${stats.totalSections}</div>
-                                <div class="stat-label">Sections</div>
                             </div>
                         </div>
                         <div class="stat-card">
@@ -1531,8 +1787,8 @@
                         <section class="quick-access">
                             <h2>Quick Access</h2>
                             <div class="quick-access-grid">
-                                <button class="quick-access-item" data-view="settings">
-                                    <span class="icon">⚙️</span> Settings
+                                <button class="quick-access-item" data-view="configuration">
+                                    <span class="icon">⚙️</span> Configuration
                                 </button>
                                 <button class="quick-access-item" data-view="teachers">
                                     <span class="icon">👨‍🏫</span> Teachers
@@ -1572,22 +1828,20 @@
         calculateStats() {
             const classes = this.schoolData.classes || [];
             const teachers = this.schoolData.teachers || [];
-            let totalSections = 0, totalSubjects = 0;
+            let totalSubjects = 0;
             
             classes.forEach(cls => {
-                totalSections += (cls.sections || []).length || 1;
                 totalSubjects += (cls.subjects || []).length;
             });
             
             const totalPeriods = classes.reduce((sum, cls) => {
-                return sum + (cls.periodAllocation?.total || 0);
+                return sum + (cls.periodAllocation?.total || 0) * (cls.sections || []).length;
             }, 0);
             
             return {
                 totalClasses: classes.length,
                 totalTeachers: teachers.length,
                 totalSubjects: totalSubjects,
-                totalSections: totalSections,
                 totalPeriods: totalPeriods,
                 conflicts: this.schoolData.conflicts?.length || 0
             };
@@ -1595,7 +1849,7 @@
         
         renderActivity() {
             const activities = this.schoolData.activities || [
-                { type: 'info', message: 'System initialized', time: new Date().toISOString() }
+                { type: 'info', message: 'System initialized with dynamic sections', time: new Date().toISOString() }
             ];
             
             return activities.slice(-5).reverse().map(activity => `
@@ -1622,26 +1876,35 @@
         }
         
         // ========================================
-        // SETTINGS VIEW
+        // CONFIGURATION VIEW - Dynamic Sections
         // ========================================
-        renderSettings(container) {
+        renderConfiguration(container) {
             const data = this.schoolData;
+            const sectionConfig = data.sectionConfig || this.configManager.buildDefaultSectionConfig();
             
-            container.innerHTML = `
+            // Build the configuration table HTML
+            let tableHtml = `
                 <div class="settings-container">
                     <div class="settings-header">
-                        <h1>⚙️ School Settings</h1>
-                        <p class="settings-subtitle">Configure your school details and timetable parameters</p>
+                        <h1>⚙️ School Configuration</h1>
+                        <p class="settings-subtitle">Configure sections for each class and stream</p>
                     </div>
                     
-                    <form id="settings-form" novalidate>
+                    <div style="background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius);padding:var(--spacing-md);margin-bottom:var(--spacing-xl);">
+                        <p style="color:var(--text-secondary);">
+                            <strong>📋 Configuration Summary:</strong>
+                            Total Sections: ${this.configManager.getTotalSections(data.classes || [])} |
+                            Max Sections per Class: ${CONSTANTS.MAX_SECTIONS_PER_CLASS}
+                        </p>
+                    </div>
+                    
+                    <form id="config-form" novalidate>
                         <section class="settings-section">
                             <h2>School Information</h2>
                             <div class="form-grid">
                                 <div class="form-group">
                                     <label for="schoolName">School Name *</label>
                                     <input type="text" id="schoolName" value="${data.schoolName || ''}" required>
-                                    <span class="form-error"></span>
                                 </div>
                                 <div class="form-group">
                                     <label for="schoolCode">School Code</label>
@@ -1658,20 +1921,74 @@
                                     <label for="academicYear">Academic Year *</label>
                                     <input type="text" id="academicYear" value="${data.academicYear || '2026-2027'}" 
                                            pattern="^\\d{4}-\\d{4}$" required>
-                                    <span class="form-error"></span>
                                 </div>
-                                <div class="form-group full-width">
-                                    <label for="address">Address</label>
-                                    <textarea id="address" rows="2">${data.address || ''}</textarea>
-                                </div>
-                                <div class="form-group">
-                                    <label for="phone">Phone</label>
-                                    <input type="tel" id="phone" value="${data.phone || ''}">
-                                </div>
-                                <div class="form-group">
-                                    <label for="email">Email</label>
-                                    <input type="email" id="email" value="${data.email || ''}">
-                                </div>
+                            </div>
+                        </section>
+                        
+                        <section class="settings-section">
+                            <h2>Section Configuration</h2>
+                            <p style="color:var(--text-secondary);margin-bottom:var(--spacing-md);">
+                                Configure the number of sections for each class. Higher secondary classes have multiple streams.
+                            </p>
+                            
+                            <div style="overflow-x:auto;">
+                                <table class="section-config-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Class</th>
+                                            <th>Stream</th>
+                                            <th>Enabled</th>
+                                            <th>Sections (0-${CONSTANTS.MAX_SECTIONS_PER_CLASS})</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        ${CONSTANTS.CLASS_DEFINITIONS.map(classDef => {
+                                            const key = classDef.id;
+                                            const config = sectionConfig[key] || { streams: {} };
+                                            
+                                            return classDef.streams.map(stream => {
+                                                const streamConfig = config.streams[stream] || { enabled: true, sections: 1 };
+                                                const isEnabled = streamConfig.enabled !== false;
+                                                const sections = streamConfig.sections || 1;
+                                                
+                                                // Check if this is a higher secondary class
+                                                const isHigherSecondary = classDef.level === 'higher_secondary';
+                                                const displayStream = isHigherSecondary ? stream : '—';
+                                                const disabled = !isHigherSecondary && stream !== 'default';
+                                                
+                                                return `
+                                                    <tr>
+                                                        <td><strong>${classDef.display}</strong></td>
+                                                        <td>${displayStream}</td>
+                                                        <td>
+                                                            <button type="button" 
+                                                                    class="stream-toggle ${isEnabled ? 'active' : 'inactive'}"
+                                                                    data-class="${key}" 
+                                                                    data-stream="${stream}"
+                                                                    data-action="toggle-stream">
+                                                                ${isEnabled ? '✅ Enabled' : '❌ Disabled'}
+                                                            </button>
+                                                        </td>
+                                                        <td>
+                                                            <input type="number" 
+                                                                   class="section-count-input"
+                                                                   data-class="${key}" 
+                                                                   data-stream="${stream}"
+                                                                   value="${sections}"
+                                                                   min="${CONSTANTS.MIN_SECTIONS_PER_CLASS}" 
+                                                                   max="${CONSTANTS.MAX_SECTIONS_PER_CLASS}"
+                                                                   ${!isEnabled ? 'disabled' : ''}
+                                                                   ${disabled ? 'readonly' : ''}>
+                                                            <span style="font-size:var(--font-size-xs);color:var(--text-muted);display:block;margin-top:2px;">
+                                                                ${isEnabled ? 'Active' : 'Disabled'}
+                                                            </span>
+                                                        </td>
+                                                    </tr>
+                                                `;
+                                            }).join('');
+                                        }).join('')}
+                                    </tbody>
+                                </table>
                             </div>
                         </section>
                         
@@ -1682,7 +1999,6 @@
                                     <label for="periodsPerDay">Periods Per Day *</label>
                                     <input type="number" id="periodsPerDay" value="${data.periodsPerDay || 8}" 
                                            min="3" max="10" required>
-                                    <span class="form-error"></span>
                                 </div>
                                 <div class="form-group">
                                     <label for="periodDuration">Period Duration (minutes) *</label>
@@ -1704,7 +2020,6 @@
                                             </label>
                                         `).join('')}
                                     </div>
-                                    <span class="form-error"></span>
                                 </div>
                             </div>
                         </section>
@@ -1731,38 +2046,8 @@
                             </div>
                         </section>
                         
-                        <section class="settings-section">
-                            <h2>Optimization Constraints</h2>
-                            <div class="form-grid">
-                                <div class="form-group">
-                                    <label for="maxTeacherLoad">Max Teacher Load (periods/week)</label>
-                                    <input type="number" id="maxTeacherLoad" value="${data.constraints?.maxTeacherLoad || 35}" 
-                                           min="1" max="50">
-                                </div>
-                                <div class="form-group">
-                                    <label for="maxConsecutive">Max Consecutive Periods</label>
-                                    <input type="number" id="maxConsecutive" value="${data.constraints?.maxConsecutivePeriods || 3}" 
-                                           min="1" max="5">
-                                </div>
-                                <div class="form-group full-width">
-                                    <label class="checkbox-label">
-                                        <input type="checkbox" id="balancedSubjects" 
-                                               ${data.constraints?.balancedSubjects !== false ? 'checked' : ''}>
-                                        Balance difficult subjects across the week
-                                    </label>
-                                </div>
-                                <div class="form-group full-width">
-                                    <label class="checkbox-label">
-                                        <input type="checkbox" id="avoidBackToBackLab" 
-                                               ${data.constraints?.avoidBackToBackLab !== false ? 'checked' : ''}>
-                                        Avoid back-to-back lab sessions
-                                    </label>
-                                </div>
-                            </div>
-                        </section>
-                        
                         <div class="form-actions">
-                            <button type="submit" class="btn-primary">💾 Save Settings</button>
+                            <button type="submit" class="btn-primary">💾 Save Configuration</button>
                             <button type="reset" class="btn-secondary">↩️ Reset</button>
                             <button type="button" class="btn-danger" id="resetDefaults">⚠️ Reset to Defaults</button>
                         </div>
@@ -1770,98 +2055,147 @@
                 </div>
             `;
             
-            const form = container.querySelector('#settings-form');
-            form.addEventListener('submit', (e) => {
-                e.preventDefault();
-                this.saveSettings(form);
+            container.innerHTML = tableHtml;
+            this.attachConfigurationEvents(container);
+        }
+        
+        attachConfigurationEvents(container) {
+            const form = container.querySelector('#config-form');
+            
+            // Handle stream toggle buttons
+            container.querySelectorAll('[data-action="toggle-stream"]').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const classKey = btn.dataset.class;
+                    const stream = btn.dataset.stream;
+                    const isEnabled = btn.classList.contains('active');
+                    
+                    // Toggle the button state
+                    btn.classList.toggle('active');
+                    btn.classList.toggle('inactive');
+                    btn.textContent = btn.classList.contains('active') ? '✅ Enabled' : '❌ Disabled';
+                    
+                    // Enable/disable the corresponding input
+                    const input = container.querySelector(`.section-count-input[data-class="${classKey}"][data-stream="${stream}"]`);
+                    if (input) {
+                        input.disabled = btn.classList.contains('inactive');
+                        if (input.disabled) {
+                            input.value = 0;
+                        } else {
+                            input.value = 1;
+                        }
+                    }
+                });
             });
             
+            // Validate section count inputs
+            container.querySelectorAll('.section-count-input').forEach(input => {
+                input.addEventListener('change', () => {
+                    let val = parseInt(input.value);
+                    if (isNaN(val) || val < CONSTANTS.MIN_SECTIONS_PER_CLASS) {
+                        val = CONSTANTS.MIN_SECTIONS_PER_CLASS;
+                        input.value = val;
+                    } else if (val > CONSTANTS.MAX_SECTIONS_PER_CLASS) {
+                        val = CONSTANTS.MAX_SECTIONS_PER_CLASS;
+                        input.value = val;
+                    }
+                });
+            });
+            
+            // Form submission
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                this.saveConfiguration(form);
+            });
+            
+            // Reset defaults
             form.querySelector('#resetDefaults').addEventListener('click', () => {
                 if (confirm('Are you sure you want to reset all settings to default values?')) {
                     this.schoolData = this.configManager.getDefaultConfig();
                     this.storage.save('schoolData', this.schoolData);
-                    this.renderSettings(container);
-                    this.showNotification('Settings reset to defaults', 'success');
-                    this.addActivity('Settings reset to defaults', 'warning');
+                    this.renderConfiguration(container);
+                    this.showNotification('Configuration reset to defaults', 'success');
+                    this.addActivity('Configuration reset to defaults', 'warning');
                 }
             });
+        }
+        
+        saveConfiguration(form) {
+            // Collect form data
+            const schoolName = form.querySelector('#schoolName').value;
+            const schoolCode = form.querySelector('#schoolCode').value;
+            const board = form.querySelector('#board').value;
+            const academicYear = form.querySelector('#academicYear').value;
+            const periodsPerDay = parseInt(form.querySelector('#periodsPerDay').value);
+            const periodDuration = parseInt(form.querySelector('#periodDuration').value);
+            const startTime = form.querySelector('#startTime').value;
+            const workingDays = Array.from(form.querySelectorAll('#workingDays input:checked')).map(cb => cb.value);
             
-            form.querySelectorAll('input[required], select[required]').forEach(input => {
-                input.addEventListener('blur', () => this.validateField(input));
-                input.addEventListener('input', () => {
-                    if (input.classList.contains('invalid')) this.validateField(input);
+            // Collect section configuration
+            const sectionConfig = {};
+            
+            CONSTANTS.CLASS_DEFINITIONS.forEach(classDef => {
+                const key = classDef.id;
+                sectionConfig[key] = { streams: {} };
+                
+                classDef.streams.forEach(stream => {
+                    const isHigherSecondary = classDef.level === 'higher_secondary';
+                    const displayStream = isHigherSecondary ? stream : 'default';
+                    
+                    const toggleBtn = form.querySelector(`[data-class="${key}"][data-stream="${displayStream}"]`);
+                    const input = form.querySelector(`.section-count-input[data-class="${key}"][data-stream="${displayStream}"]`);
+                    
+                    if (toggleBtn && input) {
+                        const isEnabled = toggleBtn.classList.contains('active');
+                        let sections = parseInt(input.value) || 0;
+                        
+                        if (!isEnabled) {
+                            sections = 0;
+                        }
+                        
+                        // Ensure within bounds
+                        sections = Math.max(CONSTANTS.MIN_SECTIONS_PER_CLASS, Math.min(CONSTANTS.MAX_SECTIONS_PER_CLASS, sections));
+                        
+                        sectionConfig[key].streams[displayStream] = {
+                            enabled: isEnabled,
+                            sections: sections
+                        };
+                    }
                 });
             });
-        }
-        
-        validateField(input) {
-            const errorSpan = input.parentElement.querySelector('.form-error');
-            const validity = input.validity;
             
-            if (validity.valid) {
-                input.classList.remove('invalid');
-                input.classList.add('valid');
-                if (errorSpan) errorSpan.textContent = '';
-                return true;
-            } else {
-                input.classList.remove('valid');
-                input.classList.add('invalid');
-                if (errorSpan) {
-                    if (validity.valueMissing) errorSpan.textContent = 'This field is required';
-                    else if (validity.patternMismatch) errorSpan.textContent = 'Invalid format';
-                    else if (validity.rangeOverflow) errorSpan.textContent = `Maximum value is ${input.max}`;
-                    else if (validity.rangeUnderflow) errorSpan.textContent = `Minimum value is ${input.min}`;
-                    else errorSpan.textContent = 'Invalid value';
-                }
-                return false;
-            }
-        }
-        
-        saveSettings(form) {
-            const inputs = form.querySelectorAll('input[required], select[required]');
-            let valid = true;
-            inputs.forEach(input => {
-                if (!this.validateField(input)) valid = false;
-            });
-            if (!valid) {
-                this.showNotification('Please fix all errors before saving', 'error');
-                return;
-            }
+            // Build updated classes from section config
+            const updatedClasses = this.configManager.rebuildClasses(sectionConfig);
             
-            const data = {
-                schoolName: form.querySelector('#schoolName').value,
-                schoolCode: form.querySelector('#schoolCode').value,
-                board: form.querySelector('#board').value,
-                academicYear: form.querySelector('#academicYear').value,
-                address: form.querySelector('#address').value,
-                phone: form.querySelector('#phone').value,
-                email: form.querySelector('#email').value,
-                periodsPerDay: parseInt(form.querySelector('#periodsPerDay').value),
-                periodDuration: parseInt(form.querySelector('#periodDuration').value),
-                startTime: form.querySelector('#startTime').value,
-                workingDays: Array.from(form.querySelectorAll('#workingDays input:checked')).map(cb => cb.value),
-                breakTimings: {
-                    assembly: {
-                        start: form.querySelector('#assemblyStart').value,
-                        end: form.querySelector('#assemblyEnd').value
-                    },
-                    recess: {
-                        start: form.querySelector('#recessStart').value,
-                        end: form.querySelector('#recessEnd').value
-                    }
-                },
-                constraints: {
-                    maxTeacherLoad: parseInt(form.querySelector('#maxTeacherLoad').value) || 35,
-                    maxConsecutivePeriods: parseInt(form.querySelector('#maxConsecutive').value) || 3,
-                    balancedSubjects: form.querySelector('#balancedSubjects').checked,
-                    avoidBackToBackLab: form.querySelector('#avoidBackToBackLab').checked
-                }
-            };
+            // Update school data
+            this.schoolData.schoolName = schoolName;
+            this.schoolData.schoolCode = schoolCode;
+            this.schoolData.board = board;
+            this.schoolData.academicYear = academicYear;
+            this.schoolData.periodsPerDay = periodsPerDay;
+            this.schoolData.periodDuration = periodDuration;
+            this.schoolData.startTime = startTime;
+            this.schoolData.workingDays = workingDays;
+            this.schoolData.sectionConfig = sectionConfig;
+            this.schoolData.classes = updatedClasses;
             
-            this.schoolData = { ...this.schoolData, ...data };
+            // Save
             this.storage.save('schoolData', this.schoolData);
-            this.showNotification('Settings saved successfully!', 'success');
-            this.addActivity('Settings updated', 'success');
+            
+            // Re-render configuration view
+            this.renderConfiguration(document.getElementById('view-container'));
+            
+            this.showNotification('Configuration saved successfully!', 'success');
+            this.addActivity(`Configuration updated: ${this.configManager.getTotalSections(updatedClasses)} sections`, 'success');
+            
+            // Trigger a full rebuild of dependent views
+            this.rebuildAllViews();
+        }
+        
+        rebuildAllViews() {
+            // Refresh any view that depends on class data
+            const currentView = this.currentView;
+            // Re-render current view
+            this.renderView(currentView);
         }
         
         // ========================================
@@ -1869,12 +2203,16 @@
         // ========================================
         renderTeachers(container) {
             const teachers = this.schoolData.teachers || [];
+            const allSubjects = this.getAllSubjects();
             
             container.innerHTML = `
                 <div class="settings-container">
                     <div class="settings-header">
                         <h1>👨‍🏫 Teacher Management</h1>
                         <p class="settings-subtitle">Manage teachers and their subject assignments</p>
+                        <p style="color:var(--text-secondary);font-size:var(--font-size-sm);margin-top:var(--spacing-sm);">
+                            Total Sections: ${this.configManager.getTotalSections(this.schoolData.classes || [])}
+                        </p>
                     </div>
                     
                     <button class="btn-primary" id="addTeacher">➕ Add Teacher</button>
@@ -2036,7 +2374,7 @@
         }
         
         // ========================================
-        // SUBJECTS VIEW - SHOWING ADD SUBJECT BUTTON
+        // SUBJECTS VIEW
         // ========================================
         renderSubjects(container) {
             const classes = this.schoolData.classes || [];
@@ -2045,187 +2383,72 @@
                 <div class="settings-container">
                     <div class="settings-header">
                         <h1>📖 Subject Management</h1>
-                        <p class="settings-subtitle">View and manage subjects for each class</p>
+                        <p class="settings-subtitle">View subjects for each class and stream</p>
+                        <p style="color:var(--text-secondary);font-size:var(--font-size-sm);margin-top:var(--spacing-sm);">
+                            Total Sections: ${this.configManager.getTotalSections(classes)}
+                        </p>
                     </div>
                     
                     ${classes.map(cls => `
                         <section class="settings-section">
-                            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--spacing-md);">
-                                <h2 style="margin:0;border:none;padding:0;">${cls.display}</h2>
-                                <button class="btn-primary" style="padding:0.3rem 0.8rem;font-size:var(--font-size-sm);" 
-                                        data-action="add-subject" data-class="${cls.code}">
-                                    ➕ Add Subject
-                                </button>
-                            </div>
+                            <h2>${cls.display}</h2>
                             <div style="overflow-x:auto;">
                                 <table class="timetable-preview">
                                     <thead>
                                         <tr>
                                             <th>Subject</th>
+                                            <th>Stream</th>
                                             <th>Periods/Week</th>
                                             <th>Lab Required</th>
                                             <th>Practical</th>
-                                            <th>Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         ${(cls.subjects || []).length === 0 ? `
                                             <tr>
                                                 <td colspan="5" style="text-align:center;padding:1rem;color:var(--text-muted);">
-                                                    No subjects added. Click "Add Subject" to get started.
+                                                    No subjects configured for this class.
                                                 </td>
                                             </tr>
-                                        ` : (cls.subjects || []).map((sub, idx) => {
+                                        ` : (cls.subjects || []).map(sub => {
                                             const name = typeof sub === 'string' ? sub : sub.name;
                                             const periods = typeof sub === 'string' ? 5 : (sub.periodsPerWeek || 5);
                                             const lab = typeof sub === 'string' ? false : (sub.requiresLab || false);
                                             const practical = typeof sub === 'string' ? false : (sub.isPractical || false);
+                                            const stream = typeof sub === 'string' ? 'default' : (sub.stream || 'default');
                                             return `
                                                 <tr>
                                                     <td><strong>${name}</strong></td>
+                                                    <td>${stream === 'default' ? '—' : stream}</td>
                                                     <td>${periods}</td>
                                                     <td>${lab ? '✅' : '❌'}</td>
                                                     <td>${practical ? '✅' : '❌'}</td>
-                                                    <td>
-                                                        <button class="btn-secondary" style="padding:0.25rem 0.5rem;font-size:var(--font-size-xs);"
-                                                                data-action="edit-subject" data-class="${cls.code}" data-index="${idx}">✏️ Edit</button>
-                                                        <button class="btn-danger" style="padding:0.25rem 0.5rem;font-size:var(--font-size-xs);"
-                                                                data-action="delete-subject" data-class="${cls.code}" data-index="${idx}">🗑️</button>
-                                                    </td>
                                                 </tr>
                                             `;
                                         }).join('')}
                                     </tbody>
                                 </table>
                             </div>
+                            <div style="margin-top:var(--spacing-sm);color:var(--text-secondary);font-size:var(--font-size-xs);">
+                                ${(cls.sections || []).length} sections: ${(cls.sections || []).map(s => s.name).join(', ')}
+                            </div>
                         </section>
                     `).join('')}
                 </div>
             `;
-            
-            container.querySelectorAll('[data-action="add-subject"]').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    this.showSubjectModal(btn.dataset.class);
-                });
-            });
-            
-            container.querySelectorAll('[data-action="edit-subject"]').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    this.showSubjectModal(btn.dataset.class, parseInt(btn.dataset.index));
-                });
-            });
-            
-            container.querySelectorAll('[data-action="delete-subject"]').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const classCode = btn.dataset.class;
-                    const index = parseInt(btn.dataset.index);
-                    const cls = this.schoolData.classes.find(c => c.code === classCode);
-                    if (cls && confirm(`Delete "${cls.subjects[index].name}" from ${cls.display}?`)) {
-                        cls.subjects.splice(index, 1);
-                        this.storage.save('schoolData', this.schoolData);
-                        this.renderSubjects(container);
-                        this.showNotification('Subject deleted', 'success');
-                        this.addActivity('Subject deleted', 'warning');
-                    }
-                });
-            });
-        }
-        
-        showSubjectModal(classCode, index = -1) {
-            const cls = this.schoolData.classes.find(c => c.code === classCode);
-            if (!cls) return;
-            
-            const subjects = cls.subjects || [];
-            const subject = index >= 0 ? subjects[index] : { name: '', periodsPerWeek: 5, requiresLab: false, isPractical: false };
-            const name = typeof subject === 'string' ? subject : subject.name;
-            const periods = typeof subject === 'string' ? 5 : (subject.periodsPerWeek || 5);
-            const lab = typeof subject === 'string' ? false : (subject.requiresLab || false);
-            const practical = typeof subject === 'string' ? false : (subject.isPractical || false);
-            
-            const modal = document.createElement('div');
-            modal.style.cssText = `
-                position: fixed; top:0; left:0; right:0; bottom:0;
-                background:rgba(0,0,0,0.5); display:flex; align-items:center; justify-content:center;
-                z-index:2000; animation:fadeIn 0.3s ease;
-            `;
-            
-            modal.innerHTML = `
-                <div style="background:var(--bg-card);border-radius:var(--radius-lg);padding:2rem;max-width:450px;width:90%;">
-                    <h2 style="margin-bottom:var(--spacing-md);">${index >= 0 ? 'Edit' : 'Add'} Subject for ${cls.display}</h2>
-                    <form id="subjectForm">
-                        <div class="form-group">
-                            <label for="subjectName">Subject Name *</label>
-                            <input type="text" id="subjectName" value="${name}" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="subjectPeriods">Periods Per Week</label>
-                            <input type="number" id="subjectPeriods" value="${periods}" min="1" max="10">
-                        </div>
-                        <div class="form-group">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="subjectLab" ${lab ? 'checked' : ''}>
-                                Requires Laboratory
-                            </label>
-                        </div>
-                        <div class="form-group">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="subjectPractical" ${practical ? 'checked' : ''}>
-                                Is Practical Subject
-                            </label>
-                        </div>
-                        <div style="display:flex;gap:var(--spacing-md);margin-top:var(--spacing-lg);">
-                            <button type="submit" class="btn-primary">💾 Save</button>
-                            <button type="button" class="btn-secondary" id="closeModal">❌ Cancel</button>
-                        </div>
-                    </form>
-                </div>
-            `;
-            
-            document.body.appendChild(modal);
-            
-            modal.querySelector('#subjectForm').addEventListener('submit', (e) => {
-                e.preventDefault();
-                const name = modal.querySelector('#subjectName').value.trim();
-                if (!name) {
-                    this.showNotification('Subject name is required', 'error');
-                    return;
-                }
-                
-                const subjectData = {
-                    name: name,
-                    periodsPerWeek: parseInt(modal.querySelector('#subjectPeriods').value) || 5,
-                    requiresLab: modal.querySelector('#subjectLab').checked,
-                    isPractical: modal.querySelector('#subjectPractical').checked
-                };
-                
-                if (index >= 0) {
-                    cls.subjects[index] = subjectData;
-                } else {
-                    cls.subjects.push(subjectData);
-                }
-                
-                this.storage.save('schoolData', this.schoolData);
-                modal.remove();
-                this.renderSubjects(document.getElementById('view-container'));
-                this.showNotification(`Subject ${index >= 0 ? 'updated' : 'added'} successfully`, 'success');
-                this.addActivity(`Subject ${index >= 0 ? 'updated' : 'added'}: ${name}`, 'success');
-            });
-            
-            modal.querySelector('#closeModal').addEventListener('click', () => modal.remove());
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) modal.remove();
-            });
         }
         
         // ========================================
         // GENERATOR VIEW
         // ========================================
         renderGenerator(container) {
+            const totalSections = this.configManager.getTotalSections(this.schoolData.classes || []);
+            
             container.innerHTML = `
                 <div class="generator-container">
                     <div class="generator-header">
                         <h1>⚡ Timetable Generator</h1>
-                        <p class="generator-subtitle">Generate optimized timetables using AI-powered scheduling</p>
+                        <p class="generator-subtitle">Generate optimized timetables for ${totalSections} sections</p>
                     </div>
                     
                     <div class="generator-grid">
@@ -2289,7 +2512,7 @@
                                 <div class="progress-bar" id="genProgressBar" style="width:0%"></div>
                             </div>
                             <div class="log-container" id="genLog">
-                                <div class="log-entry system">System ready, click "Start Generation" to begin</div>
+                                <div class="log-entry system">System ready for ${totalSections} sections</div>
                             </div>
                         </section>
                     </div>
@@ -2332,6 +2555,9 @@
                 
                 status.textContent = 'Generating...';
                 this.addLogEntry(log, 'Starting timetable generation...', 'system');
+                
+                const totalSections = this.configManager.getTotalSections(this.schoolData.classes || []);
+                this.addLogEntry(log, `Processing ${totalSections} sections`, 'info');
                 
                 const steps = 100;
                 let bestFitness = 0;
@@ -2395,17 +2621,26 @@
         renderTimetablePreview(container) {
             const days = this.schoolData.workingDays || CONSTANTS.DEFAULT_WORKING_DAYS;
             const periods = this.schoolData.periodsPerDay || 8;
+            const classes = this.schoolData.classes || [];
+            const totalSections = this.configManager.getTotalSections(classes);
             
-            let html = `<table class="timetable-preview"><thead><tr><th>Time/Day</th>`;
+            let html = `<p style="margin-bottom:var(--spacing-md);">Showing preview for ${totalSections} sections</p>`;
+            html += `<table class="timetable-preview"><thead><tr><th>Time/Day</th>`;
             days.forEach(day => { html += `<th>${day.substring(0,3)}</th>`; });
             html += `</tr></thead><tbody>`;
             
-            const subjects = ['Math', 'Science', 'English', 'History', 'Geography', 'Computer'];
+            const allSubjects = [];
+            classes.forEach(cls => {
+                (cls.subjects || []).forEach(sub => {
+                    const name = typeof sub === 'string' ? sub : sub.name;
+                    if (!allSubjects.includes(name)) allSubjects.push(name);
+                });
+            });
             
             for (let p = 1; p <= periods; p++) {
                 html += `<tr><td class="period-label">P${p}</td>`;
                 days.forEach(() => {
-                    const sub = subjects[Math.floor(Math.random() * subjects.length)];
+                    const sub = allSubjects[Math.floor(Math.random() * allSubjects.length)] || 'Math';
                     const teacher = ['Mr. Singh', 'Ms. Sharma', 'Dr. Kumar', 'Mrs. Gupta'][Math.floor(Math.random() * 4)];
                     html += `<td><div class="subject-cell">${sub}</div><div class="teacher-cell">${teacher}</div></td>`;
                 });
@@ -2432,26 +2667,36 @@
         // ROUTINE VIEW
         // ========================================
         renderRoutine(container) {
-            const days = this.schoolData.workingDays || CONSTANTS.DEFAULT_WORKING_DAYS;
-            const periods = this.schoolData.periodsPerDay || 8;
             const classes = this.schoolData.classes || [];
+            const totalSections = this.configManager.getTotalSections(classes);
+            
+            // Build section options for dropdown
+            let sectionOptions = [];
+            classes.forEach(cls => {
+                (cls.sections || []).forEach(sec => {
+                    sectionOptions.push({
+                        value: `${cls.code}|${sec.name}`,
+                        display: `${cls.display} - ${sec.name}`
+                    });
+                });
+            });
             
             container.innerHTML = `
                 <div class="settings-container">
                     <div class="settings-header">
                         <h1>📅 Class Routine</h1>
-                        <p class="settings-subtitle">View complete timetable for all classes</p>
+                        <p class="settings-subtitle">View complete timetable for all sections</p>
+                        <p style="color:var(--text-secondary);font-size:var(--font-size-sm);margin-top:var(--spacing-sm);">
+                            ${totalSections} sections available
+                        </p>
                     </div>
                     
                     <div style="display:flex;gap:var(--spacing-md);flex-wrap:wrap;margin-bottom:var(--spacing-lg);">
-                        <select id="classSelect" style="padding:0.5rem;border:2px solid var(--border-color);border-radius:var(--radius-sm);background:var(--bg-input);color:var(--text-primary);">
-                            ${classes.map(cls => `
-                                <option value="${cls.code}">${cls.display}</option>
+                        <select id="sectionSelect" style="padding:0.5rem;border:2px solid var(--border-color);border-radius:var(--radius-sm);background:var(--bg-input);color:var(--text-primary);min-width:200px;">
+                            ${sectionOptions.map(opt => `
+                                <option value="${opt.value}">${opt.display}</option>
                             `).join('')}
-                        </select>
-                        <select id="sectionSelect" style="padding:0.5rem;border:2px solid var(--border-color);border-radius:var(--radius-sm);background:var(--bg-input);color:var(--text-primary);">
-                            <option value="A">Section A</option>
-                            <option value="B">Section B</option>
+                            ${sectionOptions.length === 0 ? '<option value="">No sections configured</option>' : ''}
                         </select>
                         <button class="btn-primary" id="viewRoutine">📖 View Routine</button>
                         <button class="btn-secondary" onclick="window.print()">🖨️ Print</button>
@@ -2459,20 +2704,22 @@
                     
                     <div id="routineDisplay" style="overflow-x:auto;">
                         <p style="color:var(--text-muted);text-align:center;padding:2rem;">
-                            Select a class and section, then click "View Routine"
+                            Select a section, then click "View Routine"
                         </p>
                     </div>
                 </div>
             `;
             
             container.querySelector('#viewRoutine').addEventListener('click', () => {
-                const classCode = container.querySelector('#classSelect').value;
-                const section = container.querySelector('#sectionSelect').value;
-                this.displayRoutine(container.querySelector('#routineDisplay'), classCode, section);
+                const value = container.querySelector('#sectionSelect').value;
+                if (value) {
+                    const [classCode, sectionName] = value.split('|');
+                    this.displayRoutine(container.querySelector('#routineDisplay'), classCode, sectionName);
+                }
             });
         }
         
-        displayRoutine(container, classCode, section) {
+        displayRoutine(container, classCode, sectionName) {
             const days = this.schoolData.workingDays || CONSTANTS.DEFAULT_WORKING_DAYS;
             const periods = this.schoolData.periodsPerDay || 8;
             const cls = this.schoolData.classes.find(c => c.code === classCode);
@@ -2484,7 +2731,7 @@
             
             const subjects = cls.subjects || ['Math', 'Science', 'English', 'History', 'Geography'];
             
-            let html = `<h3 style="margin-bottom:var(--spacing-md);">${cls.display} - Section ${section}</h3>`;
+            let html = `<h3 style="margin-bottom:var(--spacing-md);">${cls.display} - ${sectionName}</h3>`;
             html += `<table class="timetable-preview"><thead><tr><th>Time/Day</th>`;
             days.forEach(day => { html += `<th>${day}</th>`; });
             html += `</tr></thead><tbody>`;
@@ -2494,7 +2741,8 @@
                 days.forEach(() => {
                     const sub = subjects[Math.floor(Math.random() * subjects.length)];
                     const teacher = ['Mr. Singh', 'Ms. Sharma', 'Dr. Kumar', 'Mrs. Gupta'][Math.floor(Math.random() * 4)];
-                    html += `<td><div class="subject-cell">${typeof sub === 'string' ? sub : sub.name}</div><div class="teacher-cell">${teacher}</div></td>`;
+                    const subName = typeof sub === 'string' ? sub : sub.name;
+                    html += `<td><div class="subject-cell">${subName}</div><div class="teacher-cell">${teacher}</div></td>`;
                 });
                 html += `</tr>`;
             }
@@ -2508,12 +2756,36 @@
         // ========================================
         renderValidation(container) {
             const issues = this.runValidation();
+            const totalSections = this.configManager.getTotalSections(this.schoolData.classes || []);
+            const teacherDemand = this.configManager.getTeacherDemand(this.schoolData.classes || []);
+            const labDemand = this.configManager.getLaboratoryDemand(this.schoolData.classes || []);
             
             container.innerHTML = `
                 <div class="settings-container">
                     <div class="settings-header">
                         <h1>✅ Validation Panel</h1>
                         <p class="settings-subtitle">Check for conflicts and issues in your timetable</p>
+                    </div>
+                    
+                    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:var(--spacing-md);margin-bottom:var(--spacing-lg);">
+                        <div class="stat-card">
+                            <div class="stat-content">
+                                <div class="stat-value">${totalSections}</div>
+                                <div class="stat-label">Total Sections</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-content">
+                                <div class="stat-value">${Object.keys(teacherDemand).length}</div>
+                                <div class="stat-label">Subjects with Demand</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-content">
+                                <div class="stat-value">${Object.keys(labDemand).length}</div>
+                                <div class="stat-label">Lab Subjects</div>
+                            </div>
+                        </div>
                     </div>
                     
                     <button class="btn-primary" id="runValidation">🔄 Run Validation</button>
@@ -2571,6 +2843,7 @@
             const teachers = this.schoolData.teachers || [];
             const classes = this.schoolData.classes || [];
             
+            // Check for teachers with no subjects
             teachers.forEach(t => {
                 if (!t.subjects || t.subjects.length === 0) {
                     issues.warnings++;
@@ -2578,6 +2851,7 @@
                 }
             });
             
+            // Check for classes with no subjects
             classes.forEach(cls => {
                 if (!cls.subjects || cls.subjects.length === 0) {
                     issues.errors++;
@@ -2585,6 +2859,15 @@
                 }
             });
             
+            // Check for classes with no sections
+            classes.forEach(cls => {
+                if (!cls.sections || cls.sections.length === 0) {
+                    issues.errors++;
+                    issues.details.push({ type: 'error', message: `Class "${cls.display}" has no sections configured` });
+                }
+            });
+            
+            // Check for duplicate teacher names
             const names = teachers.map(t => t.name);
             const duplicates = names.filter((name, i) => names.indexOf(name) !== i);
             if (duplicates.length > 0) {
@@ -2592,19 +2875,28 @@
                 issues.details.push({ type: 'error', message: `Duplicate teacher names found: ${duplicates.join(', ')}` });
             }
             
+            // Check for valid working days
             if (!this.schoolData.workingDays || this.schoolData.workingDays.length === 0) {
                 issues.errors++;
                 issues.details.push({ type: 'error', message: 'No working days configured' });
             }
             
+            // Check periods per day
             if (this.schoolData.periodsPerDay < 3 || this.schoolData.periodsPerDay > 10) {
                 issues.errors++;
                 issues.details.push({ type: 'error', message: 'Periods per day must be between 3 and 10' });
             }
             
+            // Check if total sections is zero
+            const totalSections = this.configManager.getTotalSections(classes);
+            if (totalSections === 0) {
+                issues.errors++;
+                issues.details.push({ type: 'error', message: 'No sections configured. Please configure sections in the Configuration page.' });
+            }
+            
             if (issues.errors === 0 && issues.warnings === 0) {
                 issues.passed = 1;
-                issues.details.push({ type: 'success', message: 'All validations passed!' });
+                issues.details.push({ type: 'success', message: `All validations passed! ${totalSections} sections configured.` });
             }
             
             return issues;
@@ -2616,9 +2908,17 @@
         renderReports(container) {
             const teachers = this.schoolData.teachers || [];
             const classes = this.schoolData.classes || [];
-            const totalStudents = classes.reduce((sum, cls) => {
-                return sum + (cls.sections || []).reduce((s, sec) => s + (sec.studentCount || 0), 0);
-            }, 0);
+            const totalSections = this.configManager.getTotalSections(classes);
+            
+            let totalStudents = 0;
+            classes.forEach(cls => {
+                (cls.sections || []).forEach(sec => {
+                    totalStudents += sec.studentCount || 0;
+                });
+            });
+            
+            const teacherDemand = this.configManager.getTeacherDemand(classes);
+            const labDemand = this.configManager.getLaboratoryDemand(classes);
             
             container.innerHTML = `
                 <div class="settings-container">
@@ -2636,6 +2936,13 @@
                             </div>
                         </div>
                         <div class="stat-card">
+                            <div class="stat-icon">📋</div>
+                            <div class="stat-content">
+                                <div class="stat-value">${totalSections}</div>
+                                <div class="stat-label">Total Sections</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
                             <div class="stat-icon">👨‍🏫</div>
                             <div class="stat-content">
                                 <div class="stat-value">${teachers.length}</div>
@@ -2649,36 +2956,43 @@
                                 <div class="stat-label">Total Students</div>
                             </div>
                         </div>
-                        <div class="stat-card">
-                            <div class="stat-icon">📅</div>
-                            <div class="stat-content">
-                                <div class="stat-value">${this.schoolData.workingDays?.length || 0}</div>
-                                <div class="stat-label">Working Days</div>
-                            </div>
-                        </div>
                     </div>
                     
-                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--spacing-xl);">
+                    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:var(--spacing-xl);">
                         <section style="background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius);padding:var(--spacing-lg);">
                             <h3>Class-wise Statistics</h3>
                             <ul style="list-style:none;padding:0;">
                                 ${classes.map(cls => `
                                     <li style="display:flex;justify-content:space-between;padding:var(--spacing-sm);border-bottom:1px solid var(--border-light);">
                                         <span>${cls.display}</span>
-                                        <span>${(cls.subjects || []).length} subjects, ${(cls.sections || []).length} sections</span>
+                                        <span>${(cls.sections || []).length} sections, ${(cls.subjects || []).length} subjects</span>
+                                    </li>
+                                `).join('')}
+                                ${classes.length === 0 ? '<li style="color:var(--text-muted);">No classes configured</li>' : ''}
+                            </ul>
+                        </section>
+                        
+                        <section style="background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius);padding:var(--spacing-lg);">
+                            <h3>Teacher Demand</h3>
+                            <ul style="list-style:none;padding:0;max-height:200px;overflow-y:auto;">
+                                ${Object.entries(teacherDemand).length === 0 ? '<li style="color:var(--text-muted);">No demand data</li>' :
+                                Object.entries(teacherDemand).sort((a,b) => b[1] - a[1]).map(([subject, demand]) => `
+                                    <li style="display:flex;justify-content:space-between;padding:var(--spacing-sm);border-bottom:1px solid var(--border-light);">
+                                        <span>${subject}</span>
+                                        <span>${demand} periods</span>
                                     </li>
                                 `).join('')}
                             </ul>
                         </section>
                         
                         <section style="background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius);padding:var(--spacing-lg);">
-                            <h3>Teacher Workload</h3>
-                            <ul style="list-style:none;padding:0;">
-                                ${teachers.length === 0 ? '<li style="color:var(--text-muted);">No teachers</li>' : 
-                                teachers.map(t => `
+                            <h3>Laboratory Demand</h3>
+                            <ul style="list-style:none;padding:0;max-height:200px;overflow-y:auto;">
+                                ${Object.entries(labDemand).length === 0 ? '<li style="color:var(--text-muted);">No lab demand</li>' :
+                                Object.entries(labDemand).sort((a,b) => b[1] - a[1]).map(([subject, demand]) => `
                                     <li style="display:flex;justify-content:space-between;padding:var(--spacing-sm);border-bottom:1px solid var(--border-light);">
-                                        <span>${t.name}</span>
-                                        <span>${t.currentLoad || 0}/${t.maxLoad || 35} periods</span>
+                                        <span>${subject}</span>
+                                        <span>${demand} sections</span>
                                     </li>
                                 `).join('')}
                             </ul>
@@ -2692,11 +3006,16 @@
         // EXPORT VIEW
         // ========================================
         renderExport(container) {
+            const totalSections = this.configManager.getTotalSections(this.schoolData.classes || []);
+            
             container.innerHTML = `
                 <div class="settings-container">
                     <div class="settings-header">
                         <h1>📤 Export Centre</h1>
                         <p class="settings-subtitle">Export your timetable and data in various formats</p>
+                        <p style="color:var(--text-secondary);font-size:var(--font-size-sm);margin-top:var(--spacing-sm);">
+                            ${totalSections} sections available for export
+                        </p>
                     </div>
                     
                     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:var(--spacing-md);">
@@ -2726,6 +3045,12 @@
                                 Include Subject Details
                             </label>
                         </div>
+                        <div class="form-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="includeSections" checked>
+                                Include Section Information
+                            </label>
+                        </div>
                     </div>
                 </div>
             `;
@@ -2740,13 +3065,14 @@
         
         exportData(format) {
             const data = this.schoolData;
+            const totalSections = this.configManager.getTotalSections(data.classes || []);
             
             switch(format) {
                 case 'pdf':
-                    this.showNotification('PDF export would be generated here', 'info');
+                    this.showNotification(`PDF export for ${totalSections} sections would be generated here`, 'info');
                     break;
                 case 'excel':
-                    this.showNotification('Excel export would be generated here', 'info');
+                    this.showNotification(`Excel export for ${totalSections} sections would be generated here`, 'info');
                     break;
                 case 'csv':
                     this.exportCSV(data);
@@ -2761,12 +3087,16 @@
         
         exportCSV(data) {
             const rows = [];
-            rows.push('School,Board,Academic Year,Classes,Teachers,Sections');
-            rows.push(`${data.schoolName},${data.board},${data.academicYear},${data.classes?.length || 0},${data.teachers?.length || 0},${data.classes?.reduce((s,c) => s + (c.sections?.length || 0), 0) || 0}`);
+            rows.push('School,Board,Academic Year,Classes,Sections,Teachers');
+            const totalSections = this.configManager.getTotalSections(data.classes || []);
+            rows.push(`${data.schoolName},${data.board},${data.academicYear},${data.classes?.length || 0},${totalSections},${data.teachers?.length || 0}`);
             rows.push('');
-            rows.push('Teacher,Subjects,Max Load,Current Load');
-            (data.teachers || []).forEach(t => {
-                rows.push(`${t.name},"${(t.subjects || []).join('; ')}",${t.maxLoad || 35},${t.currentLoad || 0}`);
+            rows.push('Class,Section,Subjects');
+            (data.classes || []).forEach(cls => {
+                (cls.sections || []).forEach(sec => {
+                    const subNames = (cls.subjects || []).map(s => typeof s === 'string' ? s : s.name).join('; ');
+                    rows.push(`${cls.display},${sec.name},"${subNames}"`);
+                });
             });
             
             const csv = rows.join('\n');
@@ -2808,6 +3138,11 @@
                 const saved = this.storage.load('schoolData');
                 if (saved) {
                     this.schoolData = saved;
+                    // Ensure compatibility
+                    if (!this.schoolData.sectionConfig) {
+                        this.schoolData.sectionConfig = this.configManager.buildDefaultSectionConfig();
+                        this.schoolData.classes = this.configManager.rebuildClasses(this.schoolData.sectionConfig);
+                    }
                     this.renderView(this.currentView);
                     this.showNotification('Data loaded successfully!', 'success');
                     this.addActivity('Data loaded manually', 'info');
