@@ -3,58 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>School Routine Management System - Dynamic Sections</title>
+    <title>School Routine Management - Fully Editable</title>
     <meta name="theme-color" content="#1a2332">
-    <meta name="description" content="Complete School Routine Management System with Dynamic Sections">
+    <meta name="description" content="Complete School Routine Management System">
     
     <style>
         /* ========================================
-           COMPLETE STYLESHEET - All styles included
+           COMPLETE STYLESHEET
            ======================================== */
-        
-        /* CSS Variables - Light & Dark Themes */
         :root {
             --bg-primary: #f0f2f5;
             --bg-secondary: #ffffff;
             --bg-card: #ffffff;
             --bg-nav: #1a2332;
-            --bg-header: #2c3e50;
             --bg-hover: #f7fafc;
             --bg-input: #ffffff;
-            
             --text-primary: #1a2332;
             --text-secondary: #4a5568;
-            --text-light: #a0aec0;
-            --text-white: #ffffff;
             --text-muted: #718096;
-            
+            --text-white: #ffffff;
             --border-color: #e2e8f0;
             --border-light: #f0f2f5;
-            
             --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
             --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
             --shadow-lg: 0 10px 15px rgba(0,0,0,0.15);
             --shadow-xl: 0 20px 25px rgba(0,0,0,0.2);
-            
             --primary: #4299e1;
-            --primary-dark: #2b6cb0;
-            --primary-light: #bee3f8;
             --primary-hover: #3182ce;
-            
             --success: #48bb78;
             --success-dark: #38a169;
             --warning: #ed8936;
-            --warning-dark: #dd6b20;
             --danger: #fc8181;
             --danger-dark: #e53e3e;
             --info: #63b3ed;
-            --info-dark: #3182ce;
-            
             --radius: 10px;
             --radius-sm: 6px;
             --radius-lg: 16px;
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            
             --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
             --font-size-xs: 0.75rem;
             --font-size-sm: 0.875rem;
@@ -62,60 +47,42 @@
             --font-size-lg: 1.125rem;
             --font-size-xl: 1.25rem;
             --font-size-2xl: 1.5rem;
-            --font-size-3xl: 2rem;
-            
             --spacing-xs: 0.25rem;
             --spacing-sm: 0.5rem;
             --spacing-md: 1rem;
             --spacing-lg: 1.5rem;
             --spacing-xl: 2rem;
-            --spacing-2xl: 3rem;
-            
             --z-dropdown: 1000;
             --z-modal: 2000;
             --z-toast: 3000;
         }
         
-        /* Dark Theme */
         [data-theme="dark"] {
             --bg-primary: #0d1117;
             --bg-secondary: #161b22;
             --bg-card: #1c2333;
             --bg-nav: #0d1117;
-            --bg-header: #161b22;
             --bg-hover: #1c2333;
             --bg-input: #0d1117;
-            
             --text-primary: #e6edf3;
             --text-secondary: #8b949e;
-            --text-light: #484f58;
-            --text-white: #e6edf3;
             --text-muted: #8b949e;
-            
+            --text-white: #e6edf3;
             --border-color: #30363d;
             --border-light: #21262d;
-            
             --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
             --shadow-md: 0 4px 6px rgba(0,0,0,0.4);
             --shadow-lg: 0 10px 15px rgba(0,0,0,0.5);
             --shadow-xl: 0 20px 25px rgba(0,0,0,0.6);
-            
             --primary: #58a6ff;
-            --primary-dark: #1f6feb;
-            --primary-light: #1c2d4a;
             --primary-hover: #79c0ff;
-            
             --success: #3fb950;
             --success-dark: #2ea043;
             --warning: #d29922;
-            --warning-dark: #b8871a;
             --danger: #f85149;
             --danger-dark: #da3633;
-            --info: #58a6ff;
-            --info-dark: #1f6feb;
         }
         
-        /* High Contrast Mode */
         [data-contrast="high"] {
             --text-primary: #000000;
             --text-secondary: #1a1a1a;
@@ -124,7 +91,6 @@
             --bg-secondary: #f8f9fa;
             --bg-card: #ffffff;
             --border-color: #000000;
-            --border-light: #666666;
             --primary: #0056b3;
             --success: #006400;
             --warning: #8b4500;
@@ -144,7 +110,6 @@
             --danger: #ef5350;
         }
         
-        /* Dyslexia Friendly Font */
         [data-dyslexia="true"] {
             --font-family: 'OpenDyslexic', 'Comic Sans MS', 'Chalkboard SE', 'Arial', sans-serif;
             letter-spacing: 0.05em;
@@ -152,7 +117,6 @@
             line-height: 1.8;
         }
         
-        /* Font Size Adjustments */
         [data-font-size="large"] {
             --font-size-xs: 0.9rem;
             --font-size-sm: 1.05rem;
@@ -160,7 +124,6 @@
             --font-size-lg: 1.35rem;
             --font-size-xl: 1.5rem;
             --font-size-2xl: 1.8rem;
-            --font-size-3xl: 2.4rem;
         }
         
         [data-font-size="xlarge"] {
@@ -170,21 +133,10 @@
             --font-size-lg: 1.6rem;
             --font-size-xl: 1.8rem;
             --font-size-2xl: 2.1rem;
-            --font-size-3xl: 2.8rem;
         }
         
-        /* Reset & Base Styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        html {
-            scroll-behavior: smooth;
-            font-size: 16px;
-        }
-        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; font-size: 16px; }
         body {
             font-family: var(--font-family);
             background: var(--bg-primary);
@@ -215,29 +167,13 @@
             font-weight: 600;
             text-decoration: none;
         }
+        .skip-link:focus { top: 20px; }
         
-        .skip-link:focus {
-            top: 20px;
-        }
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-secondary); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--primary-hover); }
         
-        /* Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: var(--bg-secondary);
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: var(--primary);
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--primary-dark);
-        }
-        
-        /* Navigation */
         .navbar {
             background: var(--bg-nav);
             color: var(--text-white);
@@ -251,36 +187,14 @@
             position: sticky;
             top: 0;
             z-index: var(--z-dropdown);
-            transition: background 0.3s ease;
             min-height: 64px;
         }
         
-        .nav-brand {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
+        .nav-brand { display: flex; align-items: center; gap: 0.75rem; }
+        .nav-brand h1 { font-size: var(--font-size-xl); font-weight: 700; }
+        .nav-brand .subtitle { font-size: var(--font-size-xs); opacity: 0.7; display: block; }
         
-        .nav-brand h1 {
-            font-size: var(--font-size-xl);
-            font-weight: 700;
-            letter-spacing: -0.5px;
-        }
-        
-        .nav-brand .subtitle {
-            font-size: var(--font-size-xs);
-            opacity: 0.7;
-            display: block;
-            font-weight: 400;
-        }
-        
-        .nav-menu {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-            align-items: center;
-        }
-        
+        .nav-menu { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; }
         .nav-btn {
             background: transparent;
             border: 2px solid transparent;
@@ -294,23 +208,10 @@
             font-family: var(--font-family);
             white-space: nowrap;
         }
+        .nav-btn:hover { background: rgba(255,255,255,0.1); transform: translateY(-1px); }
+        .nav-btn.active { border-color: var(--primary); background: rgba(255,255,255,0.15); }
         
-        .nav-btn:hover {
-            background: rgba(255,255,255,0.1);
-            transform: translateY(-1px);
-        }
-        
-        .nav-btn.active {
-            border-color: var(--primary);
-            background: rgba(255,255,255,0.15);
-        }
-        
-        .nav-actions {
-            display: flex;
-            gap: 0.5rem;
-            align-items: center;
-        }
-        
+        .nav-actions { display: flex; gap: 0.5rem; align-items: center; }
         .action-btn {
             background: var(--primary);
             color: white;
@@ -323,32 +224,11 @@
             font-weight: 500;
             font-family: var(--font-family);
         }
+        .action-btn:hover { background: var(--primary-hover); transform: scale(1.02); }
+        .action-btn.secondary { background: transparent; border: 2px solid var(--primary); color: var(--primary); }
+        .action-btn.secondary:hover { background: var(--primary); color: white; }
         
-        .action-btn:hover {
-            background: var(--primary-hover);
-            transform: scale(1.02);
-        }
-        
-        .action-btn.secondary {
-            background: transparent;
-            border: 2px solid var(--primary);
-            color: var(--primary);
-        }
-        
-        .action-btn.secondary:hover {
-            background: var(--primary);
-            color: white;
-        }
-        
-        /* Main Content */
-        main {
-            flex: 1;
-            padding: var(--spacing-xl);
-            max-width: 1400px;
-            margin: 0 auto;
-            width: 100%;
-        }
-        
+        main { flex: 1; padding: var(--spacing-xl); max-width: 1400px; margin: 0 auto; width: 100%; }
         #view-container {
             background: var(--bg-secondary);
             border-radius: var(--radius-lg);
@@ -358,15 +238,8 @@
             transition: background 0.3s ease, box-shadow 0.3s ease;
         }
         
-        /* Dashboard */
-        .dashboard-container {
-            animation: fadeIn 0.5s ease;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        .dashboard-container { animation: fadeIn 0.5s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         
         .welcome-section {
             display: flex;
@@ -379,18 +252,8 @@
             margin-bottom: var(--spacing-xl);
         }
         
-        .welcome-title {
-            font-size: var(--font-size-2xl);
-            font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: var(--spacing-xs);
-        }
-        
-        .welcome-subtitle {
-            color: var(--text-secondary);
-            font-size: var(--font-size-md);
-        }
-        
+        .welcome-title { font-size: var(--font-size-2xl); font-weight: 700; color: var(--text-primary); }
+        .welcome-subtitle { color: var(--text-secondary); font-size: var(--font-size-md); }
         .board-badge {
             display: inline-block;
             background: var(--primary);
@@ -401,13 +264,9 @@
             font-weight: 600;
             margin-top: var(--spacing-xs);
         }
+        .board-badge.success { background: var(--success); }
         
-        .quick-actions {
-            display: flex;
-            gap: var(--spacing-sm);
-            flex-wrap: wrap;
-        }
-        
+        .quick-actions { display: flex; gap: var(--spacing-sm); flex-wrap: wrap; }
         .quick-action-btn {
             background: var(--bg-card);
             border: 2px solid var(--border-color);
@@ -422,17 +281,11 @@
             align-items: center;
             gap: 0.5rem;
         }
-        
-        .quick-action-btn:hover {
-            border-color: var(--primary);
-            background: var(--bg-hover);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-md);
-        }
+        .quick-action-btn:hover { border-color: var(--primary); background: var(--bg-hover); transform: translateY(-2px); box-shadow: var(--shadow-md); }
         
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
             gap: var(--spacing-md);
             margin-bottom: var(--spacing-xl);
         }
@@ -448,103 +301,26 @@
             transition: var(--transition);
             border: 1px solid var(--border-color);
         }
-        
-        .stat-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-lg);
-        }
-        
-        .stat-icon {
-            font-size: var(--font-size-2xl);
-            width: 48px;
-            height: 48px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--bg-hover);
-            border-radius: 50%;
-            flex-shrink: 0;
-        }
-        
-        .stat-content {
-            flex: 1;
-        }
-        
-        .stat-value {
-            font-size: var(--font-size-2xl);
-            font-weight: 700;
-            color: var(--text-primary);
-            line-height: 1.2;
-        }
-        
+        .stat-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+        .stat-icon { font-size: var(--font-size-2xl); width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; background: var(--bg-hover); border-radius: 50%; flex-shrink: 0; }
+        .stat-content { flex: 1; }
+        .stat-value { font-size: var(--font-size-2xl); font-weight: 700; color: var(--text-primary); line-height: 1.2; }
         .stat-value.text-success { color: var(--success); }
         .stat-value.text-danger { color: var(--danger); }
-        .stat-value.text-warning { color: var(--warning); }
+        .stat-label { font-size: var(--font-size-sm); color: var(--text-secondary); font-weight: 500; }
         
-        .stat-label {
-            font-size: var(--font-size-sm);
-            color: var(--text-secondary);
-            font-weight: 500;
-        }
+        .dashboard-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-xl); }
+        .recent-activity, .quick-access { background: var(--bg-card); border-radius: var(--radius); padding: var(--spacing-lg); border: 1px solid var(--border-color); }
+        .recent-activity h2, .quick-access h2 { font-size: var(--font-size-lg); margin-bottom: var(--spacing-md); color: var(--text-primary); }
         
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: var(--spacing-xl);
-        }
+        .activity-list { display: flex; flex-direction: column; gap: var(--spacing-sm); }
+        .activity-item { display: flex; align-items: center; gap: var(--spacing-sm); padding: var(--spacing-sm) 0; border-bottom: 1px solid var(--border-light); font-size: var(--font-size-sm); }
+        .activity-item:last-child { border-bottom: none; }
+        .activity-icon { font-size: var(--font-size-md); }
+        .activity-message { flex: 1; color: var(--text-primary); }
+        .activity-time { font-size: var(--font-size-xs); color: var(--text-muted); }
         
-        .recent-activity, .quick-access {
-            background: var(--bg-card);
-            border-radius: var(--radius);
-            padding: var(--spacing-lg);
-            border: 1px solid var(--border-color);
-        }
-        
-        .recent-activity h2, .quick-access h2 {
-            font-size: var(--font-size-lg);
-            margin-bottom: var(--spacing-md);
-            color: var(--text-primary);
-        }
-        
-        .activity-list {
-            display: flex;
-            flex-direction: column;
-            gap: var(--spacing-sm);
-        }
-        
-        .activity-item {
-            display: flex;
-            align-items: center;
-            gap: var(--spacing-sm);
-            padding: var(--spacing-sm) 0;
-            border-bottom: 1px solid var(--border-light);
-            font-size: var(--font-size-sm);
-        }
-        
-        .activity-item:last-child {
-            border-bottom: none;
-        }
-        
-        .activity-icon {
-            font-size: var(--font-size-md);
-        }
-        
-        .activity-message {
-            flex: 1;
-            color: var(--text-primary);
-        }
-        
-        .activity-time {
-            font-size: var(--font-size-xs);
-            color: var(--text-muted);
-        }
-        
-        .quick-access-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-            gap: var(--spacing-sm);
-        }
-        
+        .quick-access-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: var(--spacing-sm); }
         .quick-access-item {
             background: var(--bg-hover);
             border: 2px solid transparent;
@@ -557,38 +333,13 @@
             font-size: var(--font-size-sm);
             color: var(--text-primary);
         }
+        .quick-access-item:hover { border-color: var(--primary); background: var(--bg-card); transform: translateY(-2px); box-shadow: var(--shadow-md); }
+        .quick-access-item .icon { display: block; font-size: var(--font-size-2xl); margin-bottom: var(--spacing-xs); }
         
-        .quick-access-item:hover {
-            border-color: var(--primary);
-            background: var(--bg-card);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-md);
-        }
-        
-        .quick-access-item .icon {
-            display: block;
-            font-size: var(--font-size-2xl);
-            margin-bottom: var(--spacing-xs);
-        }
-        
-        /* Settings / Configuration */
-        .settings-container {
-            animation: fadeIn 0.5s ease;
-        }
-        
-        .settings-header {
-            margin-bottom: var(--spacing-xl);
-        }
-        
-        .settings-header h1 {
-            font-size: var(--font-size-2xl);
-            color: var(--text-primary);
-        }
-        
-        .settings-subtitle {
-            color: var(--text-secondary);
-            font-size: var(--font-size-md);
-        }
+        .settings-container { animation: fadeIn 0.5s ease; }
+        .settings-header { margin-bottom: var(--spacing-xl); }
+        .settings-header h1 { font-size: var(--font-size-2xl); color: var(--text-primary); }
+        .settings-subtitle { color: var(--text-secondary); font-size: var(--font-size-md); }
         
         .settings-section {
             background: var(--bg-card);
@@ -597,7 +348,6 @@
             padding: var(--spacing-lg);
             margin-bottom: var(--spacing-xl);
         }
-        
         .settings-section h2 {
             font-size: var(--font-size-lg);
             margin-bottom: var(--spacing-md);
@@ -606,31 +356,12 @@
             border-bottom: 2px solid var(--border-color);
         }
         
-        .form-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: var(--spacing-md);
-        }
+        .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--spacing-md); }
+        .form-group { display: flex; flex-direction: column; gap: var(--spacing-xs); }
+        .form-group.full-width { grid-column: 1 / -1; }
+        .form-group label { font-weight: 500; font-size: var(--font-size-sm); color: var(--text-secondary); }
         
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: var(--spacing-xs);
-        }
-        
-        .form-group.full-width {
-            grid-column: 1 / -1;
-        }
-        
-        .form-group label {
-            font-weight: 500;
-            font-size: var(--font-size-sm);
-            color: var(--text-secondary);
-        }
-        
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
+        .form-group input, .form-group select, .form-group textarea {
             padding: 0.5rem 0.75rem;
             border: 2px solid var(--border-color);
             border-radius: var(--radius-sm);
@@ -641,36 +372,16 @@
             transition: var(--transition);
             width: 100%;
         }
-        
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
             border-color: var(--primary);
             outline: none;
             box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.2);
         }
+        .form-group input.invalid { border-color: var(--danger); }
+        .form-group input.valid { border-color: var(--success); }
+        .form-error { font-size: var(--font-size-xs); color: var(--danger); min-height: 20px; }
         
-        .form-group input.invalid {
-            border-color: var(--danger);
-        }
-        
-        .form-group input.valid {
-            border-color: var(--success);
-        }
-        
-        .form-error {
-            font-size: var(--font-size-xs);
-            color: var(--danger);
-            min-height: 20px;
-        }
-        
-        .checkbox-group {
-            display: flex;
-            flex-wrap: wrap;
-            gap: var(--spacing-sm);
-            padding: var(--spacing-sm) 0;
-        }
-        
+        .checkbox-group { display: flex; flex-wrap: wrap; gap: var(--spacing-sm); padding: var(--spacing-sm) 0; }
         .checkbox-label {
             display: flex;
             align-items: center;
@@ -681,28 +392,11 @@
             border-radius: var(--radius-sm);
             transition: var(--transition);
         }
+        .checkbox-label:hover { background: var(--bg-hover); }
+        .checkbox-label input[type="checkbox"] { width: 18px; height: 18px; cursor: pointer; accent-color: var(--primary); }
         
-        .checkbox-label:hover {
-            background: var(--bg-hover);
-        }
+        .form-actions { display: flex; gap: var(--spacing-md); flex-wrap: wrap; margin-top: var(--spacing-xl); padding-top: var(--spacing-lg); border-top: 2px solid var(--border-color); }
         
-        .checkbox-label input[type="checkbox"] {
-            width: 18px;
-            height: 18px;
-            cursor: pointer;
-            accent-color: var(--primary);
-        }
-        
-        .form-actions {
-            display: flex;
-            gap: var(--spacing-md);
-            flex-wrap: wrap;
-            margin-top: var(--spacing-xl);
-            padding-top: var(--spacing-lg);
-            border-top: 2px solid var(--border-color);
-        }
-        
-        /* Buttons */
         .btn-primary, .btn-secondary, .btn-success, .btn-danger, .btn-warning {
             padding: 0.5rem 1.5rem;
             border: none;
@@ -716,92 +410,25 @@
             align-items: center;
             gap: 0.5rem;
         }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary:hover { background: var(--primary-hover); transform: translateY(-2px); box-shadow: var(--shadow-md); }
+        .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none !important; }
+        .btn-secondary { background: var(--bg-secondary); color: var(--text-primary); border: 2px solid var(--border-color); }
+        .btn-secondary:hover { border-color: var(--primary); background: var(--bg-hover); }
+        .btn-success { background: var(--success); color: white; }
+        .btn-success:hover { background: var(--success-dark); transform: translateY(-2px); box-shadow: var(--shadow-md); }
+        .btn-danger { background: var(--danger); color: white; }
+        .btn-danger:hover { background: var(--danger-dark); transform: translateY(-2px); box-shadow: var(--shadow-md); }
+        .btn-warning { background: var(--warning); color: white; }
+        .btn-warning:hover { background: var(--warning-dark); transform: translateY(-2px); box-shadow: var(--shadow-md); }
+        .btn-large { padding: 0.75rem 2rem; font-size: var(--font-size-lg); }
+        .btn-block { width: 100%; justify-content: center; }
+        .btn-sm { padding: 0.25rem 0.75rem; font-size: var(--font-size-xs); }
         
-        .btn-primary {
-            background: var(--primary);
-            color: white;
-        }
-        
-        .btn-primary:hover {
-            background: var(--primary-hover);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-md);
-        }
-        
-        .btn-primary:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none !important;
-        }
-        
-        .btn-secondary {
-            background: var(--bg-secondary);
-            color: var(--text-primary);
-            border: 2px solid var(--border-color);
-        }
-        
-        .btn-secondary:hover {
-            border-color: var(--primary);
-            background: var(--bg-hover);
-        }
-        
-        .btn-success {
-            background: var(--success);
-            color: white;
-        }
-        
-        .btn-success:hover {
-            background: var(--success-dark);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-md);
-        }
-        
-        .btn-danger {
-            background: var(--danger);
-            color: white;
-        }
-        
-        .btn-danger:hover {
-            background: var(--danger-dark);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-md);
-        }
-        
-        .btn-large {
-            padding: 0.75rem 2rem;
-            font-size: var(--font-size-lg);
-        }
-        
-        .btn-block {
-            width: 100%;
-            justify-content: center;
-        }
-        
-        /* Section Configuration Table */
-        .section-config-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: var(--spacing-md);
-        }
-        
-        .section-config-table th {
-            background: var(--primary);
-            color: white;
-            padding: 0.5rem;
-            text-align: center;
-            font-weight: 600;
-        }
-        
-        .section-config-table td {
-            border: 1px solid var(--border-color);
-            padding: 0.5rem;
-            text-align: center;
-        }
-        
-        .section-config-table tr:nth-child(even) {
-            background: var(--bg-hover);
-        }
-        
+        .section-config-table { width: 100%; border-collapse: collapse; margin-top: var(--spacing-md); }
+        .section-config-table th { background: var(--primary); color: white; padding: 0.5rem; text-align: center; font-weight: 600; }
+        .section-config-table td { border: 1px solid var(--border-color); padding: 0.5rem; text-align: center; }
+        .section-config-table tr:nth-child(even) { background: var(--bg-hover); }
         .section-config-table .section-count-input {
             width: 80px;
             padding: 0.25rem;
@@ -813,13 +440,10 @@
             background: var(--bg-input);
             color: var(--text-primary);
         }
+        .section-config-table .section-count-input:focus { border-color: var(--primary); outline: none; }
+        .section-config-table .section-count-input:disabled { opacity: 0.5; cursor: not-allowed; }
         
-        .section-config-table .section-count-input:focus {
-            border-color: var(--primary);
-            outline: none;
-        }
-        
-        .section-config-table .stream-toggle {
+        .stream-toggle {
             padding: 0.25rem 0.5rem;
             border-radius: var(--radius-sm);
             cursor: pointer;
@@ -830,165 +454,63 @@
             font-family: var(--font-family);
             font-size: var(--font-size-xs);
         }
+        .stream-toggle.active { background: var(--success); color: white; border-color: var(--success); }
+        .stream-toggle.inactive { background: var(--danger); color: white; border-color: var(--danger); }
         
-        .section-config-table .stream-toggle.active {
-            background: var(--success);
-            color: white;
-            border-color: var(--success);
-        }
-        
-        .section-config-table .stream-toggle.inactive {
-            background: var(--danger);
-            color: white;
-            border-color: var(--danger);
-        }
-        
-        /* Timetable Preview */
-        .timetable-preview {
+        .subject-edit-table { width: 100%; border-collapse: collapse; margin-top: var(--spacing-md); }
+        .subject-edit-table th { background: var(--primary); color: white; padding: 0.5rem; text-align: center; font-weight: 600; }
+        .subject-edit-table td { border: 1px solid var(--border-color); padding: 0.5rem; text-align: center; }
+        .subject-edit-table tr:nth-child(even) { background: var(--bg-hover); }
+        .subject-edit-table input, .subject-edit-table select {
+            padding: 0.25rem 0.5rem;
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            font-size: var(--font-size-sm);
+            font-family: var(--font-family);
+            background: var(--bg-input);
+            color: var(--text-primary);
             width: 100%;
-            border-collapse: collapse;
-            margin-top: var(--spacing-md);
-            font-size: var(--font-size-sm);
         }
+        .subject-edit-table input:focus, .subject-edit-table select:focus { border-color: var(--primary); outline: none; }
+        .subject-edit-table .subject-name-input { min-width: 120px; }
+        .subject-edit-table .subject-periods-input { width: 60px; text-align: center; }
+        .subject-edit-table .subject-checkbox { width: 18px; height: 18px; cursor: pointer; accent-color: var(--primary); }
         
-        .timetable-preview th {
-            background: var(--primary);
-            color: white;
-            padding: 0.5rem;
-            text-align: center;
-            font-weight: 600;
-        }
+        .timetable-preview { width: 100%; border-collapse: collapse; margin-top: var(--spacing-md); font-size: var(--font-size-sm); }
+        .timetable-preview th { background: var(--primary); color: white; padding: 0.5rem; text-align: center; font-weight: 600; }
+        .timetable-preview td { border: 1px solid var(--border-color); padding: 0.5rem; text-align: center; min-width: 60px; }
+        .timetable-preview tr:nth-child(even) { background: var(--bg-hover); }
+        .timetable-preview .period-label { font-weight: 600; background: var(--bg-hover); }
+        .timetable-preview .empty-cell { background: var(--bg-hover); color: var(--text-muted); }
         
-        .timetable-preview td {
-            border: 1px solid var(--border-color);
-            padding: 0.5rem;
-            text-align: center;
-            min-width: 60px;
-        }
+        .generator-container { animation: fadeIn 0.5s ease; }
+        .generator-header { margin-bottom: var(--spacing-xl); }
+        .generator-header h1 { font-size: var(--font-size-2xl); color: var(--text-primary); }
+        .generator-subtitle { color: var(--text-secondary); font-size: var(--font-size-md); }
         
-        .timetable-preview tr:nth-child(even) {
-            background: var(--bg-hover);
-        }
+        .generator-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-xl); margin-bottom: var(--spacing-xl); }
+        .generator-config, .generator-status { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius); padding: var(--spacing-lg); }
+        .generator-config h2, .generator-status h2 { font-size: var(--font-size-lg); margin-bottom: var(--spacing-md); color: var(--text-primary); }
         
-        .timetable-preview .period-label {
-            font-weight: 600;
-            background: var(--bg-hover);
-        }
+        .status-indicators { display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-sm); margin-bottom: var(--spacing-md); }
+        .status-item { display: flex; justify-content: space-between; padding: var(--spacing-sm); background: var(--bg-hover); border-radius: var(--radius-sm); }
+        .status-label { font-weight: 500; color: var(--text-secondary); }
+        .status-value { font-weight: 600; color: var(--text-primary); }
         
-        /* Generator */
-        .generator-container {
-            animation: fadeIn 0.5s ease;
-        }
+        .progress-bar-container { background: var(--bg-hover); border-radius: 20px; height: 8px; overflow: hidden; margin-bottom: var(--spacing-md); }
+        .progress-bar { height: 100%; background: linear-gradient(90deg, var(--primary), var(--success)); transition: width 0.5s ease; border-radius: 20px; width: 0%; }
         
-        .generator-header {
-            margin-bottom: var(--spacing-xl);
-        }
-        
-        .generator-header h1 {
-            font-size: var(--font-size-2xl);
-            color: var(--text-primary);
-        }
-        
-        .generator-subtitle {
-            color: var(--text-secondary);
-            font-size: var(--font-size-md);
-        }
-        
-        .generator-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: var(--spacing-xl);
-            margin-bottom: var(--spacing-xl);
-        }
-        
-        .generator-config, .generator-status {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius);
-            padding: var(--spacing-lg);
-        }
-        
-        .generator-config h2, .generator-status h2 {
-            font-size: var(--font-size-lg);
-            margin-bottom: var(--spacing-md);
-            color: var(--text-primary);
-        }
-        
-        .status-indicators {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: var(--spacing-sm);
-            margin-bottom: var(--spacing-md);
-        }
-        
-        .status-item {
-            display: flex;
-            justify-content: space-between;
-            padding: var(--spacing-sm);
-            background: var(--bg-hover);
-            border-radius: var(--radius-sm);
-        }
-        
-        .status-label {
-            font-weight: 500;
-            color: var(--text-secondary);
-        }
-        
-        .status-value {
-            font-weight: 600;
-            color: var(--text-primary);
-        }
-        
-        .progress-bar-container {
-            background: var(--bg-hover);
-            border-radius: 20px;
-            height: 8px;
-            overflow: hidden;
-            margin-bottom: var(--spacing-md);
-        }
-        
-        .progress-bar {
-            height: 100%;
-            background: linear-gradient(90deg, var(--primary), var(--success));
-            transition: width 0.5s ease;
-            border-radius: 20px;
-            width: 0%;
-        }
-        
-        .log-container {
-            background: var(--bg-primary);
-            border-radius: var(--radius-sm);
-            padding: var(--spacing-md);
-            max-height: 200px;
-            overflow-y: auto;
-            font-family: monospace;
-            font-size: var(--font-size-sm);
-            border: 1px solid var(--border-color);
-        }
-        
-        .log-entry {
-            padding: var(--spacing-xs) 0;
-            border-bottom: 1px solid var(--border-light);
-        }
-        
-        .log-entry:last-child {
-            border-bottom: none;
-        }
-        
+        .log-container { background: var(--bg-primary); border-radius: var(--radius-sm); padding: var(--spacing-md); max-height: 200px; overflow-y: auto; font-family: monospace; font-size: var(--font-size-sm); border: 1px solid var(--border-color); }
+        .log-entry { padding: var(--spacing-xs) 0; border-bottom: 1px solid var(--border-light); }
+        .log-entry:last-child { border-bottom: none; }
         .log-entry.system { color: var(--text-muted); }
-        .log-entry.info { color: var(--info); }
+        .log-entry.info { color: var(--primary); }
         .log-entry.success { color: var(--success); }
         .log-entry.warning { color: var(--warning); }
         .log-entry.error { color: var(--danger); }
         
-        .generator-actions {
-            display: flex;
-            gap: var(--spacing-md);
-            flex-wrap: wrap;
-            margin-top: var(--spacing-lg);
-        }
+        .generator-actions { display: flex; gap: var(--spacing-md); flex-wrap: wrap; margin-top: var(--spacing-lg); }
         
-        /* Accessibility Controls */
         .accessibility-controls {
             position: fixed;
             bottom: var(--spacing-lg);
@@ -1004,7 +526,6 @@
             flex-wrap: wrap;
             max-width: 300px;
         }
-        
         .access-btn {
             background: transparent;
             border: 2px solid var(--border-color);
@@ -1017,14 +538,8 @@
             color: var(--text-primary);
             white-space: nowrap;
         }
+        .access-btn:hover { background: var(--primary); color: white; border-color: var(--primary); }
         
-        .access-btn:hover {
-            background: var(--primary);
-            color: white;
-            border-color: var(--primary);
-        }
-        
-        /* Notifications */
         .notification {
             position: fixed;
             bottom: 80px;
@@ -1043,52 +558,19 @@
             align-items: center;
             gap: 0.75rem;
         }
+        .notification-success { border-left: 5px solid var(--success); }
+        .notification-error { border-left: 5px solid var(--danger); }
+        .notification-warning { border-left: 5px solid var(--warning); }
+        .notification-info { border-left: 5px solid var(--primary); }
         
-        .notification-success {
-            border-left: 5px solid var(--success);
-        }
-        .notification-error {
-            border-left: 5px solid var(--danger);
-        }
-        .notification-warning {
-            border-left: 5px solid var(--warning);
-        }
-        .notification-info {
-            border-left: 5px solid var(--info);
-        }
+        @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        @keyframes slideOut { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
         
-        @keyframes slideIn {
-            from { transform: translateX(100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
+        footer { text-align: center; padding: var(--spacing-lg); color: var(--text-muted); font-size: var(--font-size-sm); border-top: 1px solid var(--border-color); margin-top: var(--spacing-xl); }
         
-        @keyframes slideOut {
-            from { transform: translateX(0); opacity: 1; }
-            to { transform: translateX(100%); opacity: 0; }
-        }
-        
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: var(--spacing-lg);
-            color: var(--text-muted);
-            font-size: var(--font-size-sm);
-            border-top: 1px solid var(--border-color);
-            margin-top: var(--spacing-xl);
-        }
-        
-        /* Responsive */
-        @media (max-width: 1024px) {
-            .dashboard-grid { grid-template-columns: 1fr; }
-            .generator-grid { grid-template-columns: 1fr; }
-        }
-        
+        @media (max-width: 1024px) { .dashboard-grid { grid-template-columns: 1fr; } .generator-grid { grid-template-columns: 1fr; } }
         @media (max-width: 768px) {
-            .navbar {
-                padding: 0.5rem 1rem;
-                flex-direction: column;
-                align-items: stretch;
-            }
+            .navbar { padding: 0.5rem 1rem; flex-direction: column; align-items: stretch; }
             .nav-menu { justify-content: center; }
             .nav-actions { justify-content: center; }
             .nav-btn { font-size: var(--font-size-xs); padding: 0.25rem 0.5rem; }
@@ -1099,19 +581,14 @@
             .quick-action-btn { flex: 1; justify-content: center; }
             .stats-grid { grid-template-columns: repeat(2, 1fr); }
             .form-grid { grid-template-columns: 1fr; }
-            .accessibility-controls {
-                bottom: var(--spacing-sm);
-                right: var(--spacing-sm);
-                max-width: 100%;
-                border-radius: var(--radius-sm);
-                padding: var(--spacing-xs);
-            }
+            .accessibility-controls { bottom: var(--spacing-sm); right: var(--spacing-sm); max-width: 100%; border-radius: var(--radius-sm); padding: var(--spacing-xs); }
             .access-btn { font-size: var(--font-size-xs); padding: 0.15rem 0.35rem; }
             .status-indicators { grid-template-columns: 1fr; }
             .section-config-table { font-size: var(--font-size-xs); }
             .section-config-table .section-count-input { width: 60px; }
+            .subject-edit-table { font-size: var(--font-size-xs); }
+            .subject-edit-table .subject-periods-input { width: 40px; }
         }
-        
         @media (max-width: 480px) {
             .stats-grid { grid-template-columns: 1fr 1fr; gap: var(--spacing-sm); }
             .stat-card { padding: var(--spacing-sm); }
@@ -1124,85 +601,59 @@
             .form-actions .btn { width: 100%; justify-content: center; }
         }
         
-        /* Print */
         @media print {
-            .navbar, .nav-actions, .action-btn, .quick-actions,
-            .accessibility-controls, .generator-actions, .form-actions {
-                display: none !important;
-            }
-            #view-container {
-                box-shadow: none !important;
-                padding: 0 !important;
-                background: white !important;
-            }
+            .navbar, .nav-actions, .action-btn, .quick-actions, .accessibility-controls, .generator-actions, .form-actions { display: none !important; }
+            #view-container { box-shadow: none !important; padding: 0 !important; background: white !important; }
             body { background: white !important; }
-            .stat-card {
-                break-inside: avoid;
-                box-shadow: none !important;
-                border: 1px solid #ddd !important;
-            }
+            .stat-card { break-inside: avoid; box-shadow: none !important; border: 1px solid #ddd !important; }
             .timetable-preview { font-size: 8pt !important; }
-            .timetable-preview th {
-                background: #333 !important;
-                color: white !important;
-                -webkit-print-color-adjust: exact !important;
-                print-color-adjust: exact !important;
-            }
+            .timetable-preview th { background: #333 !important; color: white !important; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
             .settings-section { break-inside: avoid; }
         }
     </style>
 </head>
 <body>
 
-<!-- Skip Link -->
 <a href="#main-content" class="skip-link">Skip to main content</a>
 
-<!-- Navigation -->
 <header role="banner">
     <nav class="navbar" role="navigation" aria-label="Main navigation">
         <div class="nav-brand">
             <h1>📚 Routine Manager</h1>
-            <span class="subtitle">WBBSE/WBCHSE</span>
+            <span class="subtitle">Fully Editable</span>
         </div>
-        
         <div class="nav-menu" role="menubar">
-            <button class="nav-btn active" data-view="dashboard" role="menuitem">📊 Dashboard</button>
-            <button class="nav-btn" data-view="configuration" role="menuitem">⚙️ Configuration</button>
-            <button class="nav-btn" data-view="routine" role="menuitem">📅 Routine</button>
-            <button class="nav-btn" data-view="teachers" role="menuitem">👨‍🏫 Teachers</button>
-            <button class="nav-btn" data-view="subjects" role="menuitem">📖 Subjects</button>
-            <button class="nav-btn" data-view="generator" role="menuitem">⚡ Generator</button>
-            <button class="nav-btn" data-view="validation" role="menuitem">✅ Validate</button>
-            <button class="nav-btn" data-view="reports" role="menuitem">📊 Reports</button>
-            <button class="nav-btn" data-view="export" role="menuitem">📤 Export</button>
+            <button class="nav-btn active" data-view="dashboard">📊 Dashboard</button>
+            <button class="nav-btn" data-view="configuration">⚙️ Config</button>
+            <button class="nav-btn" data-view="subjects">📖 Subjects</button>
+            <button class="nav-btn" data-view="routine">📅 Routine</button>
+            <button class="nav-btn" data-view="teachers">👨‍🏫 Teachers</button>
+            <button class="nav-btn" data-view="generator">⚡ Generator</button>
+            <button class="nav-btn" data-view="validation">✅ Validate</button>
+            <button class="nav-btn" data-view="reports">📊 Reports</button>
+            <button class="nav-btn" data-view="export">📤 Export</button>
         </div>
-        
         <div class="nav-actions">
-            <button class="action-btn" id="saveBtn" aria-label="Save data">💾 Save</button>
-            <button class="action-btn secondary" id="loadBtn" aria-label="Load data">📂 Load</button>
+            <button class="action-btn" id="saveBtn">💾 Save</button>
+            <button class="action-btn secondary" id="loadBtn">📂 Load</button>
         </div>
     </nav>
 </header>
 
-<!-- Main Content -->
 <main id="main-content" role="main">
-    <div id="view-container">
-        <!-- Views will be rendered here -->
-    </div>
+    <div id="view-container"></div>
 </main>
 
-<!-- Accessibility Controls -->
 <div class="accessibility-controls" role="toolbar" aria-label="Accessibility controls">
-    <button class="access-btn" data-action="toggle-theme" aria-label="Toggle dark/light theme">🌓 Theme</button>
-    <button class="access-btn" data-action="toggle-contrast" aria-label="Toggle high contrast mode">🔲 Contrast</button>
-    <button class="access-btn" data-action="toggle-dyslexia" aria-label="Toggle dyslexia-friendly font">📝 Dyslexia</button>
-    <button class="access-btn" data-action="font-size" aria-label="Increase font size">A+</button>
-    <button class="access-btn" data-action="font-size-decrease" aria-label="Decrease font size">A-</button>
+    <button class="access-btn" data-action="toggle-theme">🌓 Theme</button>
+    <button class="access-btn" data-action="toggle-contrast">🔲 Contrast</button>
+    <button class="access-btn" data-action="toggle-dyslexia">📝 Dyslexia</button>
+    <button class="access-btn" data-action="font-size">A+</button>
+    <button class="access-btn" data-action="font-size-decrease">A-</button>
 </div>
 
-<!-- Footer -->
 <footer role="contentinfo">
-    <p>&copy; 2026 School Routine Management System | WBBSE/WBCHSE Compliant | v3.0.0 - Dynamic Sections</p>
+    <p>&copy; 2026 School Routine Management System | Fully Editable v5.0</p>
 </footer>
 
 <!-- ========================================
@@ -1213,39 +664,54 @@
     // CONFIGURATION & CONSTANTS
     // ========================================
     const CONSTANTS = {
-        /** 
-         * Class definitions with stream support
-         * Each class can have multiple streams (for higher secondary)
-         */
         CLASS_DEFINITIONS: [
-            { id: 'V', display: 'Class V', level: 'primary', streams: ['primary'] },
-            { id: 'VI', display: 'Class VI', level: 'secondary', streams: ['secondary'] },
-            { id: 'VII', display: 'Class VII', level: 'secondary', streams: ['secondary'] },
-            { id: 'VIII', display: 'Class VIII', level: 'secondary', streams: ['secondary'] },
-            { id: 'IX', display: 'Class IX', level: 'secondary', streams: ['secondary'] },
-            { id: 'X', display: 'Class X', level: 'secondary', streams: ['secondary'] },
+            { id: 'V', display: 'Class V', level: 'primary', streams: ['default'] },
+            { id: 'VI', display: 'Class VI', level: 'secondary', streams: ['default'] },
+            { id: 'VII', display: 'Class VII', level: 'secondary', streams: ['default'] },
+            { id: 'VIII', display: 'Class VIII', level: 'secondary', streams: ['default'] },
+            { id: 'IX', display: 'Class IX', level: 'secondary', streams: ['default'] },
+            { id: 'X', display: 'Class X', level: 'secondary', streams: ['default'] },
             { id: 'XI', display: 'Class XI', level: 'higher_secondary', streams: ['Science', 'Arts', 'Commerce'] },
             { id: 'XII', display: 'Class XII', level: 'higher_secondary', streams: ['Science', 'Arts', 'Commerce'] }
         ],
         
-        /** Stream-specific subjects for higher secondary */
         STREAM_SUBJECTS: {
             'Science': ['Bengali', 'English', 'Physics', 'Chemistry', 'Mathematics', 'Biology', 'Computer Science'],
             'Arts': ['Bengali', 'English', 'History', 'Geography', 'Political Science', 'Philosophy', 'Sociology', 'Economics'],
             'Commerce': ['Bengali', 'English', 'Accountancy', 'Business Studies', 'Economics', 'Mathematics', 'Computer Science']
         },
         
-        /** Subject definitions for primary and secondary levels */
         LEVEL_SUBJECTS: {
             'primary': ['Bengali', 'English', 'Mathematics', 'Environmental Science'],
             'secondary': ['Bengali', 'English', 'Mathematics', 'Physical Science', 'Life Science', 'History', 'Geography', 'Computer Science']
         },
         
-        /** Default working days */
-        DEFAULT_WORKING_DAYS: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+        // Class-specific periods (Mon-Fri, Saturday)
+        CLASS_PERIODS: {
+            'V': { periodsPerDay: 6, saturdayPeriods: 4 },
+            'VI': { periodsPerDay: 7, saturdayPeriods: 4 },
+            'VII': { periodsPerDay: 8, saturdayPeriods: 4 },
+            'VIII': { periodsPerDay: 8, saturdayPeriods: 4 },
+            'IX': { periodsPerDay: 8, saturdayPeriods: 4 },
+            'X': { periodsPerDay: 8, saturdayPeriods: 4 },
+            'XI': { periodsPerDay: 8, saturdayPeriods: 4 },
+            'XII': { periodsPerDay: 8, saturdayPeriods: 4 }
+        },
+        
+        DAY_CONFIG: {
+            'Monday': { periods: 8 },
+            'Tuesday': { periods: 8 },
+            'Wednesday': { periods: 8 },
+            'Thursday': { periods: 8 },
+            'Friday': { periods: 8 },
+            'Saturday': { periods: 4 },
+            'Sunday': { periods: 0 }
+        },
+        
+        DEFAULT_WORKING_DAYS: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
         DEFAULT_PERIODS_PER_DAY: 8,
         PERIOD_DURATION: 45,
-        MAX_SECTIONS_PER_CLASS: 20, // Configurable maximum
+        MAX_SECTIONS_PER_CLASS: 20,
         MIN_SECTIONS_PER_CLASS: 0,
         
         BREAK_TIMINGS: {
@@ -1258,9 +724,8 @@
     // STORAGE MANAGER
     // ========================================
     class StorageManager {
-        /** Handles localStorage operations with prefix */
         constructor() {
-            this.prefix = 'routine_manager_v3_';
+            this.prefix = 'routine_manager_v5_';
         }
         
         save(key, data) {
@@ -1295,15 +760,18 @@
     }
 
     // ========================================
-    // CONFIG MANAGER - Dynamic Sections
+    // CONFIG MANAGER
     // ========================================
     class ConfigManager {
-        /**
-         * Generates default configuration with dynamic sections
-         * Each class can have 0-20 sections configured by the user
-         */
+        constructor() {
+            this.schoolData = null;
+        }
+        
+        setSchoolData(data) {
+            this.schoolData = data;
+        }
+        
         getDefaultConfig() {
-            // Build section configuration for each class
             const sectionConfig = this.buildDefaultSectionConfig();
             
             return {
@@ -1314,18 +782,30 @@
                 address: '',
                 phone: '',
                 email: '',
-                workingDays: [...CONSTANTS.DEFAULT_WORKING_DAYS],
-                periodsPerDay: CONSTANTS.DEFAULT_PERIODS_PER_DAY,
-                periodDuration: CONSTANTS.PERIOD_DURATION,
+                workingDays: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+                
+                classPeriods: {
+                    'V': { periodsPerDay: 6, saturdayPeriods: 4 },
+                    'VI': { periodsPerDay: 7, saturdayPeriods: 4 },
+                    'VII': { periodsPerDay: 8, saturdayPeriods: 4 },
+                    'VIII': { periodsPerDay: 8, saturdayPeriods: 4 },
+                    'IX': { periodsPerDay: 8, saturdayPeriods: 4 },
+                    'X': { periodsPerDay: 8, saturdayPeriods: 4 },
+                    'XI': { periodsPerDay: 8, saturdayPeriods: 4 },
+                    'XII': { periodsPerDay: 8, saturdayPeriods: 4 }
+                },
+                
+                dayPeriods: {
+                    'Monday': 8, 'Tuesday': 8, 'Wednesday': 8, 'Thursday': 8,
+                    'Friday': 8, 'Saturday': 4, 'Sunday': 0
+                },
+                
+                periodsPerDay: 8,
+                periodDuration: 45,
                 startTime: '10:35',
                 breakTimings: JSON.parse(JSON.stringify(CONSTANTS.BREAK_TIMINGS)),
-                
-                // Section configuration - completely dynamic
                 sectionConfig: sectionConfig,
-                
-                // Generated classes based on section config
                 classes: this.generateClassesFromConfig(sectionConfig),
-                
                 teachers: [],
                 classrooms: [],
                 laboratories: [],
@@ -1337,49 +817,29 @@
                 },
                 routine: null,
                 activities: [
-                    { type: 'info', message: 'System initialized with dynamic sections', time: new Date().toISOString() }
+                    { type: 'info', message: 'System initialized with full editability', time: new Date().toISOString() }
                 ]
             };
         }
         
-        /**
-         * Build default section configuration
-         * Primary: 1 section, Secondary: 2 sections, Higher Secondary: 1 section per stream
-         */
         buildDefaultSectionConfig() {
             const config = {};
-            
             CONSTANTS.CLASS_DEFINITIONS.forEach(classDef => {
                 const key = classDef.id;
-                config[key] = {
-                    streams: {}
-                };
-                
-                if (classDef.level === 'higher_secondary') {
-                    // Each stream gets 1 section by default
-                    classDef.streams.forEach(stream => {
-                        config[key].streams[stream] = { enabled: true, sections: 1 };
-                    });
-                } else {
-                    // Primary and secondary have a single stream
-                    config[key].streams['default'] = { enabled: true, sections: 2 };
-                }
+                config[key] = { streams: {} };
+                classDef.streams.forEach(stream => {
+                    config[key].streams[stream] = { enabled: true, sections: 2 };
+                });
             });
-            
             return config;
         }
         
-        /**
-         * Generate class objects from section configuration
-         * This creates all sections dynamically
-         */
         generateClassesFromConfig(sectionConfig) {
             const classes = [];
             
             CONSTANTS.CLASS_DEFINITIONS.forEach(classDef => {
                 const classKey = classDef.id;
                 const classConfig = sectionConfig[classKey];
-                
                 if (!classConfig) return;
                 
                 const classObj = {
@@ -1391,15 +851,14 @@
                     periodAllocation: this.getPeriodAllocation(classKey)
                 };
                 
-                // Process each stream for this class
                 Object.entries(classConfig.streams).forEach(([stream, config]) => {
                     if (!config.enabled || config.sections <= 0) return;
                     
-                    // Generate section names: V-A, V-B, XI Science-A, etc.
-                    const sectionPrefix = this.getSectionPrefix(classDef, stream);
+                    const subjects = this.getSubjectsForClass(classDef, stream);
+                    const sectionPrefix = classDef.id;
                     
                     for (let i = 0; i < config.sections; i++) {
-                        const sectionName = String.fromCharCode(65 + i); // A, B, C, ...
+                        const sectionName = String.fromCharCode(65 + i);
                         const fullSectionName = stream === 'default' 
                             ? `${sectionPrefix}-${sectionName}`
                             : `${sectionPrefix} ${stream}-${sectionName}`;
@@ -1412,15 +871,19 @@
                         });
                     }
                     
-                    // Add subjects for this stream/class level
-                    const subjects = this.getSubjectsForClass(classDef, stream);
-                    classObj.subjects = subjects.map(s => ({
-                        name: s,
-                        periodsPerWeek: 5,
-                        requiresLab: this.isLabSubject(s),
-                        isPractical: this.isPracticalSubject(s),
-                        stream: stream
-                    }));
+                    const existingSubjects = classObj.subjects || [];
+                    subjects.forEach(subName => {
+                        const exists = existingSubjects.some(s => s.name === subName && s.stream === stream);
+                        if (!exists) {
+                            classObj.subjects.push({
+                                name: subName,
+                                stream: stream,
+                                periodsPerWeek: 5,
+                                requiresLab: this.isLabSubject(subName),
+                                isPractical: this.isPracticalSubject(subName)
+                            });
+                        }
+                    });
                 });
                 
                 if (classObj.sections.length > 0) {
@@ -1431,19 +894,6 @@
             return classes;
         }
         
-        /**
-         * Get section prefix for display names
-         */
-        getSectionPrefix(classDef, stream) {
-            if (classDef.level === 'higher_secondary') {
-                return classDef.id; // XI, XII
-            }
-            return classDef.id; // V, VI, VII, VIII, IX, X
-        }
-        
-        /**
-         * Get subjects for a class based on level and stream
-         */
         getSubjectsForClass(classDef, stream) {
             if (classDef.level === 'higher_secondary') {
                 return CONSTANTS.STREAM_SUBJECTS[stream] || [];
@@ -1451,25 +901,16 @@
             return CONSTANTS.LEVEL_SUBJECTS[classDef.level] || [];
         }
         
-        /**
-         * Determine if a subject requires a laboratory
-         */
         isLabSubject(subjectName) {
             const labSubjects = ['Physical Science', 'Life Science', 'Physics', 'Chemistry', 'Biology', 'Computer Science'];
             return labSubjects.includes(subjectName);
         }
         
-        /**
-         * Determine if a subject is practical
-         */
         isPracticalSubject(subjectName) {
             const practicalSubjects = ['Physical Science', 'Life Science', 'Physics', 'Chemistry', 'Biology'];
             return practicalSubjects.includes(subjectName);
         }
         
-        /**
-         * Get period allocation for a class
-         */
         getPeriodAllocation(classKey) {
             const allocations = {
                 'V': { total: 39, instruction: 36, library: 1, smart: 1, lab: 1 },
@@ -1484,74 +925,32 @@
             return allocations[classKey] || { total: 40, instruction: 37, library: 1, smart: 1, lab: 1 };
         }
         
-        /**
-         * Rebuild classes when section configuration changes
-         */
         rebuildClasses(sectionConfig) {
             return this.generateClassesFromConfig(sectionConfig);
         }
         
-        /**
-         * Calculate total sections across all classes
-         */
         getTotalSections(classes) {
             return classes.reduce((sum, cls) => sum + (cls.sections || []).length, 0);
         }
         
-        /**
-         * Calculate total classrooms required based on sections
-         */
-        getClassroomDemand(classes) {
-            return this.getTotalSections(classes);
+        getClassPeriods(classCode) {
+            const classPeriods = this.schoolData?.classPeriods || CONSTANTS.CLASS_PERIODS;
+            return classPeriods[classCode] || { periodsPerDay: 8, saturdayPeriods: 4 };
         }
         
-        /**
-         * Calculate teacher demand based on subjects and sections
-         */
-        getTeacherDemand(classes) {
-            const demand = {};
-            classes.forEach(cls => {
-                (cls.subjects || []).forEach(sub => {
-                    const name = typeof sub === 'string' ? sub : sub.name;
-                    demand[name] = (demand[name] || 0) + (cls.sections || []).length;
-                });
-            });
-            return demand;
+        getPeriodsForDay(classCode, day) {
+            const classPeriods = this.getClassPeriods(classCode);
+            if (day === 'Saturday') {
+                return classPeriods.saturdayPeriods || 4;
+            }
+            return classPeriods.periodsPerDay || 8;
         }
         
-        /**
-         * Calculate laboratory demand
-         */
-        getLaboratoryDemand(classes) {
-            const demand = {};
-            classes.forEach(cls => {
-                (cls.subjects || []).forEach(sub => {
-                    if (sub.requiresLab) {
-                        const name = sub.name;
-                        demand[name] = (demand[name] || 0) + (cls.sections || []).length;
-                    }
-                });
-            });
-            return demand;
-        }
-        
-        /**
-         * Validate section configuration
-         */
-        validateSectionConfig(sectionConfig) {
-            const errors = [];
-            const warnings = [];
-            
-            Object.entries(sectionConfig).forEach(([classKey, config]) => {
-                Object.entries(config.streams).forEach(([stream, streamConfig]) => {
-                    const sections = streamConfig.sections;
-                    if (sections < CONSTANTS.MIN_SECTIONS_PER_CLASS || sections > CONSTANTS.MAX_SECTIONS_PER_CLASS) {
-                        errors.push(`${classKey} ${stream}: Sections must be between ${CONSTANTS.MIN_SECTIONS_PER_CLASS} and ${CONSTANTS.MAX_SECTIONS_PER_CLASS}`);
-                    }
-                });
-            });
-            
-            return { errors, warnings, isValid: errors.length === 0 };
+        getWorkingDays() {
+            const dayPeriods = this.schoolData?.dayPeriods || CONSTANTS.DAY_CONFIG;
+            return Object.entries(dayPeriods)
+                .filter(([day, config]) => (config.periods || config) > 0)
+                .map(([day]) => day);
         }
     }
 
@@ -1604,35 +1003,19 @@
         
         apply() {
             const html = document.documentElement;
-            
-            if (this.theme === 'dark') {
-                html.setAttribute('data-theme', 'dark');
-            } else {
-                html.removeAttribute('data-theme');
-            }
-            
-            if (this.contrast === 'high') {
-                html.setAttribute('data-contrast', 'high');
-            } else {
-                html.removeAttribute('data-contrast');
-            }
-            
-            if (this.dyslexia) {
-                html.setAttribute('data-dyslexia', 'true');
-            } else {
-                html.removeAttribute('data-dyslexia');
-            }
-            
-            if (this.fontSize !== 'normal') {
-                html.setAttribute('data-font-size', this.fontSize);
-            } else {
-                html.removeAttribute('data-font-size');
-            }
+            if (this.theme === 'dark') html.setAttribute('data-theme', 'dark');
+            else html.removeAttribute('data-theme');
+            if (this.contrast === 'high') html.setAttribute('data-contrast', 'high');
+            else html.removeAttribute('data-contrast');
+            if (this.dyslexia) html.setAttribute('data-dyslexia', 'true');
+            else html.removeAttribute('data-dyslexia');
+            if (this.fontSize !== 'normal') html.setAttribute('data-font-size', this.fontSize);
+            else html.removeAttribute('data-font-size');
         }
     }
 
     // ========================================
-    // APPLICATION
+    // APPLICATION - COMPLETE
     // ========================================
     class SchoolRoutineApp {
         constructor() {
@@ -1648,13 +1031,17 @@
             const saved = this.storage.load('schoolData');
             if (saved) {
                 this.schoolData = saved;
-                // Ensure compatibility with new version
+                this.configManager.setSchoolData(this.schoolData);
                 if (!this.schoolData.sectionConfig) {
                     this.schoolData.sectionConfig = this.configManager.buildDefaultSectionConfig();
                     this.schoolData.classes = this.configManager.rebuildClasses(this.schoolData.sectionConfig);
                 }
+                if (!this.schoolData.classPeriods) {
+                    this.schoolData.classPeriods = CONSTANTS.CLASS_PERIODS;
+                }
             } else {
                 this.schoolData = this.configManager.getDefaultConfig();
+                this.configManager.setSchoolData(this.schoolData);
                 this.storage.save('schoolData', this.schoolData);
             }
             
@@ -1684,12 +1071,13 @@
         
         renderView(view) {
             const container = document.getElementById('view-container');
+            this.configManager.setSchoolData(this.schoolData);
             
             switch(view) {
                 case 'dashboard': this.renderDashboard(container); break;
                 case 'configuration': this.renderConfiguration(container); break;
+                case 'subjects': this.renderSubjectEditor(container); break;
                 case 'teachers': this.renderTeachers(container); break;
-                case 'subjects': this.renderSubjects(container); break;
                 case 'generator': this.renderGenerator(container); break;
                 case 'routine': this.renderRoutine(container); break;
                 case 'validation': this.renderValidation(container); break;
@@ -1700,7 +1088,7 @@
         }
         
         // ========================================
-        // DASHBOARD VIEW
+        // DASHBOARD
         // ========================================
         renderDashboard(container) {
             const data = this.schoolData;
@@ -1712,99 +1100,58 @@
                     <section class="welcome-section">
                         <div>
                             <h1 class="welcome-title">Welcome to ${data.schoolName || 'School'} Routine Management</h1>
-                            <p class="welcome-subtitle">Academic Year: ${data.academicYear || '2026-2027'}</p>
+                            <p class="welcome-subtitle">Academic Year: ${data.academicYear || '2026-2027'} | Fully Editable</p>
                             <span class="board-badge">${data.board || 'WBBSE'}</span>
-                            <span class="board-badge" style="background:var(--success);margin-left:8px;">${totalSections} Sections</span>
+                            <span class="board-badge success" style="margin-left:8px;">${totalSections} Sections</span>
                         </div>
                         <div class="quick-actions">
-                            <button class="quick-action-btn" data-action="generate">
-                                <span class="icon">⚡</span> Generate
-                            </button>
-                            <button class="quick-action-btn" data-action="export">
-                                <span class="icon">📤</span> Export
-                            </button>
-                            <button class="quick-action-btn" onclick="window.print()">
-                                <span class="icon">🖨️</span> Print
-                            </button>
+                            <button class="quick-action-btn" data-action="generate">⚡ Generate</button>
+                            <button class="quick-action-btn" data-action="export">📤 Export</button>
+                            <button class="quick-action-btn" onclick="window.print()">🖨️ Print</button>
                         </div>
                     </section>
                     
                     <div class="stats-grid">
                         <div class="stat-card">
                             <div class="stat-icon">📚</div>
-                            <div class="stat-content">
-                                <div class="stat-value">${stats.totalClasses}</div>
-                                <div class="stat-label">Total Classes</div>
-                            </div>
+                            <div class="stat-content"><div class="stat-value">${stats.totalClasses}</div><div class="stat-label">Classes</div></div>
                         </div>
                         <div class="stat-card">
                             <div class="stat-icon">📋</div>
-                            <div class="stat-content">
-                                <div class="stat-value">${totalSections}</div>
-                                <div class="stat-label">Total Sections</div>
-                            </div>
+                            <div class="stat-content"><div class="stat-value">${totalSections}</div><div class="stat-label">Sections</div></div>
                         </div>
                         <div class="stat-card">
                             <div class="stat-icon">👨‍🏫</div>
-                            <div class="stat-content">
-                                <div class="stat-value">${stats.totalTeachers}</div>
-                                <div class="stat-label">Teachers</div>
-                            </div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-icon">📖</div>
-                            <div class="stat-content">
-                                <div class="stat-value">${stats.totalSubjects}</div>
-                                <div class="stat-label">Subjects</div>
-                            </div>
+                            <div class="stat-content"><div class="stat-value">${stats.totalTeachers}</div><div class="stat-label">Teachers</div></div>
                         </div>
                         <div class="stat-card">
                             <div class="stat-icon">⏰</div>
-                            <div class="stat-content">
-                                <div class="stat-value">${stats.totalPeriods}</div>
-                                <div class="stat-label">Periods/Week</div>
-                            </div>
+                            <div class="stat-content"><div class="stat-value">${data.periodsPerDay || 8}</div><div class="stat-label">Periods/Day</div></div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">📖</div>
+                            <div class="stat-content"><div class="stat-value">${stats.totalSubjects}</div><div class="stat-label">Subjects</div></div>
                         </div>
                         <div class="stat-card">
                             <div class="stat-icon">✅</div>
-                            <div class="stat-content">
-                                <div class="stat-value ${stats.conflicts > 0 ? 'text-danger' : 'text-success'}">
-                                    ${stats.conflicts}
-                                </div>
-                                <div class="stat-label">Conflicts</div>
-                            </div>
+                            <div class="stat-content"><div class="stat-value ${stats.conflicts > 0 ? 'text-danger' : 'text-success'}">${stats.conflicts}</div><div class="stat-label">Conflicts</div></div>
                         </div>
                     </div>
                     
                     <div class="dashboard-grid">
                         <section class="recent-activity">
                             <h2>Recent Activity</h2>
-                            <div class="activity-list">
-                                ${this.renderActivity()}
-                            </div>
+                            <div class="activity-list">${this.renderActivity()}</div>
                         </section>
-                        
                         <section class="quick-access">
                             <h2>Quick Access</h2>
                             <div class="quick-access-grid">
-                                <button class="quick-access-item" data-view="configuration">
-                                    <span class="icon">⚙️</span> Configuration
-                                </button>
-                                <button class="quick-access-item" data-view="teachers">
-                                    <span class="icon">👨‍🏫</span> Teachers
-                                </button>
-                                <button class="quick-access-item" data-view="subjects">
-                                    <span class="icon">📖</span> Subjects
-                                </button>
-                                <button class="quick-access-item" data-view="routine">
-                                    <span class="icon">📅</span> Routine
-                                </button>
-                                <button class="quick-access-item" data-view="validation">
-                                    <span class="icon">🔍</span> Validate
-                                </button>
-                                <button class="quick-access-item" data-view="reports">
-                                    <span class="icon">📊</span> Reports
-                                </button>
+                                <button class="quick-access-item" data-view="configuration"><span class="icon">⚙️</span> Config</button>
+                                <button class="quick-access-item" data-view="subjects"><span class="icon">📖</span> Subjects</button>
+                                <button class="quick-access-item" data-view="teachers"><span class="icon">👨‍🏫</span> Teachers</button>
+                                <button class="quick-access-item" data-view="routine"><span class="icon">📅</span> Routine</button>
+                                <button class="quick-access-item" data-view="generator"><span class="icon">⚡</span> Generator</button>
+                                <button class="quick-access-item" data-view="reports"><span class="icon">📊</span> Reports</button>
                             </div>
                         </section>
                     </div>
@@ -1812,11 +1159,8 @@
             `;
             
             container.querySelectorAll('[data-view]').forEach(el => {
-                el.addEventListener('click', () => {
-                    this.switchView(el.dataset.view);
-                });
+                el.addEventListener('click', () => this.switchView(el.dataset.view));
             });
-            
             container.querySelectorAll('[data-action]').forEach(el => {
                 el.addEventListener('click', () => {
                     if (el.dataset.action === 'generate') this.switchView('generator');
@@ -1829,29 +1173,17 @@
             const classes = this.schoolData.classes || [];
             const teachers = this.schoolData.teachers || [];
             let totalSubjects = 0;
-            
-            classes.forEach(cls => {
-                totalSubjects += (cls.subjects || []).length;
-            });
-            
-            const totalPeriods = classes.reduce((sum, cls) => {
-                return sum + (cls.periodAllocation?.total || 0) * (cls.sections || []).length;
-            }, 0);
-            
+            classes.forEach(cls => totalSubjects += (cls.subjects || []).length);
             return {
                 totalClasses: classes.length,
                 totalTeachers: teachers.length,
                 totalSubjects: totalSubjects,
-                totalPeriods: totalPeriods,
                 conflicts: this.schoolData.conflicts?.length || 0
             };
         }
         
         renderActivity() {
-            const activities = this.schoolData.activities || [
-                { type: 'info', message: 'System initialized with dynamic sections', time: new Date().toISOString() }
-            ];
-            
+            const activities = this.schoolData.activities || [{ type: 'info', message: 'System initialized', time: new Date().toISOString() }];
             return activities.slice(-5).reverse().map(activity => `
                 <div class="activity-item">
                     <span class="activity-icon">${this.getActivityIcon(activity.type)}</span>
@@ -1869,33 +1201,23 @@
         addActivity(message, type = 'info') {
             this.schoolData.activities = this.schoolData.activities || [];
             this.schoolData.activities.push({ type, message, time: new Date().toISOString() });
-            if (this.schoolData.activities.length > 100) {
-                this.schoolData.activities = this.schoolData.activities.slice(-100);
-            }
+            if (this.schoolData.activities.length > 100) this.schoolData.activities = this.schoolData.activities.slice(-100);
             this.storage.save('schoolData', this.schoolData);
         }
         
         // ========================================
-        // CONFIGURATION VIEW - Dynamic Sections
+        // CONFIGURATION - SECTIONS & PERIODS
         // ========================================
         renderConfiguration(container) {
             const data = this.schoolData;
             const sectionConfig = data.sectionConfig || this.configManager.buildDefaultSectionConfig();
+            const classPeriods = data.classPeriods || CONSTANTS.CLASS_PERIODS;
             
-            // Build the configuration table HTML
-            let tableHtml = `
+            container.innerHTML = `
                 <div class="settings-container">
                     <div class="settings-header">
                         <h1>⚙️ School Configuration</h1>
-                        <p class="settings-subtitle">Configure sections for each class and stream</p>
-                    </div>
-                    
-                    <div style="background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius);padding:var(--spacing-md);margin-bottom:var(--spacing-xl);">
-                        <p style="color:var(--text-secondary);">
-                            <strong>📋 Configuration Summary:</strong>
-                            Total Sections: ${this.configManager.getTotalSections(data.classes || [])} |
-                            Max Sections per Class: ${CONSTANTS.MAX_SECTIONS_PER_CLASS}
-                        </p>
+                        <p class="settings-subtitle">Configure sections, class-specific periods, and school settings</p>
                     </div>
                     
                     <form id="config-form" novalidate>
@@ -1919,47 +1241,85 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="academicYear">Academic Year *</label>
-                                    <input type="text" id="academicYear" value="${data.academicYear || '2026-2027'}" 
-                                           pattern="^\\d{4}-\\d{4}$" required>
+                                    <input type="text" id="academicYear" value="${data.academicYear || '2026-2027'}" pattern="^\\d{4}-\\d{4}$" required>
                                 </div>
                             </div>
                         </section>
                         
                         <section class="settings-section">
-                            <h2>Section Configuration</h2>
+                            <h2>⏰ Class-Specific Period Settings</h2>
                             <p style="color:var(--text-secondary);margin-bottom:var(--spacing-md);">
-                                Configure the number of sections for each class. Higher secondary classes have multiple streams.
+                                Configure periods per day for each class. Saturday: 4 periods (half-day).
                             </p>
-                            
                             <div style="overflow-x:auto;">
                                 <table class="section-config-table">
                                     <thead>
                                         <tr>
                                             <th>Class</th>
-                                            <th>Stream</th>
-                                            <th>Enabled</th>
-                                            <th>Sections (0-${CONSTANTS.MAX_SECTIONS_PER_CLASS})</th>
+                                            <th>Mon-Fri Periods</th>
+                                            <th>Saturday Periods</th>
+                                            <th>Total/Week</th>
                                         </tr>
+                                    </thead>
+                                    <tbody>
+                                        ${['V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII'].map(classCode => {
+                                            const config = classPeriods[classCode] || { periodsPerDay: 8, saturdayPeriods: 4 };
+                                            const display = CONSTANTS.CLASS_DEFINITIONS.find(c => c.id === classCode)?.display || classCode;
+                                            const total = (config.periodsPerDay || 8) * 5 + (config.saturdayPeriods || 4);
+                                            return `
+                                                <tr>
+                                                    <td><strong>${display}</strong></td>
+                                                    <td>
+                                                        <input type="number" 
+                                                               class="class-period-input"
+                                                               data-class="${classCode}"
+                                                               data-day="weekday"
+                                                               value="${config.periodsPerDay || 8}"
+                                                               min="3" max="10">
+                                                    </td>
+                                                    <td>
+                                                        <input type="number" 
+                                                               class="class-period-input"
+                                                               data-class="${classCode}"
+                                                               data-day="saturday"
+                                                               value="${config.saturdayPeriods || 4}"
+                                                               min="0" max="10">
+                                                    </td>
+                                                    <td>
+                                                        <span style="font-weight:600;color:var(--primary);">${total}</span>
+                                                        <span style="font-size:var(--font-size-xs);color:var(--text-muted);display:block;">(5 weekdays + Sat)</span>
+                                                    </td>
+                                                </tr>
+                                            `;
+                                        }).join('')}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div style="margin-top:var(--spacing-md);padding:var(--spacing-sm);background:var(--bg-hover);border-radius:var(--radius-sm);">
+                                <span style="font-weight:600;">📊 Summary:</span> 
+                                Class V: 6p, Class VI: 7p, Class VII-XII: 8p | Saturday: 4p all classes
+                            </div>
+                        </section>
+                        
+                        <section class="settings-section">
+                            <h2>📋 Section Configuration (0-${CONSTANTS.MAX_SECTIONS_PER_CLASS})</h2>
+                            <div style="overflow-x:auto;">
+                                <table class="section-config-table">
+                                    <thead>
+                                        <tr><th>Class</th><th>Stream</th><th>Enabled</th><th>Sections</th></tr>
                                     </thead>
                                     <tbody>
                                         ${CONSTANTS.CLASS_DEFINITIONS.map(classDef => {
                                             const key = classDef.id;
                                             const config = sectionConfig[key] || { streams: {} };
-                                            
                                             return classDef.streams.map(stream => {
-                                                const streamConfig = config.streams[stream] || { enabled: true, sections: 1 };
+                                                const streamConfig = config.streams[stream] || { enabled: true, sections: 2 };
                                                 const isEnabled = streamConfig.enabled !== false;
-                                                const sections = streamConfig.sections || 1;
-                                                
-                                                // Check if this is a higher secondary class
-                                                const isHigherSecondary = classDef.level === 'higher_secondary';
-                                                const displayStream = isHigherSecondary ? stream : '—';
-                                                const disabled = !isHigherSecondary && stream !== 'default';
-                                                
+                                                const sections = streamConfig.sections || 2;
                                                 return `
                                                     <tr>
                                                         <td><strong>${classDef.display}</strong></td>
-                                                        <td>${displayStream}</td>
+                                                        <td>${stream === 'default' ? '—' : stream}</td>
                                                         <td>
                                                             <button type="button" 
                                                                     class="stream-toggle ${isEnabled ? 'active' : 'inactive'}"
@@ -1975,13 +1335,8 @@
                                                                    data-class="${key}" 
                                                                    data-stream="${stream}"
                                                                    value="${sections}"
-                                                                   min="${CONSTANTS.MIN_SECTIONS_PER_CLASS}" 
-                                                                   max="${CONSTANTS.MAX_SECTIONS_PER_CLASS}"
-                                                                   ${!isEnabled ? 'disabled' : ''}
-                                                                   ${disabled ? 'readonly' : ''}>
-                                                            <span style="font-size:var(--font-size-xs);color:var(--text-muted);display:block;margin-top:2px;">
-                                                                ${isEnabled ? 'Active' : 'Disabled'}
-                                                            </span>
+                                                                   min="0" max="20"
+                                                                   ${!isEnabled ? 'disabled' : ''}>
                                                         </td>
                                                     </tr>
                                                 `;
@@ -1993,40 +1348,16 @@
                         </section>
                         
                         <section class="settings-section">
-                            <h2>Timetable Settings</h2>
+                            <h2>Break Timings</h2>
                             <div class="form-grid">
-                                <div class="form-group">
-                                    <label for="periodsPerDay">Periods Per Day *</label>
-                                    <input type="number" id="periodsPerDay" value="${data.periodsPerDay || 8}" 
-                                           min="3" max="10" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="periodDuration">Period Duration (minutes) *</label>
-                                    <input type="number" id="periodDuration" value="${data.periodDuration || 45}" 
-                                           min="30" max="60" step="5" required>
-                                </div>
                                 <div class="form-group">
                                     <label for="startTime">School Start Time</label>
                                     <input type="time" id="startTime" value="${data.startTime || '10:35'}">
                                 </div>
                                 <div class="form-group">
-                                    <label for="workingDays">Working Days *</label>
-                                    <div class="checkbox-group" id="workingDays">
-                                        ${['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'].map(day => `
-                                            <label class="checkbox-label">
-                                                <input type="checkbox" value="${day}" 
-                                                       ${(data.workingDays || CONSTANTS.DEFAULT_WORKING_DAYS).includes(day) ? 'checked' : ''}>
-                                                ${day}
-                                            </label>
-                                        `).join('')}
-                                    </div>
+                                    <label for="periodDuration">Period Duration (minutes)</label>
+                                    <input type="number" id="periodDuration" value="${data.periodDuration || 45}" min="30" max="60" step="5">
                                 </div>
-                            </div>
-                        </section>
-                        
-                        <section class="settings-section">
-                            <h2>Break Timings</h2>
-                            <div class="form-grid">
                                 <div class="form-group">
                                     <label for="assemblyStart">Assembly Start</label>
                                     <input type="time" id="assemblyStart" value="${data.breakTimings?.assembly?.start || '10:40'}">
@@ -2055,147 +1386,247 @@
                 </div>
             `;
             
-            container.innerHTML = tableHtml;
             this.attachConfigurationEvents(container);
         }
         
         attachConfigurationEvents(container) {
             const form = container.querySelector('#config-form');
             
-            // Handle stream toggle buttons
             container.querySelectorAll('[data-action="toggle-stream"]').forEach(btn => {
                 btn.addEventListener('click', () => {
-                    const classKey = btn.dataset.class;
-                    const stream = btn.dataset.stream;
-                    const isEnabled = btn.classList.contains('active');
-                    
-                    // Toggle the button state
                     btn.classList.toggle('active');
                     btn.classList.toggle('inactive');
                     btn.textContent = btn.classList.contains('active') ? '✅ Enabled' : '❌ Disabled';
-                    
-                    // Enable/disable the corresponding input
-                    const input = container.querySelector(`.section-count-input[data-class="${classKey}"][data-stream="${stream}"]`);
+                    const input = container.querySelector(`.section-count-input[data-class="${btn.dataset.class}"][data-stream="${btn.dataset.stream}"]`);
                     if (input) {
                         input.disabled = btn.classList.contains('inactive');
-                        if (input.disabled) {
-                            input.value = 0;
-                        } else {
-                            input.value = 1;
-                        }
+                        if (input.disabled) input.value = 0;
+                        else input.value = 2;
                     }
                 });
             });
             
-            // Validate section count inputs
-            container.querySelectorAll('.section-count-input').forEach(input => {
-                input.addEventListener('change', () => {
-                    let val = parseInt(input.value);
-                    if (isNaN(val) || val < CONSTANTS.MIN_SECTIONS_PER_CLASS) {
-                        val = CONSTANTS.MIN_SECTIONS_PER_CLASS;
-                        input.value = val;
-                    } else if (val > CONSTANTS.MAX_SECTIONS_PER_CLASS) {
-                        val = CONSTANTS.MAX_SECTIONS_PER_CLASS;
-                        input.value = val;
-                    }
-                });
-            });
-            
-            // Form submission
             form.addEventListener('submit', (e) => {
                 e.preventDefault();
                 this.saveConfiguration(form);
             });
             
-            // Reset defaults
             form.querySelector('#resetDefaults').addEventListener('click', () => {
-                if (confirm('Are you sure you want to reset all settings to default values?')) {
+                if (confirm('Reset all settings to defaults?')) {
                     this.schoolData = this.configManager.getDefaultConfig();
                     this.storage.save('schoolData', this.schoolData);
                     this.renderConfiguration(container);
                     this.showNotification('Configuration reset to defaults', 'success');
-                    this.addActivity('Configuration reset to defaults', 'warning');
+                    this.addActivity('Configuration reset', 'warning');
                 }
             });
         }
         
         saveConfiguration(form) {
-            // Collect form data
-            const schoolName = form.querySelector('#schoolName').value;
-            const schoolCode = form.querySelector('#schoolCode').value;
-            const board = form.querySelector('#board').value;
-            const academicYear = form.querySelector('#academicYear').value;
-            const periodsPerDay = parseInt(form.querySelector('#periodsPerDay').value);
-            const periodDuration = parseInt(form.querySelector('#periodDuration').value);
-            const startTime = form.querySelector('#startTime').value;
-            const workingDays = Array.from(form.querySelectorAll('#workingDays input:checked')).map(cb => cb.value);
-            
-            // Collect section configuration
+            // Collect section config
             const sectionConfig = {};
-            
             CONSTANTS.CLASS_DEFINITIONS.forEach(classDef => {
                 const key = classDef.id;
                 sectionConfig[key] = { streams: {} };
-                
                 classDef.streams.forEach(stream => {
-                    const isHigherSecondary = classDef.level === 'higher_secondary';
-                    const displayStream = isHigherSecondary ? stream : 'default';
-                    
-                    const toggleBtn = form.querySelector(`[data-class="${key}"][data-stream="${displayStream}"]`);
-                    const input = form.querySelector(`.section-count-input[data-class="${key}"][data-stream="${displayStream}"]`);
-                    
+                    const toggleBtn = form.querySelector(`[data-class="${key}"][data-stream="${stream}"]`);
+                    const input = form.querySelector(`.section-count-input[data-class="${key}"][data-stream="${stream}"]`);
                     if (toggleBtn && input) {
                         const isEnabled = toggleBtn.classList.contains('active');
                         let sections = parseInt(input.value) || 0;
-                        
-                        if (!isEnabled) {
-                            sections = 0;
-                        }
-                        
-                        // Ensure within bounds
-                        sections = Math.max(CONSTANTS.MIN_SECTIONS_PER_CLASS, Math.min(CONSTANTS.MAX_SECTIONS_PER_CLASS, sections));
-                        
-                        sectionConfig[key].streams[displayStream] = {
-                            enabled: isEnabled,
-                            sections: sections
-                        };
+                        sections = Math.max(0, Math.min(20, sections));
+                        sectionConfig[key].streams[stream] = { enabled: isEnabled, sections: isEnabled ? sections : 0 };
                     }
                 });
             });
             
-            // Build updated classes from section config
+            // Collect class periods
+            const classPeriods = {};
+            ['V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII'].forEach(classCode => {
+                const weekdayInput = form.querySelector(`.class-period-input[data-class="${classCode}"][data-day="weekday"]`);
+                const saturdayInput = form.querySelector(`.class-period-input[data-class="${classCode}"][data-day="saturday"]`);
+                if (weekdayInput && saturdayInput) {
+                    classPeriods[classCode] = {
+                        periodsPerDay: parseInt(weekdayInput.value) || 8,
+                        saturdayPeriods: parseInt(saturdayInput.value) || 4
+                    };
+                }
+            });
+            
+            // Rebuild classes
             const updatedClasses = this.configManager.rebuildClasses(sectionConfig);
             
             // Update school data
-            this.schoolData.schoolName = schoolName;
-            this.schoolData.schoolCode = schoolCode;
-            this.schoolData.board = board;
-            this.schoolData.academicYear = academicYear;
-            this.schoolData.periodsPerDay = periodsPerDay;
-            this.schoolData.periodDuration = periodDuration;
-            this.schoolData.startTime = startTime;
-            this.schoolData.workingDays = workingDays;
+            this.schoolData.schoolName = form.querySelector('#schoolName').value;
+            this.schoolData.schoolCode = form.querySelector('#schoolCode').value;
+            this.schoolData.board = form.querySelector('#board').value;
+            this.schoolData.academicYear = form.querySelector('#academicYear').value;
+            this.schoolData.classPeriods = classPeriods;
+            this.schoolData.periodDuration = parseInt(form.querySelector('#periodDuration').value) || 45;
+            this.schoolData.startTime = form.querySelector('#startTime').value;
+            this.schoolData.breakTimings = {
+                assembly: { start: form.querySelector('#assemblyStart').value, end: form.querySelector('#assemblyEnd').value },
+                recess: { start: form.querySelector('#recessStart').value, end: form.querySelector('#recessEnd').value }
+            };
             this.schoolData.sectionConfig = sectionConfig;
             this.schoolData.classes = updatedClasses;
             
-            // Save
+            // Calculate total periods per week for summary
+            const totalSections = this.configManager.getTotalSections(updatedClasses);
+            const summary = Object.entries(classPeriods)
+                .map(([cls, p]) => `${cls}: ${p.periodsPerDay}p (Sat: ${p.saturdayPeriods}p)`)
+                .join(' | ');
+            
             this.storage.save('schoolData', this.schoolData);
-            
-            // Re-render configuration view
+            this.showNotification(`✅ Saved: ${totalSections} sections | ${summary}`, 'success');
+            this.addActivity(`Configuration saved: ${summary}`, 'success');
             this.renderConfiguration(document.getElementById('view-container'));
-            
-            this.showNotification('Configuration saved successfully!', 'success');
-            this.addActivity(`Configuration updated: ${this.configManager.getTotalSections(updatedClasses)} sections`, 'success');
-            
-            // Trigger a full rebuild of dependent views
-            this.rebuildAllViews();
         }
         
-        rebuildAllViews() {
-            // Refresh any view that depends on class data
-            const currentView = this.currentView;
-            // Re-render current view
-            this.renderView(currentView);
+        // ========================================
+        // SUBJECT EDITOR
+        // ========================================
+        renderSubjectEditor(container) {
+            const classes = this.schoolData.classes || [];
+            
+            container.innerHTML = `
+                <div class="settings-container">
+                    <div class="settings-header">
+                        <h1>📖 Subject Editor</h1>
+                        <p class="settings-subtitle">Edit subjects, periods, and lab requirements</p>
+                    </div>
+                    
+                    <form id="subject-form">
+                        ${classes.map(cls => `
+                            <section class="settings-section">
+                                <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;">
+                                    <h2 style="margin:0;border:none;padding:0;">${cls.display}</h2>
+                                    <div>
+                                        <span style="font-size:var(--font-size-sm);color:var(--text-muted);margin-right:var(--spacing-md);">
+                                            ${(cls.sections || []).length} sections
+                                        </span>
+                                        <button type="button" class="btn-primary btn-sm" data-action="add-subject" data-class="${cls.code}">
+                                            ➕ Add Subject
+                                        </button>
+                                    </div>
+                                </div>
+                                <div style="overflow-x:auto;margin-top:var(--spacing-md);">
+                                    <table class="subject-edit-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Subject Name</th>
+                                                <th>Stream</th>
+                                                <th>Periods/Week</th>
+                                                <th>Lab</th>
+                                                <th>Practical</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            ${(cls.subjects || []).length === 0 ? `
+                                                <tr><td colspan="6" style="text-align:center;padding:1rem;color:var(--text-muted);">
+                                                    No subjects. Click "Add Subject".
+                                                </td></tr>
+                                            ` : (cls.subjects || []).map((sub, idx) => `
+                                                <tr>
+                                                    <td>
+                                                        <input type="text" class="subject-name-input" 
+                                                               value="${sub.name}" 
+                                                               data-class="${cls.code}" data-index="${idx}">
+                                                    </td>
+                                                    <td>${sub.stream || '—'}</td>
+                                                    <td>
+                                                        <input type="number" class="subject-periods-input" 
+                                                               value="${sub.periodsPerWeek || 5}" 
+                                                               min="1" max="10"
+                                                               data-class="${cls.code}" data-index="${idx}">
+                                                    </td>
+                                                    <td>
+                                                        <input type="checkbox" class="subject-checkbox" 
+                                                               ${sub.requiresLab ? 'checked' : ''}
+                                                               data-class="${cls.code}" data-index="${idx}" 
+                                                               data-field="requiresLab">
+                                                    </td>
+                                                    <td>
+                                                        <input type="checkbox" class="subject-checkbox" 
+                                                               ${sub.isPractical ? 'checked' : ''}
+                                                               data-class="${cls.code}" data-index="${idx}" 
+                                                               data-field="isPractical">
+                                                    </td>
+                                                    <td>
+                                                        <button type="button" class="btn-danger btn-sm" 
+                                                                data-action="delete-subject" data-class="${cls.code}" data-index="${idx}">
+                                                            🗑️
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            `).join('')}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </section>
+                        `).join('')}
+                        
+                        <div class="form-actions">
+                            <button type="submit" class="btn-primary">💾 Save Subjects</button>
+                            <button type="button" class="btn-secondary" onclick="window.location.reload()">🔄 Refresh</button>
+                        </div>
+                    </form>
+                </div>
+            `;
+            
+            container.querySelectorAll('[data-action="add-subject"]').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const classCode = btn.dataset.class;
+                    const cls = this.schoolData.classes.find(c => c.code === classCode);
+                    if (cls) {
+                        cls.subjects.push({ 
+                            name: 'New Subject', 
+                            stream: cls.sections[0]?.stream || 'default',
+                            periodsPerWeek: 5, 
+                            requiresLab: false, 
+                            isPractical: false 
+                        });
+                        this.storage.save('schoolData', this.schoolData);
+                        this.renderSubjectEditor(document.getElementById('view-container'));
+                        this.showNotification('Subject added, edit the name and save', 'info');
+                    }
+                });
+            });
+            
+            container.querySelectorAll('[data-action="delete-subject"]').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const classCode = btn.dataset.class;
+                    const index = parseInt(btn.dataset.index);
+                    const cls = this.schoolData.classes.find(c => c.code === classCode);
+                    if (cls && confirm(`Delete "${cls.subjects[index].name}"?`)) {
+                        cls.subjects.splice(index, 1);
+                        this.storage.save('schoolData', this.schoolData);
+                        this.renderSubjectEditor(document.getElementById('view-container'));
+                        this.showNotification('Subject deleted', 'success');
+                    }
+                });
+            });
+            
+            container.querySelector('#subject-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                const classes = this.schoolData.classes || [];
+                classes.forEach(cls => {
+                    cls.subjects.forEach((sub, idx) => {
+                        const nameInput = container.querySelector(`.subject-name-input[data-class="${cls.code}"][data-index="${idx}"]`);
+                        const periodInput = container.querySelector(`.subject-periods-input[data-class="${cls.code}"][data-index="${idx}"]`);
+                        const labCheck = container.querySelector(`.subject-checkbox[data-class="${cls.code}"][data-index="${idx}"][data-field="requiresLab"]`);
+                        const practicalCheck = container.querySelector(`.subject-checkbox[data-class="${cls.code}"][data-index="${idx}"][data-field="isPractical"]`);
+                        if (nameInput) sub.name = nameInput.value.trim() || 'Untitled';
+                        if (periodInput) sub.periodsPerWeek = parseInt(periodInput.value) || 5;
+                        if (labCheck) sub.requiresLab = labCheck.checked;
+                        if (practicalCheck) sub.isPractical = practicalCheck.checked;
+                    });
+                });
+                this.storage.save('schoolData', this.schoolData);
+                this.showNotification('Subjects saved successfully!', 'success');
+                this.addActivity('Subjects updated', 'success');
+            });
         }
         
         // ========================================
@@ -2209,10 +1640,7 @@
                 <div class="settings-container">
                     <div class="settings-header">
                         <h1>👨‍🏫 Teacher Management</h1>
-                        <p class="settings-subtitle">Manage teachers and their subject assignments</p>
-                        <p style="color:var(--text-secondary);font-size:var(--font-size-sm);margin-top:var(--spacing-sm);">
-                            Total Sections: ${this.configManager.getTotalSections(this.schoolData.classes || [])}
-                        </p>
+                        <p class="settings-subtitle">Manage teachers and subject assignments</p>
                     </div>
                     
                     <button class="btn-primary" id="addTeacher">➕ Add Teacher</button>
@@ -2220,21 +1648,13 @@
                     <div style="margin-top: var(--spacing-md); overflow-x: auto;">
                         <table class="timetable-preview">
                             <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Subjects</th>
-                                    <th>Max Load</th>
-                                    <th>Current Load</th>
-                                    <th>Actions</th>
-                                </tr>
+                                <tr><th>Name</th><th>Subjects</th><th>Max Load</th><th>Current Load</th><th>Actions</th></tr>
                             </thead>
                             <tbody>
                                 ${teachers.length === 0 ? `
-                                    <tr>
-                                        <td colspan="5" style="text-align:center;padding:2rem;color:var(--text-muted);">
-                                            No teachers added yet. Click "Add Teacher" to get started.
-                                        </td>
-                                    </tr>
+                                    <tr><td colspan="5" style="text-align:center;padding:2rem;color:var(--text-muted);">
+                                        No teachers added yet.
+                                    </td></tr>
                                 ` : teachers.map((teacher, index) => `
                                     <tr>
                                         <td><strong>${teacher.name}</strong></td>
@@ -2242,10 +1662,8 @@
                                         <td>${teacher.maxLoad || 35}</td>
                                         <td>${teacher.currentLoad || 0}</td>
                                         <td>
-                                            <button class="btn-secondary" style="padding:0.25rem 0.5rem;font-size:var(--font-size-xs);" 
-                                                    data-action="edit-teacher" data-index="${index}">✏️ Edit</button>
-                                            <button class="btn-danger" style="padding:0.25rem 0.5rem;font-size:var(--font-size-xs);" 
-                                                    data-action="delete-teacher" data-index="${index}">🗑️ Delete</button>
+                                            <button class="btn-secondary btn-sm" data-action="edit-teacher" data-index="${index}">✏️</button>
+                                            <button class="btn-danger btn-sm" data-action="delete-teacher" data-index="${index}">🗑️</button>
                                         </td>
                                     </tr>
                                 `).join('')}
@@ -2255,26 +1673,18 @@
                 </div>
             `;
             
-            container.querySelector('#addTeacher').addEventListener('click', () => {
-                this.showTeacherModal();
-            });
-            
+            container.querySelector('#addTeacher').addEventListener('click', () => this.showTeacherModal());
             container.querySelectorAll('[data-action="edit-teacher"]').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const index = parseInt(btn.dataset.index);
-                    this.showTeacherModal(index);
-                });
+                btn.addEventListener('click', () => this.showTeacherModal(parseInt(btn.dataset.index)));
             });
-            
             container.querySelectorAll('[data-action="delete-teacher"]').forEach(btn => {
                 btn.addEventListener('click', () => {
                     const index = parseInt(btn.dataset.index);
-                    if (confirm(`Are you sure you want to delete ${teachers[index].name}?`)) {
+                    if (confirm(`Delete ${teachers[index].name}?`)) {
                         this.schoolData.teachers.splice(index, 1);
                         this.storage.save('schoolData', this.schoolData);
                         this.renderTeachers(container);
                         this.showNotification('Teacher deleted', 'success');
-                        this.addActivity(`Teacher deleted`, 'warning');
                     }
                 });
             });
@@ -2287,16 +1697,9 @@
             
             const modal = document.createElement('div');
             modal.style.cssText = `
-                position: fixed;
-                top: 0; left: 0; right: 0; bottom: 0;
-                background: rgba(0,0,0,0.5);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                z-index: 2000;
-                animation: fadeIn 0.3s ease;
+                position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);
+                display:flex;align-items:center;justify-content:center;z-index:2000;animation:fadeIn 0.3s ease;
             `;
-            
             modal.innerHTML = `
                 <div style="background:var(--bg-card);border-radius:var(--radius-lg);padding:2rem;max-width:500px;width:90%;max-height:80vh;overflow-y:auto;">
                     <h2 style="margin-bottom:var(--spacing-md);">${index >= 0 ? 'Edit' : 'Add'} Teacher</h2>
@@ -2309,15 +1712,13 @@
                             <label for="teacherSubjects">Subjects</label>
                             <select id="teacherSubjects" multiple style="height:120px;">
                                 ${allSubjects.map(sub => `
-                                    <option value="${sub}" ${teacher.subjects?.includes(sub) ? 'selected' : ''}>
-                                        ${sub}
-                                    </option>
+                                    <option value="${sub}" ${teacher.subjects?.includes(sub) ? 'selected' : ''}>${sub}</option>
                                 `).join('')}
                             </select>
                             <span style="font-size:var(--font-size-xs);color:var(--text-muted);">Hold Ctrl/Cmd to select multiple</span>
                         </div>
                         <div class="form-group">
-                            <label for="teacherMaxLoad">Max Load (periods/week)</label>
+                            <label for="teacherMaxLoad">Max Load</label>
                             <input type="number" id="teacherMaxLoad" value="${teacher.maxLoad || 35}" min="1" max="50">
                         </div>
                         <div style="display:flex;gap:var(--spacing-md);margin-top:var(--spacing-lg);">
@@ -2333,113 +1734,137 @@
             modal.querySelector('#teacherForm').addEventListener('submit', (e) => {
                 e.preventDefault();
                 const name = modal.querySelector('#teacherName').value.trim();
-                if (!name) {
-                    this.showNotification('Teacher name is required', 'error');
-                    return;
-                }
+                if (!name) { this.showNotification('Teacher name is required', 'error'); return; }
                 
                 const subjects = Array.from(modal.querySelector('#teacherSubjects').selectedOptions).map(opt => opt.value);
                 const maxLoad = parseInt(modal.querySelector('#teacherMaxLoad').value) || 35;
-                
                 const teacherData = { name, subjects, maxLoad, currentLoad: 0 };
                 
-                if (index >= 0) {
-                    this.schoolData.teachers[index] = { ...this.schoolData.teachers[index], ...teacherData };
-                } else {
-                    this.schoolData.teachers.push(teacherData);
-                }
+                if (index >= 0) this.schoolData.teachers[index] = { ...this.schoolData.teachers[index], ...teacherData };
+                else this.schoolData.teachers.push(teacherData);
                 
                 this.storage.save('schoolData', this.schoolData);
                 modal.remove();
                 this.renderTeachers(document.getElementById('view-container'));
                 this.showNotification(`Teacher ${index >= 0 ? 'updated' : 'added'} successfully`, 'success');
-                this.addActivity(`Teacher ${index >= 0 ? 'updated' : 'added'}: ${name}`, 'success');
             });
             
             modal.querySelector('#closeModal').addEventListener('click', () => modal.remove());
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) modal.remove();
-            });
+            modal.addEventListener('click', (e) => { if (e.target === modal) modal.remove(); });
         }
         
         getAllSubjects() {
             const subjects = new Set();
             (this.schoolData.classes || []).forEach(cls => {
                 (cls.subjects || []).forEach(sub => {
-                    if (typeof sub === 'string') subjects.add(sub);
-                    else if (sub.name) subjects.add(sub.name);
+                    if (sub.name) subjects.add(sub.name);
                 });
             });
             return Array.from(subjects);
         }
         
         // ========================================
-        // SUBJECTS VIEW
+        // ROUTINE VIEW
         // ========================================
-        renderSubjects(container) {
+        renderRoutine(container) {
             const classes = this.schoolData.classes || [];
+            let sectionOptions = [];
+            classes.forEach(cls => {
+                (cls.sections || []).forEach(sec => {
+                    sectionOptions.push({ value: `${cls.code}|${sec.name}`, display: `${cls.display} - ${sec.name}` });
+                });
+            });
             
             container.innerHTML = `
                 <div class="settings-container">
                     <div class="settings-header">
-                        <h1>📖 Subject Management</h1>
-                        <p class="settings-subtitle">View subjects for each class and stream</p>
-                        <p style="color:var(--text-secondary);font-size:var(--font-size-sm);margin-top:var(--spacing-sm);">
-                            Total Sections: ${this.configManager.getTotalSections(classes)}
+                        <h1>📅 Class Routine</h1>
+                        <p class="settings-subtitle">View complete timetable for all sections</p>
+                        <p style="color:var(--text-secondary);font-size:var(--font-size-sm);">
+                            ${sectionOptions.length} sections available
                         </p>
                     </div>
                     
-                    ${classes.map(cls => `
-                        <section class="settings-section">
-                            <h2>${cls.display}</h2>
-                            <div style="overflow-x:auto;">
-                                <table class="timetable-preview">
-                                    <thead>
-                                        <tr>
-                                            <th>Subject</th>
-                                            <th>Stream</th>
-                                            <th>Periods/Week</th>
-                                            <th>Lab Required</th>
-                                            <th>Practical</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        ${(cls.subjects || []).length === 0 ? `
-                                            <tr>
-                                                <td colspan="5" style="text-align:center;padding:1rem;color:var(--text-muted);">
-                                                    No subjects configured for this class.
-                                                </td>
-                                            </tr>
-                                        ` : (cls.subjects || []).map(sub => {
-                                            const name = typeof sub === 'string' ? sub : sub.name;
-                                            const periods = typeof sub === 'string' ? 5 : (sub.periodsPerWeek || 5);
-                                            const lab = typeof sub === 'string' ? false : (sub.requiresLab || false);
-                                            const practical = typeof sub === 'string' ? false : (sub.isPractical || false);
-                                            const stream = typeof sub === 'string' ? 'default' : (sub.stream || 'default');
-                                            return `
-                                                <tr>
-                                                    <td><strong>${name}</strong></td>
-                                                    <td>${stream === 'default' ? '—' : stream}</td>
-                                                    <td>${periods}</td>
-                                                    <td>${lab ? '✅' : '❌'}</td>
-                                                    <td>${practical ? '✅' : '❌'}</td>
-                                                </tr>
-                                            `;
-                                        }).join('')}
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div style="margin-top:var(--spacing-sm);color:var(--text-secondary);font-size:var(--font-size-xs);">
-                                ${(cls.sections || []).length} sections: ${(cls.sections || []).map(s => s.name).join(', ')}
-                            </div>
-                        </section>
-                    `).join('')}
+                    <div style="display:flex;gap:var(--spacing-md);flex-wrap:wrap;margin-bottom:var(--spacing-lg);">
+                        <select id="sectionSelect" style="padding:0.5rem;border:2px solid var(--border-color);border-radius:var(--radius-sm);background:var(--bg-input);color:var(--text-primary);min-width:200px;">
+                            ${sectionOptions.map(opt => `<option value="${opt.value}">${opt.display}</option>`).join('')}
+                            ${sectionOptions.length === 0 ? '<option value="">No sections configured</option>' : ''}
+                        </select>
+                        <button class="btn-primary" id="viewRoutine">📖 View Routine</button>
+                        <button class="btn-secondary" onclick="window.print()">🖨️ Print</button>
+                    </div>
+                    
+                    <div id="routineDisplay" style="overflow-x:auto;">
+                        <p style="color:var(--text-muted);text-align:center;padding:2rem;">Select a section and click "View Routine"</p>
+                    </div>
                 </div>
             `;
+            
+            container.querySelector('#viewRoutine').addEventListener('click', () => {
+                const value = container.querySelector('#sectionSelect').value;
+                if (value) {
+                    const [classCode, sectionName] = value.split('|');
+                    this.displayRoutine(container.querySelector('#routineDisplay'), classCode, sectionName);
+                }
+            });
+        }
+        
+        displayRoutine(container, classCode, sectionName) {
+            const classPeriods = this.schoolData.classPeriods || CONSTANTS.CLASS_PERIODS;
+            const classPeriodConfig = classPeriods[classCode] || { periodsPerDay: 8, saturdayPeriods: 4 };
+            const workingDays = this.configManager.getWorkingDays();
+            
+            const cls = this.schoolData.classes.find(c => c.code === classCode);
+            if (!cls) {
+                container.innerHTML = '<p style="color:var(--text-muted);">Class not found</p>';
+                return;
+            }
+            
+            const subjects = cls.subjects || ['Math', 'Science', 'English'];
+            
+            let html = `<h3 style="margin-bottom:var(--spacing-md);">${cls.display} - ${sectionName}</h3>`;
+            html += `<div style="display:flex;gap:var(--spacing-md);flex-wrap:wrap;margin-bottom:var(--spacing-md);">
+                <span style="background:var(--bg-hover);padding:4px 12px;border-radius:var(--radius-sm);">
+                    📅 Mon-Fri: <strong>${classPeriodConfig.periodsPerDay}</strong> periods
+                </span>
+                <span style="background:var(--bg-hover);padding:4px 12px;border-radius:var(--radius-sm);">
+                    🎯 Saturday: <strong>${classPeriodConfig.saturdayPeriods}</strong> periods
+                </span>
+            </div>`;
+            
+            html += `<table class="timetable-preview"><thead><tr><th>Time/Day</th>`;
+            workingDays.forEach(day => {
+                const isSaturday = day === 'Saturday';
+                const periods = isSaturday ? classPeriodConfig.saturdayPeriods : classPeriodConfig.periodsPerDay;
+                html += `<th>${day} (${periods}p)</th>`;
+            });
+            html += `</tr></thead><tbody>`;
+            
+            const maxPeriods = Math.max(classPeriodConfig.periodsPerDay, classPeriodConfig.saturdayPeriods);
+            
+            for (let p = 1; p <= maxPeriods; p++) {
+                html += `<tr><td class="period-label">P${p}</td>`;
+                workingDays.forEach(day => {
+                    const isSaturday = day === 'Saturday';
+                    const periods = isSaturday ? classPeriodConfig.saturdayPeriods : classPeriodConfig.periodsPerDay;
+                    if (p <= periods) {
+                        const sub = subjects[Math.floor(Math.random() * subjects.length)];
+                        const teacher = ['Mr. Singh', 'Ms. Sharma', 'Dr. Kumar', 'Mrs. Gupta'][Math.floor(Math.random() * 4)];
+                        const subName = sub.name || sub;
+                        html += `<td><div class="subject-cell">${subName}</div><div class="teacher-cell">${teacher}</div></td>`;
+                    } else {
+                        html += `<td class="empty-cell">—</td>`;
+                    }
+                });
+                html += `</tr>`;
+            }
+            
+            html += `</tbody></table>`;
+            container.innerHTML = html;
         }
         
         // ========================================
-        // GENERATOR VIEW
+        // GENERATOR
         // ========================================
         renderGenerator(container) {
             const totalSections = this.configManager.getTotalSections(this.schoolData.classes || []);
@@ -2448,16 +1873,16 @@
                 <div class="generator-container">
                     <div class="generator-header">
                         <h1>⚡ Timetable Generator</h1>
-                        <p class="generator-subtitle">Generate optimized timetables for ${totalSections} sections</p>
+                        <p class="generator-subtitle">Generate timetables for ${totalSections} sections</p>
                     </div>
                     
                     <div class="generator-grid">
                         <section class="generator-config">
-                            <h2>Generation Settings</h2>
+                            <h2>Settings</h2>
                             <div class="form-group">
                                 <label for="algorithm">Algorithm</label>
                                 <select id="algorithm">
-                                    <option value="genetic">Genetic Algorithm (Recommended)</option>
+                                    <option value="genetic">Genetic Algorithm</option>
                                     <option value="hillclimbing">Hill Climbing</option>
                                     <option value="simulated">Simulated Annealing</option>
                                 </select>
@@ -2471,56 +1896,32 @@
                                 <input type="number" id="populationSize" value="50" min="10" max="200">
                             </div>
                             <div class="form-group">
-                                <label for="mutationRate">Mutation Rate (%)</label>
-                                <input type="number" id="mutationRate" value="5" min="1" max="20">
+                                <label class="checkbox-label"><input type="checkbox" id="balanceWorkload" checked> Balance Workload</label>
                             </div>
                             <div class="form-group">
-                                <label class="checkbox-label">
-                                    <input type="checkbox" id="balanceWorkload" checked>
-                                    Balance Teacher Workload
-                                </label>
-                            </div>
-                            <div class="form-group">
-                                <label class="checkbox-label">
-                                    <input type="checkbox" id="preferContinuous" checked>
-                                    Prefer Continuous Blocks
-                                </label>
+                                <label class="checkbox-label"><input type="checkbox" id="preferContinuous" checked> Continuous Blocks</label>
                             </div>
                         </section>
                         
                         <section class="generator-status">
-                            <h2>Generation Status</h2>
+                            <h2>Status</h2>
                             <div class="status-indicators">
-                                <div class="status-item">
-                                    <span class="status-label">Status:</span>
-                                    <span class="status-value" id="genStatus">Ready</span>
-                                </div>
-                                <div class="status-item">
-                                    <span class="status-label">Progress:</span>
-                                    <span class="status-value" id="genProgress">0%</span>
-                                </div>
-                                <div class="status-item">
-                                    <span class="status-label">Best Fitness:</span>
-                                    <span class="status-value" id="genFitness">-</span>
-                                </div>
-                                <div class="status-item">
-                                    <span class="status-label">Conflicts:</span>
-                                    <span class="status-value" id="genConflicts">0</span>
-                                </div>
+                                <div class="status-item"><span class="status-label">Status:</span><span class="status-value" id="genStatus">Ready</span></div>
+                                <div class="status-item"><span class="status-label">Progress:</span><span class="status-value" id="genProgress">0%</span></div>
+                                <div class="status-item"><span class="status-label">Fitness:</span><span class="status-value" id="genFitness">-</span></div>
+                                <div class="status-item"><span class="status-label">Conflicts:</span><span class="status-value" id="genConflicts">0</span></div>
                             </div>
-                            <div class="progress-bar-container">
-                                <div class="progress-bar" id="genProgressBar" style="width:0%"></div>
-                            </div>
+                            <div class="progress-bar-container"><div class="progress-bar" id="genProgressBar" style="width:0%"></div></div>
                             <div class="log-container" id="genLog">
-                                <div class="log-entry system">System ready for ${totalSections} sections</div>
+                                <div class="log-entry system">Ready for ${totalSections} sections</div>
                             </div>
                         </section>
                     </div>
                     
                     <div class="generator-actions">
-                        <button class="btn-primary btn-large" id="startGeneration">🚀 Start Generation</button>
+                        <button class="btn-primary btn-large" id="startGeneration">🚀 Start</button>
                         <button class="btn-secondary btn-large" id="stopGeneration" disabled>⏹️ Stop</button>
-                        <button class="btn-success btn-large" id="applyTimetable" disabled>✅ Apply Timetable</button>
+                        <button class="btn-success btn-large" id="applyTimetable" disabled>✅ Apply</button>
                     </div>
                     
                     <section class="generator-preview" style="display:none;margin-top:var(--spacing-xl);">
@@ -2554,10 +1955,7 @@
                 const conflicts = container.querySelector('#genConflicts');
                 
                 status.textContent = 'Generating...';
-                this.addLogEntry(log, 'Starting timetable generation...', 'system');
-                
-                const totalSections = this.configManager.getTotalSections(this.schoolData.classes || []);
-                this.addLogEntry(log, `Processing ${totalSections} sections`, 'info');
+                this.addLogEntry(log, 'Starting generation...', 'system');
                 
                 const steps = 100;
                 let bestFitness = 0;
@@ -2565,39 +1963,32 @@
                 
                 for (let i = 0; i <= steps; i++) {
                     if (!isGenerating) {
-                        this.addLogEntry(log, 'Generation cancelled', 'warning');
+                        this.addLogEntry(log, 'Cancelled', 'warning');
                         break;
                     }
-                    
                     await this.delay(30);
                     const pct = Math.round((i / steps) * 100);
                     progress.textContent = pct + '%';
                     progressBar.style.width = pct + '%';
-                    
                     bestFitness = Math.min(100, bestFitness + (Math.random() * 1.5) + 0.5);
                     fitness.textContent = Math.round(bestFitness) + '%';
-                    
                     currentConflicts = Math.max(0, Math.round(50 * (1 - i / steps) + Math.random() * 5));
                     conflicts.textContent = currentConflicts;
-                    
                     if (i % 10 === 0 && i > 0) {
-                        this.addLogEntry(log, `Generation ${i}: Fitness ${Math.round(bestFitness)}%, Conflicts ${currentConflicts}`, 'info');
+                        this.addLogEntry(log, `Generation ${i}: Fitness ${Math.round(bestFitness)}%`, 'info');
                     }
                 }
                 
                 if (isGenerating) {
-                    this.addLogEntry(log, '✅ Generation complete! Best fitness: ' + Math.round(bestFitness) + '%', 'success');
+                    this.addLogEntry(log, '✅ Complete! Fitness: ' + Math.round(bestFitness) + '%', 'success');
                     status.textContent = 'Complete';
                     startBtn.disabled = false;
                     stopBtn.disabled = true;
                     applyBtn.disabled = false;
-                    
                     const preview = container.querySelector('.generator-preview');
                     preview.style.display = 'block';
-                    const previewContainer = container.querySelector('#previewContainer');
-                    this.renderTimetablePreview(previewContainer);
+                    this.renderTimetablePreview(container.querySelector('#previewContainer'));
                 }
-                
                 isGenerating = false;
             });
             
@@ -2605,37 +1996,32 @@
                 isGenerating = false;
                 stopBtn.disabled = true;
                 startBtn.disabled = false;
-                this.addLogEntry(container.querySelector('#genLog'), 'Stopping generation...', 'warning');
+                this.addLogEntry(container.querySelector('#genLog'), 'Stopping...', 'warning');
                 container.querySelector('#genStatus').textContent = 'Stopped';
             });
             
             applyBtn.addEventListener('click', () => {
                 this.schoolData.routine = { generated: true, timestamp: new Date().toISOString() };
                 this.storage.save('schoolData', this.schoolData);
-                this.showNotification('Timetable applied successfully!', 'success');
+                this.showNotification('Timetable applied!', 'success');
                 this.addActivity('Timetable applied', 'success');
                 applyBtn.disabled = true;
             });
         }
         
         renderTimetablePreview(container) {
-            const days = this.schoolData.workingDays || CONSTANTS.DEFAULT_WORKING_DAYS;
-            const periods = this.schoolData.periodsPerDay || 8;
-            const classes = this.schoolData.classes || [];
-            const totalSections = this.configManager.getTotalSections(classes);
-            
-            let html = `<p style="margin-bottom:var(--spacing-md);">Showing preview for ${totalSections} sections</p>`;
-            html += `<table class="timetable-preview"><thead><tr><th>Time/Day</th>`;
-            days.forEach(day => { html += `<th>${day.substring(0,3)}</th>`; });
-            html += `</tr></thead><tbody>`;
-            
+            const days = this.configManager.getWorkingDays();
+            const periods = 8;
             const allSubjects = [];
-            classes.forEach(cls => {
+            (this.schoolData.classes || []).forEach(cls => {
                 (cls.subjects || []).forEach(sub => {
-                    const name = typeof sub === 'string' ? sub : sub.name;
-                    if (!allSubjects.includes(name)) allSubjects.push(name);
+                    if (sub.name && !allSubjects.includes(sub.name)) allSubjects.push(sub.name);
                 });
             });
+            
+            let html = `<table class="timetable-preview"><thead><tr><th>Time/Day</th>`;
+            days.forEach(day => { html += `<th>${day.substring(0,3)}</th>`; });
+            html += `</tr></thead><tbody>`;
             
             for (let p = 1; p <= periods; p++) {
                 html += `<tr><td class="period-label">P${p}</td>`;
@@ -2646,7 +2032,6 @@
                 });
                 html += `</tr>`;
             }
-            
             html += `</tbody></table>`;
             container.innerHTML = html;
         }
@@ -2659,183 +2044,50 @@
             log.scrollTop = log.scrollHeight;
         }
         
-        delay(ms) {
-            return new Promise(resolve => setTimeout(resolve, ms));
-        }
+        delay(ms) { return new Promise(resolve => setTimeout(resolve, ms)); }
         
         // ========================================
-        // ROUTINE VIEW
-        // ========================================
-        renderRoutine(container) {
-            const classes = this.schoolData.classes || [];
-            const totalSections = this.configManager.getTotalSections(classes);
-            
-            // Build section options for dropdown
-            let sectionOptions = [];
-            classes.forEach(cls => {
-                (cls.sections || []).forEach(sec => {
-                    sectionOptions.push({
-                        value: `${cls.code}|${sec.name}`,
-                        display: `${cls.display} - ${sec.name}`
-                    });
-                });
-            });
-            
-            container.innerHTML = `
-                <div class="settings-container">
-                    <div class="settings-header">
-                        <h1>📅 Class Routine</h1>
-                        <p class="settings-subtitle">View complete timetable for all sections</p>
-                        <p style="color:var(--text-secondary);font-size:var(--font-size-sm);margin-top:var(--spacing-sm);">
-                            ${totalSections} sections available
-                        </p>
-                    </div>
-                    
-                    <div style="display:flex;gap:var(--spacing-md);flex-wrap:wrap;margin-bottom:var(--spacing-lg);">
-                        <select id="sectionSelect" style="padding:0.5rem;border:2px solid var(--border-color);border-radius:var(--radius-sm);background:var(--bg-input);color:var(--text-primary);min-width:200px;">
-                            ${sectionOptions.map(opt => `
-                                <option value="${opt.value}">${opt.display}</option>
-                            `).join('')}
-                            ${sectionOptions.length === 0 ? '<option value="">No sections configured</option>' : ''}
-                        </select>
-                        <button class="btn-primary" id="viewRoutine">📖 View Routine</button>
-                        <button class="btn-secondary" onclick="window.print()">🖨️ Print</button>
-                    </div>
-                    
-                    <div id="routineDisplay" style="overflow-x:auto;">
-                        <p style="color:var(--text-muted);text-align:center;padding:2rem;">
-                            Select a section, then click "View Routine"
-                        </p>
-                    </div>
-                </div>
-            `;
-            
-            container.querySelector('#viewRoutine').addEventListener('click', () => {
-                const value = container.querySelector('#sectionSelect').value;
-                if (value) {
-                    const [classCode, sectionName] = value.split('|');
-                    this.displayRoutine(container.querySelector('#routineDisplay'), classCode, sectionName);
-                }
-            });
-        }
-        
-        displayRoutine(container, classCode, sectionName) {
-            const days = this.schoolData.workingDays || CONSTANTS.DEFAULT_WORKING_DAYS;
-            const periods = this.schoolData.periodsPerDay || 8;
-            const cls = this.schoolData.classes.find(c => c.code === classCode);
-            
-            if (!cls) {
-                container.innerHTML = '<p style="color:var(--text-muted);">Class not found</p>';
-                return;
-            }
-            
-            const subjects = cls.subjects || ['Math', 'Science', 'English', 'History', 'Geography'];
-            
-            let html = `<h3 style="margin-bottom:var(--spacing-md);">${cls.display} - ${sectionName}</h3>`;
-            html += `<table class="timetable-preview"><thead><tr><th>Time/Day</th>`;
-            days.forEach(day => { html += `<th>${day}</th>`; });
-            html += `</tr></thead><tbody>`;
-            
-            for (let p = 1; p <= periods; p++) {
-                html += `<tr><td class="period-label">P${p}</td>`;
-                days.forEach(() => {
-                    const sub = subjects[Math.floor(Math.random() * subjects.length)];
-                    const teacher = ['Mr. Singh', 'Ms. Sharma', 'Dr. Kumar', 'Mrs. Gupta'][Math.floor(Math.random() * 4)];
-                    const subName = typeof sub === 'string' ? sub : sub.name;
-                    html += `<td><div class="subject-cell">${subName}</div><div class="teacher-cell">${teacher}</div></td>`;
-                });
-                html += `</tr>`;
-            }
-            
-            html += `</tbody></table>`;
-            container.innerHTML = html;
-        }
-        
-        // ========================================
-        // VALIDATION VIEW
+        // VALIDATION
         // ========================================
         renderValidation(container) {
             const issues = this.runValidation();
             const totalSections = this.configManager.getTotalSections(this.schoolData.classes || []);
-            const teacherDemand = this.configManager.getTeacherDemand(this.schoolData.classes || []);
-            const labDemand = this.configManager.getLaboratoryDemand(this.schoolData.classes || []);
             
             container.innerHTML = `
                 <div class="settings-container">
                     <div class="settings-header">
                         <h1>✅ Validation Panel</h1>
-                        <p class="settings-subtitle">Check for conflicts and issues in your timetable</p>
+                        <p class="settings-subtitle">Check for conflicts and issues</p>
                     </div>
                     
-                    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:var(--spacing-md);margin-bottom:var(--spacing-lg);">
-                        <div class="stat-card">
-                            <div class="stat-content">
-                                <div class="stat-value">${totalSections}</div>
-                                <div class="stat-label">Total Sections</div>
-                            </div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-content">
-                                <div class="stat-value">${Object.keys(teacherDemand).length}</div>
-                                <div class="stat-label">Subjects with Demand</div>
-                            </div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-content">
-                                <div class="stat-value">${Object.keys(labDemand).length}</div>
-                                <div class="stat-label">Lab Subjects</div>
-                            </div>
-                        </div>
+                    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:var(--spacing-md);margin-bottom:var(--spacing-lg);">
+                        <div class="stat-card"><div class="stat-content"><div class="stat-value">${totalSections}</div><div class="stat-label">Sections</div></div></div>
+                        <div class="stat-card"><div class="stat-content"><div class="stat-value">${this.schoolData.periodsPerDay || 8}</div><div class="stat-label">Periods/Day</div></div></div>
                     </div>
                     
                     <button class="btn-primary" id="runValidation">🔄 Run Validation</button>
                     
                     <div style="margin-top:var(--spacing-lg);">
                         <div style="display:flex;gap:var(--spacing-md);flex-wrap:wrap;margin-bottom:var(--spacing-lg);">
-                            <div class="stat-card">
-                                <div class="stat-content">
-                                    <div class="stat-value ${issues.errors > 0 ? 'text-danger' : 'text-success'}">${issues.errors}</div>
-                                    <div class="stat-label">Errors</div>
-                                </div>
-                            </div>
-                            <div class="stat-card">
-                                <div class="stat-content">
-                                    <div class="stat-value ${issues.warnings > 0 ? 'text-warning' : 'text-success'}">${issues.warnings}</div>
-                                    <div class="stat-label">Warnings</div>
-                                </div>
-                            </div>
-                            <div class="stat-card">
-                                <div class="stat-content">
-                                    <div class="stat-value text-success">${issues.passed}</div>
-                                    <div class="stat-label">Passed</div>
-                                </div>
-                            </div>
+                            <div class="stat-card"><div class="stat-content"><div class="stat-value ${issues.errors > 0 ? 'text-danger' : 'text-success'}">${issues.errors}</div><div class="stat-label">Errors</div></div></div>
+                            <div class="stat-card"><div class="stat-content"><div class="stat-value ${issues.warnings > 0 ? 'text-warning' : 'text-success'}">${issues.warnings}</div><div class="stat-label">Warnings</div></div></div>
+                            <div class="stat-card"><div class="stat-content"><div class="stat-value text-success">${issues.passed}</div><div class="stat-label">Passed</div></div></div>
                         </div>
                         
                         <div style="background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius);padding:var(--spacing-lg);">
-                            <h3 style="margin-bottom:var(--spacing-md);">Validation Details</h3>
-                            ${issues.details.length === 0 ? `
-                                <p style="color:var(--success);">✅ All validations passed! No issues found.</p>
-                            ` : `
-                                <ul style="list-style:none;padding:0;">
-                                    ${issues.details.map(issue => `
-                                        <li style="padding:var(--spacing-sm);border-bottom:1px solid var(--border-light);
-                                                   color:${issue.type === 'error' ? 'var(--danger)' : 'var(--warning)'};
-                                                   display:flex;align-items:center;gap:var(--spacing-sm);">
-                                            <span>${issue.type === 'error' ? '❌' : '⚠️'}</span>
-                                            <span>${issue.message}</span>
-                                        </li>
-                                    `).join('')}
-                                </ul>
-                            `}
+                            <h3>Details</h3>
+                            ${issues.details.length === 0 ? '<p style="color:var(--success);">✅ All validations passed!</p>' :
+                            `<ul style="list-style:none;padding:0;">${issues.details.map(issue => `
+                                <li style="padding:var(--spacing-sm);border-bottom:1px solid var(--border-light);color:${issue.type === 'error' ? 'var(--danger)' : 'var(--warning)'};">
+                                    ${issue.type === 'error' ? '❌' : '⚠️'} ${issue.message}
+                                </li>
+                            `).join('')}</ul>`}
                         </div>
                     </div>
                 </div>
             `;
             
-            container.querySelector('#runValidation').addEventListener('click', () => {
-                this.renderValidation(container);
-            });
+            container.querySelector('#runValidation').addEventListener('click', () => this.renderValidation(container));
         }
         
         runValidation() {
@@ -2843,167 +2095,92 @@
             const teachers = this.schoolData.teachers || [];
             const classes = this.schoolData.classes || [];
             
-            // Check for teachers with no subjects
             teachers.forEach(t => {
                 if (!t.subjects || t.subjects.length === 0) {
                     issues.warnings++;
-                    issues.details.push({ type: 'warning', message: `Teacher "${t.name}" has no subjects assigned` });
+                    issues.details.push({ type: 'warning', message: `Teacher "${t.name}" has no subjects` });
                 }
             });
             
-            // Check for classes with no subjects
             classes.forEach(cls => {
                 if (!cls.subjects || cls.subjects.length === 0) {
                     issues.errors++;
                     issues.details.push({ type: 'error', message: `Class "${cls.display}" has no subjects` });
                 }
-            });
-            
-            // Check for classes with no sections
-            classes.forEach(cls => {
                 if (!cls.sections || cls.sections.length === 0) {
                     issues.errors++;
-                    issues.details.push({ type: 'error', message: `Class "${cls.display}" has no sections configured` });
+                    issues.details.push({ type: 'error', message: `Class "${cls.display}" has no sections` });
                 }
             });
             
-            // Check for duplicate teacher names
             const names = teachers.map(t => t.name);
             const duplicates = names.filter((name, i) => names.indexOf(name) !== i);
             if (duplicates.length > 0) {
                 issues.errors++;
-                issues.details.push({ type: 'error', message: `Duplicate teacher names found: ${duplicates.join(', ')}` });
+                issues.details.push({ type: 'error', message: `Duplicate teachers: ${duplicates.join(', ')}` });
             }
             
-            // Check for valid working days
-            if (!this.schoolData.workingDays || this.schoolData.workingDays.length === 0) {
-                issues.errors++;
-                issues.details.push({ type: 'error', message: 'No working days configured' });
-            }
-            
-            // Check periods per day
-            if (this.schoolData.periodsPerDay < 3 || this.schoolData.periodsPerDay > 10) {
-                issues.errors++;
-                issues.details.push({ type: 'error', message: 'Periods per day must be between 3 and 10' });
-            }
-            
-            // Check if total sections is zero
             const totalSections = this.configManager.getTotalSections(classes);
             if (totalSections === 0) {
                 issues.errors++;
-                issues.details.push({ type: 'error', message: 'No sections configured. Please configure sections in the Configuration page.' });
+                issues.details.push({ type: 'error', message: 'No sections configured!' });
             }
             
             if (issues.errors === 0 && issues.warnings === 0) {
                 issues.passed = 1;
-                issues.details.push({ type: 'success', message: `All validations passed! ${totalSections} sections configured.` });
+                issues.details.push({ type: 'success', message: `✅ All good! ${totalSections} sections` });
             }
-            
             return issues;
         }
         
         // ========================================
-        // REPORTS VIEW
+        // REPORTS
         // ========================================
         renderReports(container) {
             const teachers = this.schoolData.teachers || [];
             const classes = this.schoolData.classes || [];
             const totalSections = this.configManager.getTotalSections(classes);
+            const classPeriods = this.schoolData.classPeriods || CONSTANTS.CLASS_PERIODS;
             
             let totalStudents = 0;
-            classes.forEach(cls => {
-                (cls.sections || []).forEach(sec => {
-                    totalStudents += sec.studentCount || 0;
-                });
-            });
-            
-            const teacherDemand = this.configManager.getTeacherDemand(classes);
-            const labDemand = this.configManager.getLaboratoryDemand(classes);
+            classes.forEach(cls => (cls.sections || []).forEach(sec => totalStudents += sec.studentCount || 0));
             
             container.innerHTML = `
                 <div class="settings-container">
                     <div class="settings-header">
                         <h1>📊 Reports</h1>
-                        <p class="settings-subtitle">View statistics and reports</p>
+                        <p class="settings-subtitle">Statistics and reports</p>
                     </div>
                     
-                    <div class="stats-grid" style="margin-bottom:var(--spacing-xl);">
-                        <div class="stat-card">
-                            <div class="stat-icon">🏫</div>
-                            <div class="stat-content">
-                                <div class="stat-value">${classes.length}</div>
-                                <div class="stat-label">Total Classes</div>
-                            </div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-icon">📋</div>
-                            <div class="stat-content">
-                                <div class="stat-value">${totalSections}</div>
-                                <div class="stat-label">Total Sections</div>
-                            </div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-icon">👨‍🏫</div>
-                            <div class="stat-content">
-                                <div class="stat-value">${teachers.length}</div>
-                                <div class="stat-label">Total Teachers</div>
-                            </div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-icon">👨‍🎓</div>
-                            <div class="stat-content">
-                                <div class="stat-value">${totalStudents}</div>
-                                <div class="stat-label">Total Students</div>
-                            </div>
-                        </div>
+                    <div class="stats-grid">
+                        <div class="stat-card"><div class="stat-icon">🏫</div><div class="stat-content"><div class="stat-value">${classes.length}</div><div class="stat-label">Classes</div></div></div>
+                        <div class="stat-card"><div class="stat-icon">📋</div><div class="stat-content"><div class="stat-value">${totalSections}</div><div class="stat-label">Sections</div></div></div>
+                        <div class="stat-card"><div class="stat-icon">👨‍🏫</div><div class="stat-content"><div class="stat-value">${teachers.length}</div><div class="stat-label">Teachers</div></div></div>
+                        <div class="stat-card"><div class="stat-icon">👨‍🎓</div><div class="stat-content"><div class="stat-value">${totalStudents}</div><div class="stat-label">Students</div></div></div>
                     </div>
                     
-                    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:var(--spacing-xl);">
-                        <section style="background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius);padding:var(--spacing-lg);">
-                            <h3>Class-wise Statistics</h3>
-                            <ul style="list-style:none;padding:0;">
-                                ${classes.map(cls => `
-                                    <li style="display:flex;justify-content:space-between;padding:var(--spacing-sm);border-bottom:1px solid var(--border-light);">
-                                        <span>${cls.display}</span>
-                                        <span>${(cls.sections || []).length} sections, ${(cls.subjects || []).length} subjects</span>
-                                    </li>
-                                `).join('')}
-                                ${classes.length === 0 ? '<li style="color:var(--text-muted);">No classes configured</li>' : ''}
-                            </ul>
-                        </section>
-                        
-                        <section style="background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius);padding:var(--spacing-lg);">
-                            <h3>Teacher Demand</h3>
-                            <ul style="list-style:none;padding:0;max-height:200px;overflow-y:auto;">
-                                ${Object.entries(teacherDemand).length === 0 ? '<li style="color:var(--text-muted);">No demand data</li>' :
-                                Object.entries(teacherDemand).sort((a,b) => b[1] - a[1]).map(([subject, demand]) => `
-                                    <li style="display:flex;justify-content:space-between;padding:var(--spacing-sm);border-bottom:1px solid var(--border-light);">
-                                        <span>${subject}</span>
-                                        <span>${demand} periods</span>
-                                    </li>
-                                `).join('')}
-                            </ul>
-                        </section>
-                        
-                        <section style="background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius);padding:var(--spacing-lg);">
-                            <h3>Laboratory Demand</h3>
-                            <ul style="list-style:none;padding:0;max-height:200px;overflow-y:auto;">
-                                ${Object.entries(labDemand).length === 0 ? '<li style="color:var(--text-muted);">No lab demand</li>' :
-                                Object.entries(labDemand).sort((a,b) => b[1] - a[1]).map(([subject, demand]) => `
-                                    <li style="display:flex;justify-content:space-between;padding:var(--spacing-sm);border-bottom:1px solid var(--border-light);">
-                                        <span>${subject}</span>
-                                        <span>${demand} sections</span>
-                                    </li>
-                                `).join('')}
-                            </ul>
-                        </section>
-                    </div>
+                    <section style="background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius);padding:var(--spacing-lg);margin-bottom:var(--spacing-xl);">
+                        <h3>📅 Class Period Summary</h3>
+                        <div style="overflow-x:auto;margin-top:var(--spacing-md);">
+                            <table class="timetable-preview">
+                                <thead><tr><th>Class</th><th>Mon-Fri</th><th>Saturday</th><th>Total/Week</th></tr></thead>
+                                <tbody>
+                                    ${['V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII'].map(classCode => {
+                                        const config = classPeriods[classCode] || { periodsPerDay: 8, saturdayPeriods: 4 };
+                                        const display = CONSTANTS.CLASS_DEFINITIONS.find(c => c.id === classCode)?.display || classCode;
+                                        const total = (config.periodsPerDay || 8) * 5 + (config.saturdayPeriods || 4);
+                                        return `<tr><td><strong>${display}</strong></td><td>${config.periodsPerDay || 8}</td><td>${config.saturdayPeriods || 4}</td><td><strong>${total}</strong></td></tr>`;
+                                    }).join('')}
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
                 </div>
             `;
         }
         
         // ========================================
-        // EXPORT VIEW
+        // EXPORT
         // ========================================
         renderExport(container) {
             const totalSections = this.configManager.getTotalSections(this.schoolData.classes || []);
@@ -3012,45 +2189,15 @@
                 <div class="settings-container">
                     <div class="settings-header">
                         <h1>📤 Export Centre</h1>
-                        <p class="settings-subtitle">Export your timetable and data in various formats</p>
-                        <p style="color:var(--text-secondary);font-size:var(--font-size-sm);margin-top:var(--spacing-sm);">
-                            ${totalSections} sections available for export
-                        </p>
+                        <p class="settings-subtitle">Export data in various formats</p>
+                        <p style="color:var(--text-secondary);font-size:var(--font-size-sm);">${totalSections} sections</p>
                     </div>
                     
                     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:var(--spacing-md);">
-                        <button class="btn-primary btn-block" data-export="pdf">📄 Export PDF</button>
-                        <button class="btn-success btn-block" data-export="excel">📊 Export Excel</button>
-                        <button class="btn-secondary btn-block" data-export="csv">📋 Export CSV</button>
-                        <button class="btn-warning btn-block" data-export="json">💾 Export JSON</button>
-                    </div>
-                    
-                    <div style="margin-top:var(--spacing-xl);background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius);padding:var(--spacing-lg);">
-                        <h3 style="margin-bottom:var(--spacing-md);">Export Options</h3>
-                        <div class="form-group">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="includeTeachers" checked>
-                                Include Teacher Details
-                            </label>
-                        </div>
-                        <div class="form-group">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="includeClassrooms" checked>
-                                Include Classroom Details
-                            </label>
-                        </div>
-                        <div class="form-group">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="includeSubjects" checked>
-                                Include Subject Details
-                            </label>
-                        </div>
-                        <div class="form-group">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="includeSections" checked>
-                                Include Section Information
-                            </label>
-                        </div>
+                        <button class="btn-primary btn-block" data-export="pdf">📄 PDF</button>
+                        <button class="btn-success btn-block" data-export="excel">📊 Excel</button>
+                        <button class="btn-secondary btn-block" data-export="csv">📋 CSV</button>
+                        <button class="btn-warning btn-block" data-export="json">💾 JSON</button>
                     </div>
                 </div>
             `;
@@ -3065,51 +2212,32 @@
         
         exportData(format) {
             const data = this.schoolData;
-            const totalSections = this.configManager.getTotalSections(data.classes || []);
-            
             switch(format) {
-                case 'pdf':
-                    this.showNotification(`PDF export for ${totalSections} sections would be generated here`, 'info');
-                    break;
-                case 'excel':
-                    this.showNotification(`Excel export for ${totalSections} sections would be generated here`, 'info');
-                    break;
-                case 'csv':
-                    this.exportCSV(data);
-                    break;
-                case 'json':
-                    this.exportJSON(data);
-                    break;
-                default:
-                    this.showNotification('Unknown export format', 'error');
+                case 'csv': this.exportCSV(data); break;
+                case 'json': this.exportJSON(data); break;
+                default: this.showNotification(`${format.toUpperCase()} export would be generated`, 'info');
             }
         }
         
         exportCSV(data) {
-            const rows = [];
-            rows.push('School,Board,Academic Year,Classes,Sections,Teachers');
+            const rows = ['School,Board,Academic Year,Classes,Sections'];
             const totalSections = this.configManager.getTotalSections(data.classes || []);
-            rows.push(`${data.schoolName},${data.board},${data.academicYear},${data.classes?.length || 0},${totalSections},${data.teachers?.length || 0}`);
+            rows.push(`${data.schoolName},${data.board},${data.academicYear},${data.classes?.length || 0},${totalSections}`);
             rows.push('');
             rows.push('Class,Section,Subjects');
             (data.classes || []).forEach(cls => {
                 (cls.sections || []).forEach(sec => {
-                    const subNames = (cls.subjects || []).map(s => typeof s === 'string' ? s : s.name).join('; ');
+                    const subNames = (cls.subjects || []).map(s => s.name || s).join('; ');
                     rows.push(`${cls.display},${sec.name},"${subNames}"`);
                 });
             });
-            
-            const csv = rows.join('\n');
-            this.downloadFile(csv, 'school_data.csv', 'text/csv');
-            this.showNotification('CSV exported successfully', 'success');
-            this.addActivity('Exported CSV data', 'success');
+            this.downloadFile(rows.join('\n'), 'school_data.csv', 'text/csv');
+            this.showNotification('CSV exported', 'success');
         }
         
         exportJSON(data) {
-            const json = JSON.stringify(data, null, 2);
-            this.downloadFile(json, 'school_data.json', 'application/json');
-            this.showNotification('JSON exported successfully', 'success');
-            this.addActivity('Exported JSON data', 'success');
+            this.downloadFile(JSON.stringify(data, null, 2), 'school_data.json', 'application/json');
+            this.showNotification('JSON exported', 'success');
         }
         
         downloadFile(content, filename, mimeType) {
@@ -3130,22 +2258,22 @@
         setupSaveLoad() {
             document.getElementById('saveBtn').addEventListener('click', () => {
                 this.storage.save('schoolData', this.schoolData);
-                this.showNotification('Data saved successfully!', 'success');
-                this.addActivity('Data saved manually', 'success');
+                this.showNotification('Data saved!', 'success');
+                this.addActivity('Data saved', 'success');
             });
             
             document.getElementById('loadBtn').addEventListener('click', () => {
                 const saved = this.storage.load('schoolData');
                 if (saved) {
                     this.schoolData = saved;
-                    // Ensure compatibility
+                    this.configManager.setSchoolData(this.schoolData);
                     if (!this.schoolData.sectionConfig) {
                         this.schoolData.sectionConfig = this.configManager.buildDefaultSectionConfig();
                         this.schoolData.classes = this.configManager.rebuildClasses(this.schoolData.sectionConfig);
                     }
                     this.renderView(this.currentView);
-                    this.showNotification('Data loaded successfully!', 'success');
-                    this.addActivity('Data loaded manually', 'info');
+                    this.showNotification('Data loaded!', 'success');
+                    this.addActivity('Data loaded', 'info');
                 } else {
                     this.showNotification('No saved data found', 'warning');
                 }
@@ -3167,15 +2295,15 @@
                             break;
                         case 'toggle-dyslexia':
                             const dyslexia = this.themeManager.toggleDyslexia();
-                            this.showNotification(`Dyslexia font: ${dyslexia ? 'ON' : 'OFF'}`, 'info');
+                            this.showNotification(`Dyslexia: ${dyslexia ? 'ON' : 'OFF'}`, 'info');
                             break;
                         case 'font-size':
                             const size = this.themeManager.setFontSize('increase');
-                            this.showNotification(`Font size: ${size}`, 'info');
+                            this.showNotification(`Font: ${size}`, 'info');
                             break;
                         case 'font-size-decrease':
                             const size2 = this.themeManager.setFontSize('decrease');
-                            this.showNotification(`Font size: ${size2}`, 'info');
+                            this.showNotification(`Font: ${size2}`, 'info');
                             break;
                     }
                 });
@@ -3187,24 +2315,16 @@
                 if (e.detail.action === 'generate') this.switchView('generator');
                 if (e.detail.action === 'export') this.switchView('export');
             });
-            
             document.addEventListener('navigate', (e) => {
                 this.switchView(e.detail.view);
             });
-            
             document.addEventListener('show-notification', (e) => {
                 this.showNotification(e.detail.message, e.detail.type);
-            });
-            
-            document.addEventListener('settings-saved', (e) => {
-                this.schoolData = { ...this.schoolData, ...e.detail.data };
-                this.storage.save('schoolData', this.schoolData);
-                this.showNotification('Settings saved', 'success');
             });
         }
         
         // ========================================
-        // NOTIFICATION SYSTEM
+        // NOTIFICATION
         // ========================================
         showNotification(message, type = 'info') {
             const existing = document.querySelector('.notification');
@@ -3228,7 +2348,7 @@
     }
 
     // ========================================
-    // INITIALIZE APPLICATION
+    // INITIALIZE
     // ========================================
     document.addEventListener('DOMContentLoaded', () => {
         window.app = new SchoolRoutineApp();
